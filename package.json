@@ -4,6 +4,8 @@
   "private": true,
   "homepage": "https://kevin0181.github.io/portfolio-site",
   "dependencies": {
+    "@react-three/drei": "^9.107.1",
+    "@react-three/fiber": "^8.16.8",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
