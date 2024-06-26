@@ -9,8 +9,9 @@
 <body>
 <script>
     // 리디렉션 스크립트
-   /* const redirectTo = window.location.pathname.slice(1);
-    window.location.replace(`/${redirectTo}`);*/
+    var redirectTo = location.pathname + location.search + location.hash;
+    // 기본적으로 index.html로 리디렉션하고, 경로를 해시로 추가
+    location.replace('/?' + encodeURIComponent(redirectTo));
 </script>
 </body>
 </html>
