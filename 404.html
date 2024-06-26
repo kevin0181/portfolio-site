@@ -11,7 +11,7 @@
     // 현재 경로를 보존하면서 index.html로 리디렉션
     var redirectTo = location.pathname + location.search + location.hash;
     // base URL로 리디렉션하고, 경로를 해시로 추가
-    var baseUrl = "/<your-repo-name>/"; // 자신의 리포지토리 이름으로 변경
+    var baseUrl = "portfolio-site"; // 자신의 리포지토리 이름으로 변경
     location.replace(baseUrl + "?" + encodeURIComponent(redirectTo));
 </script>
 </body>
