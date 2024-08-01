@@ -32,7 +32,6 @@ const Car = ({ move, setCarPosition }) => {
     useEffect(() => {
         const unsubscribe = api.position.subscribe((position) => {
             setCarPosition({ x: position[0], y: position[1], z: position[2] });
-            console.log(position[1]);
 
             if(position[1] < 0){
                 navigate('/main');
