@@ -3,6 +3,7 @@ import {
 } from "react-router-dom";
 import Loading from "./load/Loading";
 import Main from "./Main";
+import Resume from "./resume/Resume";
 
 
 function useQuery() {
@@ -27,6 +28,7 @@ function App() {
                 <Routes>
                     <Route path={"/main"} element={<Main/>}/>
                     <Route path={"/"} exact element={<Loading/>}/>
+                    <Route path={"/resume"} element={<Resume/>}/>
                     <Route component={RedirectHandler} />
                 </Routes>
             </div>
