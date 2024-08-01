@@ -1,9 +1,9 @@
-import React, {useEffect, useRef, useState} from "react";
-import {Canvas, useFrame, useThree} from "@react-three/fiber";
-import {OrbitControls} from "@react-three/drei";
-import {Physics, useSphere, Debug, useBox} from "@react-three/cannon";
+import React, { useEffect, useRef, useState } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { OrbitControls } from "@react-three/drei";
+import { Physics, useSphere, Debug, useBox } from "@react-three/cannon";
 import "./css/main.css";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Ground = (props) => {
     const [ref] = useBox(() => ({
@@ -14,32 +14,31 @@ const Ground = (props) => {
     }));
     return (
         <mesh ref={ref} receiveShadow>
-            <boxGeometry args={[10, 0.1, 10]}/>
-            <meshStandardMaterial color="#d67c38"/>
+            <boxGeometry args={[10, 0.1, 10]} />
+            <meshStandardMaterial color="#d67c38" />
         </mesh>
     );
 };
 
-const Car = ({move}) => {
+const Car = ({ move, setCarPosition }) => {
     const [ref, api] = useSphere(() => ({
         mass: 4,
         position: [0, 1, 0],
         args: [0.1], // 공의 반지름을 지정합니다.
     }));
 
-    //car가 특정 위치로 가면 특정 페이지로 이동.
+    // car가 특정 위치로 가면 특정 페이지로 이동.
     const navigate = useNavigate();
     useEffect(() => {
-
         const unsubscribe = api.position.subscribe((position) => {
-            console.log(position[0]);
+            setCarPosition({ x: position[0], y: position[1], z: position[2] });
 
             if (position[0] > 10) { // 예: x 좌표가 10보다 크면 페이지 이동
                 navigate('/resume');
             }
         });
         return () => unsubscribe();
-    }, [api.position, navigate]);
+    }, [api.position, navigate, setCarPosition]);
 
     useFrame(() => {
         const velocity = [0, 0, 0];
@@ -52,37 +51,31 @@ const Car = ({move}) => {
 
     return (
         <mesh ref={ref} castShadow>
-            <sphereGeometry args={[0.1]}/>
+            <sphereGeometry args={[0.1]} />
             {/* 공의 반지름을 지정합니다. */}
-            <meshStandardMaterial color="red"/>
+            <meshStandardMaterial color="white" />
         </mesh>
     );
 };
 
-const CameraControls = ({position, target}) => {
-    const {camera} = useThree();
-    const ref = useRef(null);
+const CameraControls = ({ carPosition }) => {
+    const { camera } = useThree();
 
-    function cameraAnimate() {
-        if (ref.current) {
-            camera.position.set(position.x, position.y, position.z);
-        }
-    }
+    const xOffset = 10; // x 방향 오프셋
+    const yOffset = 10; // y 방향 오프셋
+    const zOffset = 5; // z 방향 오프셋
 
-    useEffect(() => {
-        cameraAnimate();
-    }, [target, position]);
+    useFrame(() => {
+        camera.position.x = carPosition.x + xOffset; // 카메라가 Car의 위치를 따라가도록 설정
+        camera.position.y = carPosition.y + yOffset;
+        camera.position.z = carPosition.z + zOffset;
+        camera.lookAt(carPosition.x, carPosition.y, carPosition.z);
+    });
 
-    return (
-        <OrbitControls ref={ref}/>
-    );
-}
+    return <OrbitControls />;
+};
 
 const Main = () => {
-
-    const [position, setPosition] = useState({x: 10, y: 10, z: -0.1})
-    const [target, setTarget] = useState({x: 0, y: 0, z: 0});
-
     const [move, setMove] = useState({
         forward: false,
         backward: false,
@@ -90,19 +83,21 @@ const Main = () => {
         right: false,
     });
 
+    const [carPosition, setCarPosition] = useState({ x: 0, y: 1, z: 0 });
+
     const handleKeyDown = (event) => {
         switch (event.key) {
             case "ArrowUp":
-                setMove((prev) => ({...prev, forward: true}));
+                setMove((prev) => ({ ...prev, forward: true }));
                 break;
             case "ArrowDown":
-                setMove((prev) => ({...prev, backward: true}));
+                setMove((prev) => ({ ...prev, backward: true }));
                 break;
             case "ArrowLeft":
-                setMove((prev) => ({...prev, left: true}));
+                setMove((prev) => ({ ...prev, left: true }));
                 break;
             case "ArrowRight":
-                setMove((prev) => ({...prev, right: true}));
+                setMove((prev) => ({ ...prev, right: true }));
                 break;
             default:
                 break;
@@ -112,16 +107,16 @@ const Main = () => {
     const handleKeyUp = (event) => {
         switch (event.key) {
             case "ArrowUp":
-                setMove((prev) => ({...prev, forward: false}));
+                setMove((prev) => ({ ...prev, forward: false }));
                 break;
             case "ArrowDown":
-                setMove((prev) => ({...prev, backward: false}));
+                setMove((prev) => ({ ...prev, backward: false }));
                 break;
             case "ArrowLeft":
-                setMove((prev) => ({...prev, left: false}));
+                setMove((prev) => ({ ...prev, left: false }));
                 break;
             case "ArrowRight":
-                setMove((prev) => ({...prev, right: false}));
+                setMove((prev) => ({ ...prev, right: false }));
                 break;
             default:
                 break;
@@ -138,12 +133,10 @@ const Main = () => {
         };
     }, []);
 
-
     return (
         <div className={"container"}>
-            {/*<Canvas shadows camera={{position: [0.5, 1, -0.1], fov: 40}}>*/}
-            <Canvas shadows camera={{position: [0.5, 1, -0.1], fov: 40}}>
-                <ambientLight intensity={3}/>
+            <Canvas shadows camera={{ fov: 40 }}>
+                <ambientLight intensity={3} />
                 <directionalLight
                     position={[3, 3, -3]}
                     intensity={0.5}
@@ -151,12 +144,11 @@ const Main = () => {
                     shadow-mapSize-width={1024}
                     shadow-mapSize-height={1024}
                 />
-                {/*<OrbitControls/>*/}
-                <CameraControls position={position} target={target}/>
                 <Physics gravity={[0, -100, 0]}> {/* 중력 설정 */}
-                    <Debug/> {/* 물리 객체를 시각화하여 디버깅 */}
-                    <Ground/>
-                    <Car move={move}/>
+                    <Debug /> {/* 물리 객체를 시각화하여 디버깅 */}
+                    <Ground />
+                    <Car move={move} setCarPosition={setCarPosition} />
+                    <CameraControls carPosition={carPosition} />
                 </Physics>
             </Canvas>
         </div>
