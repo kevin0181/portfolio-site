@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { Physics, useSphere, Debug, useBox } from "@react-three/cannon";
-import "./css/main.css";
 import { useNavigate } from "react-router-dom";
+import "./css/main.css";
 
 const Ground = (props) => {
     const [ref] = useBox(() => ({
@@ -21,9 +21,10 @@ const Ground = (props) => {
 };
 
 const Car = ({ move, setCarPosition }) => {
+    const initialPosition = [0, 1, 0];
     const [ref, api] = useSphere(() => ({
         mass: 4,
-        position: [0, 1, 0],
+        position: initialPosition,
         args: [0.1], // 공의 반지름을 지정합니다.
     }));
 
@@ -33,8 +34,9 @@ const Car = ({ move, setCarPosition }) => {
         const unsubscribe = api.position.subscribe((position) => {
             setCarPosition({ x: position[0], y: position[1], z: position[2] });
 
-            if(position[1] < 0){
-                navigate('/main');
+            if (position[1] < -2) {
+                api.position.set(...initialPosition); // 위치 초기화
+                api.velocity.set(0, 0, 0); // 속도 초기화
             }
 
             if (position[0] > 10) { // 예: x 좌표가 10보다 크면 페이지 이동
@@ -56,7 +58,6 @@ const Car = ({ move, setCarPosition }) => {
     return (
         <mesh ref={ref} castShadow>
             <sphereGeometry args={[0.1]} />
-            {/* 공의 반지름을 지정합니다. */}
             <meshStandardMaterial color="white" />
         </mesh>
     );
@@ -138,7 +139,7 @@ const Main = () => {
     }, []);
 
     return (
-        <div className={"container"}>
+        <div className="container">
             <Canvas shadows camera={{ fov: 40 }}>
                 <ambientLight intensity={3} />
                 <directionalLight
