@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { Physics, useSphere, Debug, useBox } from "@react-three/cannon";
-import { useNavigate } from "react-router-dom";
 import "./css/main.css";
+import { useNavigate } from "react-router-dom";
 
 const Ground = (props) => {
     const [ref] = useBox(() => ({
@@ -21,7 +21,9 @@ const Ground = (props) => {
 };
 
 const Car = ({ move, setCarPosition }) => {
+
     const initialPosition = [0, 1, 0];
+
     const [ref, api] = useSphere(() => ({
         mass: 4,
         position: initialPosition,
@@ -33,6 +35,7 @@ const Car = ({ move, setCarPosition }) => {
     useEffect(() => {
         const unsubscribe = api.position.subscribe((position) => {
             setCarPosition({ x: position[0], y: position[1], z: position[2] });
+            console.log(position[1]);
 
             if (position[1] < -2) {
                 api.position.set(...initialPosition); // 위치 초기화
@@ -58,6 +61,7 @@ const Car = ({ move, setCarPosition }) => {
     return (
         <mesh ref={ref} castShadow>
             <sphereGeometry args={[0.1]} />
+            {/* 공의 반지름을 지정합니다. */}
             <meshStandardMaterial color="white" />
         </mesh>
     );
@@ -139,7 +143,7 @@ const Main = () => {
     }, []);
 
     return (
-        <div className="container">
+        <div className={"container"}>
             <Canvas shadows camera={{ fov: 40 }}>
                 <ambientLight intensity={3} />
                 <directionalLight
