@@ -1,28 +1,48 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
+import {Canvas, useFrame, useLoader, useThree} from "@react-three/fiber";
+import {Environment, OrbitControls, useGLTF} from "@react-three/drei";
 import { Physics, useSphere, Debug, useBox } from "@react-three/cannon";
 import "./css/main.css";
 import { useNavigate } from "react-router-dom";
+import {FBXLoader} from "three/examples/jsm/loaders/FBXLoader";
 
-const Ground = (props) => {
+/*const Ground = (props) => {
+    const model = useGLTF('./models/football_field_for_gtec.glb');
     const [ref] = useBox(() => ({
-        args: [10, 0.1, 10],
-        type: "Static",
+        args: [100, 0.1, 100],
         position: [0, 0, 0],
         ...props,
     }));
+
+    model.scene.traverse((object) => {
+        if (object.isMesh) {
+            object.castShadow = true;
+            object.receiveShadow = true;
+            //object.material.color.set('red');
+        }
+    });
+
     return (
-        <mesh ref={ref} receiveShadow>
-            <boxGeometry args={[10, 0.1, 10]} />
-            <meshStandardMaterial color="#d67c38" />
-        </mesh>
+        <primitive object={model.scene} ref={ref} position={[0, 0, 0]} scale={0.2} />
     );
+};*/
+
+const Ground = (props) => {
+    const fbx = useLoader(FBXLoader, './models/soccer field.fbx');
+
+    const [ref] = useBox(() => ({
+        args: [100, 0.1, 100],
+        position: [0, 0, 0],
+        ...props,
+    }));
+
+    return <primitive object={fbx}  ref={ref} scale={0.2}/>;
 };
 
 const Car = ({ move, setCarPosition }) => {
 
     const initialPosition = [0, 1, 0];
+    const model = useGLTF('./models/soccer_ball.glb'); // car 모델 로드
 
     const [ref, api] = useSphere(() => ({
         mass: 4,
@@ -59,15 +79,11 @@ const Car = ({ move, setCarPosition }) => {
     });
 
     return (
-        <mesh ref={ref} castShadow>
-            <sphereGeometry args={[0.1]} />
-            {/* 공의 반지름을 지정합니다. */}
-            <meshStandardMaterial color="white" />
-        </mesh>
+        <primitive object={model.scene} ref={ref} scale={0.2}/>
     );
 };
 
-const CameraControls = ({ carPosition }) => {
+const CameraControls = ({carPosition}) => {
     const { camera } = useThree();
 
     const xOffset = 10; // x 방향 오프셋
@@ -81,7 +97,12 @@ const CameraControls = ({ carPosition }) => {
         camera.lookAt(carPosition.x, carPosition.y, carPosition.z);
     });
 
-    return <OrbitControls />;
+    return(
+        <>
+            <OrbitControls />
+            <Environment preset={"sunset"}/>
+        </>
+    );
 };
 
 const Main = () => {
