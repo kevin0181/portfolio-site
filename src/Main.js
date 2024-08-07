@@ -31,12 +31,12 @@ const Ground = (props) => {
     const fbx = useLoader(FBXLoader, './models/soccer field.fbx');
 
     const [ref] = useBox(() => ({
-        args: [100, 0.1, 100],
+        args: [10, 0.1, 20],
         position: [0, 0, 0],
         ...props,
     }));
 
-    return <primitive object={fbx}  ref={ref} scale={0.2}/>;
+    return <primitive object={fbx}  ref={ref} scale={0.1}/>;
 };
 
 const Car = ({ move, setCarPosition }) => {
@@ -63,7 +63,7 @@ const Car = ({ move, setCarPosition }) => {
             }
 
             if (position[0] > 10) { // 예: x 좌표가 10보다 크면 페이지 이동
-                navigate('/resume');
+                //navigate('/resume');
             }
         });
         return () => unsubscribe();
