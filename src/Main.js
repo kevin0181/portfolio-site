@@ -141,9 +141,9 @@ const CameraControls = ({carPosition}) => {
 };
 
 const InvisibleBlock = (props) => {
-    const [ref] = useSphere(() => ({
-        args: props.args || [0, 0, 0], // 블록의 크기
-        position: props.position || [0, 0, 0], // 블록의 위치
+    const [ref] = useBox(() => ({
+        args: props.args, // 블록의 크기
+        position: props.position, // 블록의 위치
         ...props,
     }));
 
