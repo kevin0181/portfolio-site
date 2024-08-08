@@ -9,7 +9,7 @@ import * as THREE from 'three';
 
 const Ground = (props) => {
     const fbx = useLoader(FBXLoader, './models/soccer field.fbx');
-    const texture = useLoader(THREE.TextureLoader, './models/Soccer Field Texture.png'); // 텍스처 경로를 올바르게 지정
+    const texture = useLoader(THREE.TextureLoader, './models/Soccer Field Texture_v2_1.png'); // 텍스처 경로를 올바르게 지정
 
     // FBX 모델에 텍스처를 적용
     fbx.traverse((child) => {
