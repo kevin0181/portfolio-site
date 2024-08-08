@@ -59,7 +59,7 @@ const GoalPost = (props) => {
     );
 };
 
-const Car = ({move, setCarPosition}) => {
+const Car = ({move, setCarPosition, jump}) => {
 
     const initialPosition = [0, 0.5, 0];
     const model = useGLTF('./models/soccer_ball.glb'); // car 모델 로드
@@ -96,6 +96,7 @@ const Car = ({move, setCarPosition}) => {
         if (move.left) velocity[2] += 5;
         if (move.right) velocity[2] -= 5;
         api.velocity.set(velocity[0], velocity[1], velocity[2]);
+        if (jump) api.applyImpulse([0, 20, 0], [0, 0, 0]); // 점프할 때 위쪽으로 힘을 가함
     });
 
     return (
@@ -124,6 +125,24 @@ const CameraControls = ({carPosition}) => {
     );
 };
 
+const InvisibleBlock = (props) => {
+    const [ref] = useBox(() => ({
+        args: props.args || [0, 0, 0], // 블록의 크기
+        position: props.position || [0, 0, 0], // 블록의 위치
+        ...props,
+    }));
+
+    return (
+        <>
+            {/*충돌 와이어 프레임*/}
+            <mesh ref={ref} visible={true}>
+                <boxGeometry args={props.args}/>
+                <meshBasicMaterial color="blue" wireframe/>
+            </mesh>
+        </>
+    );
+};
+
 const Main = () => {
     const [move, setMove] = useState({
         forward: false,
@@ -132,6 +151,7 @@ const Main = () => {
         right: false,
     });
 
+    const [jump, setJump] = useState(false); // 점프 상태 추가
     const [carPosition, setCarPosition] = useState({x: 0, y: 1, z: 0});
 
     const handleKeyDown = (event) => {
@@ -147,6 +167,9 @@ const Main = () => {
                 break;
             case "ArrowRight":
                 setMove((prev) => ({...prev, right: true}));
+                break;
+            case " ":
+                setJump(true); // 스페이스바를 누르면 점프
                 break;
             default:
                 break;
@@ -166,6 +189,9 @@ const Main = () => {
                 break;
             case "ArrowRight":
                 setMove((prev) => ({...prev, right: false}));
+                break;
+            case " ":
+                setJump(false); // 스페이스바를 떼면 점프 중지
                 break;
             default:
                 break;
@@ -197,7 +223,19 @@ const Main = () => {
                     <Debug/> {/* 물리 객체를 시각화하여 디버깅 */}
                     <Ground/>
                     <GoalPost/> {/* GoalPost 위치 변경 */}
-                    <Car move={move} setCarPosition={setCarPosition}/>
+                    <Car move={move} setCarPosition={setCarPosition} jump={jump}/> {/* 점프 상태 전달 */}
+                    <>
+                        {/*right invisible block*/}
+                        <InvisibleBlock position={[0, 0, -9.2]} args={[2.6, 2, 0.1]}/>
+                        <InvisibleBlock position={[1.25, 0, -8.75]} args={[0.1, 2, 1]}/>
+                        <InvisibleBlock position={[-1.25, 0, -8.75]} args={[0.1, 2, 1]}/>
+                        <InvisibleBlock position={[0, 0.7, -8.75]} args={[2.6, 0.1, 1]}/>
+                    </>
+                    <>
+                        {/*<InvisibleBlock position={[9.2, 0, 0]} args={[2.6, 2, 0.1]}/>
+                        <InvisibleBlock position={[1.25, 0, -8.75]} args={[0.1, 2, 1]}/>
+                        <InvisibleBlock position={[1.25, 0, -8.75]} args={[0.1, 2, 1]}/>*/}
+                    </>
                     <CameraControls carPosition={carPosition}/>
                 </Physics>
             </Canvas>
