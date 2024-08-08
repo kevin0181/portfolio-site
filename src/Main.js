@@ -59,7 +59,7 @@ const GoalPost = (props) => {
     );
 };
 
-const Car = ({move, setCarPosition, jump}) => {
+const Car = ({move, setCarPosition, jump, isGrounded, setIsGrounded}) => {
 
     const initialPosition = [0, 0.5, 0];
     const model = useGLTF('./models/soccer_ball.glb'); // car 모델 로드
@@ -75,8 +75,6 @@ const Car = ({move, setCarPosition, jump}) => {
     useEffect(() => {
         const unsubscribe = api.position.subscribe((position) => {
             setCarPosition({x: position[0], y: position[1], z: position[2]});
-            console.log(position[1]);
-
             if (position[1] < -2) {
                 api.position.set(...initialPosition); // 위치 초기화
                 api.velocity.set(0, 0, 0); // 속도 초기화
@@ -85,9 +83,16 @@ const Car = ({move, setCarPosition, jump}) => {
             if (position[0] > 10) { // 예: x 좌표가 10보다 크면 페이지 이동
                 //navigate('/resume');
             }
+
+            // 땅에 닿았는지 여부를 확인
+            if (position[1] <= 0.6) {
+                setIsGrounded(true);
+            } else {
+                setIsGrounded(false);
+            }
         });
         return () => unsubscribe();
-    }, [api.position, navigate, setCarPosition]);
+    }, [api.position, navigate, setCarPosition, setIsGrounded]);
 
     useFrame(() => {
         const velocity = [0, 0, 0];
@@ -96,7 +101,10 @@ const Car = ({move, setCarPosition, jump}) => {
         if (move.left) velocity[2] += 5;
         if (move.right) velocity[2] -= 5;
         api.velocity.set(velocity[0], velocity[1], velocity[2]);
-        if (jump) api.applyImpulse([0, 20, 0], [0, 0, 0]); // 점프할 때 위쪽으로 힘을 가함
+
+        if (jump && isGrounded) {
+            api.applyImpulse([0, 20, 0], [0, 0, 0]); // 점프할 때 위쪽으로 힘을 가함
+        }
     });
 
     return (
@@ -153,6 +161,7 @@ const Main = () => {
 
     const [jump, setJump] = useState(false); // 점프 상태 추가
     const [carPosition, setCarPosition] = useState({x: 0, y: 1, z: 0});
+    const [isGrounded, setIsGrounded] = useState(true); // 땅에 닿아 있는지 여부
 
     const handleKeyDown = (event) => {
         switch (event.key) {
@@ -169,7 +178,9 @@ const Main = () => {
                 setMove((prev) => ({...prev, right: true}));
                 break;
             case " ":
-                setJump(true); // 스페이스바를 누르면 점프
+                if (isGrounded) {
+                    setJump(true); // 스페이스바를 누르면 점프
+                }
                 break;
             default:
                 break;
@@ -206,7 +217,7 @@ const Main = () => {
             window.removeEventListener("keydown", handleKeyDown);
             window.removeEventListener("keyup", handleKeyUp);
         };
-    }, []);
+    }, [isGrounded]);
 
     return (
         <div className={"container"}>
@@ -223,7 +234,7 @@ const Main = () => {
                     <Debug/> {/* 물리 객체를 시각화하여 디버깅 */}
                     <Ground/>
                     <GoalPost/> {/* GoalPost 위치 변경 */}
-                    <Car move={move} setCarPosition={setCarPosition} jump={jump}/> {/* 점프 상태 전달 */}
+                    <Car move={move} setCarPosition={setCarPosition} jump={jump} isGrounded={isGrounded} setIsGrounded={setIsGrounded}/> {/* 점프 상태 및 땅에 닿음 상태 전달 */}
                     <>
                         {/*right invisible block*/}
                         <InvisibleBlock position={[0, 0, -9.2]} args={[2.6, 2, 0.1]}/>
@@ -232,9 +243,10 @@ const Main = () => {
                         <InvisibleBlock position={[0, 0.7, -8.75]} args={[2.6, 0.1, 1]}/>
                     </>
                     <>
-                        {/*<InvisibleBlock position={[9.2, 0, 0]} args={[2.6, 2, 0.1]}/>
-                        <InvisibleBlock position={[1.25, 0, -8.75]} args={[0.1, 2, 1]}/>
-                        <InvisibleBlock position={[1.25, 0, -8.75]} args={[0.1, 2, 1]}/>*/}
+                        <InvisibleBlock position={[0, 0, 9.2]} args={[2.6, 2, 0.1]}/>
+                        <InvisibleBlock position={[1.25, 0, 8.75]} args={[0.1, 2, 1]}/>
+                        <InvisibleBlock position={[-1.25, 0, 8.75]} args={[0.1, 2, 1]}/>
+                        <InvisibleBlock position={[0, 0.7, 8.75]} args={[2.6, 0.1, 1]}/>
                     </>
                     <CameraControls carPosition={carPosition}/>
                 </Physics>
