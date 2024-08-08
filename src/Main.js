@@ -25,7 +25,13 @@ const Ground = (props) => {
         ...props,
     }));
 
-    return <primitive object={fbx} ref={ref} scale={0.1} receiveShadow/>;
+    return (
+        <>
+            <mesh ref={ref} scale={0.1} receiveShadow>
+                <primitive object={fbx}/>
+            </mesh>
+        </>
+    );
 };
 
 const GoalPost = (props) => {
@@ -135,7 +141,7 @@ const CameraControls = ({carPosition}) => {
 };
 
 const InvisibleBlock = (props) => {
-    const [ref] = useBox(() => ({
+    const [ref] = useSphere(() => ({
         args: props.args || [0, 0, 0], // 블록의 크기
         position: props.position || [0, 0, 0], // 블록의 위치
         ...props,
@@ -235,7 +241,8 @@ const Main = () => {
                     <Debug/> {/* 물리 객체를 시각화하여 디버깅 */}
                     <Ground/>
                     <GoalPost/> {/* GoalPost 위치 변경 */}
-                    <Car move={move} setCarPosition={setCarPosition} jump={jump} isGrounded={isGrounded} setIsGrounded={setIsGrounded}/> {/* 점프 상태 및 땅에 닿음 상태 전달 */}
+                    <Car move={move} setCarPosition={setCarPosition} jump={jump} isGrounded={isGrounded}
+                         setIsGrounded={setIsGrounded}/> {/* 점프 상태 및 땅에 닿음 상태 전달 */}
                     <>
                         {/*right invisible block*/}
                         <InvisibleBlock position={[0, 0, -9.2]} args={[2.6, 2, 0.1]}/>

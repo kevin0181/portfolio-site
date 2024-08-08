@@ -1,9 +1,10 @@
-import React, {useEffect, useRef} from "react";
+import React, {Suspense, useEffect, useRef} from "react";
 import {useBox, useCompoundBody, useCylinder} from "@react-three/cannon";
-import {useGLTF} from "@react-three/drei";
+import {Loader, useFBX, useGLTF} from "@react-three/drei";
 import * as THREE from "three";
 import {useLoader} from "@react-three/fiber";
 import {FBXLoader} from "three/examples/jsm/loaders/FBXLoader";
+import {clone} from "three/examples/jsm/utils/SkeletonUtils";
 
 const Duck = (props) => {
     const model = useLoader(FBXLoader, './models/duck.fbx');
@@ -16,7 +17,7 @@ const Duck = (props) => {
 
     return (
         <>
-            <primitive object={model} ref={ref} scale={0.001} receiveShadow/>
+            <primitive object={model} ref={ref} scale={0.001} castShadow receiveShadow/>
         </>
     );
 };
@@ -33,7 +34,7 @@ const Truck = (props) => {
 
     return (
         <>
-            <primitive object={model} ref={ref} scale={0.03} receiveShadow/>
+            <primitive object={model} ref={ref} scale={0.03} castShadow receiveShadow/>
         </>
     );
 };
@@ -50,47 +51,45 @@ const Rocket = (props) => {
 
     return (
         <>
-            <primitive object={model} ref={ref} scale={0.02} receiveShadow/>
+            <primitive object={model} ref={ref} scale={0.02} castShadow receiveShadow/>
         </>
     );
 };
 
 const Pin = (props) => {
-    const model = useLoader(FBXLoader, './models/bowling_pin.fbx');
 
-    const [ref] = useCompoundBody(() => ({
+    let fbx = useFBX(props.fbx);
+    let fbxClone = fbx.clone();
+
+    const [bodyRef] = useCompoundBody(() => ({
         mass: 0.1,
         shapes: [
-            { type: 'Sphere', args: [0.5], position: [0, -0.1, 0], mass: 0.5 }, // lower cylinder
-            { type: 'Sphere', args: [0.45], position: [0, 0.1, 0], mass: 0.5 },  // upper sphere
+            {type: 'Sphere', args: [0.5], position: [0, -0.1, 0], mass: 0.5}, // lower cylinder
+            {type: 'Sphere', args: [0.45], position: [0, 0.1, 0], mass: 0.5},  // upper sphere
         ],
-        position: [-2, 0.5, -3],
+        position: props.position,
         ...props,
     }));
 
-    const helperRef = useRef();
-    useEffect(() => {
-        if (ref.current) {
-            const helper = new THREE.BoxHelper(ref.current);
-            helperRef.current.add(helper);
-        }
-    }, [ref]);
-
     return (
-        <>
-            <primitive object={model} ref={ref} scale={0.03} receiveShadow/>
-            <group ref={helperRef}/>
-        </>
+        <Suspense fallback={<Loader />}>
+            <mesh ref={bodyRef} scale={props.scale} castShadow receiveShadow >
+                <primitive object={fbxClone} dispose={null} />
+                <meshStandardMaterial reflectivity={1} />
+            </mesh>
+        </Suspense>
     );
 };
 
 let Toy = () => {
+
     return (
         <>
             <Duck/>
             <Truck/>
             <Rocket/>
-            <Pin/>
+            <Pin fbx={'./models/bowling_pin.fbx'} scale={0.02} position={[-2, 0.5, -3]}/>
+            <Pin fbx={'./models/bowling_pin.fbx'} scale={0.02} position={[-4, 0.5, -3]}/>
         </>
     );
 }
