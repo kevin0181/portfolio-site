@@ -27,9 +27,33 @@ const Ground = (props) => {
     return <primitive object={fbx} ref={ref} scale={0.1} receiveShadow/>;
 };
 
+const GoalPost = (props) => {
+    const goal_post_fbx = useLoader(FBXLoader, './models/goal post.fbx');
+    const [ref, api] = useBox(() => ({
+        args: [0, 0, 0],
+        position: [0, 0, -8.25], // 위치만 props로 변경
+        ...props,
+    }));
+
+    const helperRef = useRef();
+    useEffect(() => {
+        if (ref.current) {
+            const helper = new THREE.BoxHelper(ref.current);
+            helperRef.current.add(helper);
+        }
+    }, [ref]);
+
+    return (
+        <>
+            <primitive object={goal_post_fbx} ref={ref} scale={0.1} receiveShadow/>
+            <group ref={helperRef}/>
+        </>
+    );
+};
+
 const Car = ({move, setCarPosition}) => {
 
-    const initialPosition = [0, 1, 0];
+    const initialPosition = [0, 0.5, 0];
     const model = useGLTF('./models/soccer_ball.glb'); // car 모델 로드
 
     const [ref, api] = useSphere(() => ({
@@ -164,6 +188,7 @@ const Main = () => {
                 <Physics gravity={[0, -100, 0]}> {/* 중력 설정 */}
                     <Debug/> {/* 물리 객체를 시각화하여 디버깅 */}
                     <Ground/>
+                    <GoalPost/> {/* GoalPost 위치 변경 */}
                     <Car move={move} setCarPosition={setCarPosition}/>
                     <CameraControls carPosition={carPosition}/>
                 </Physics>
