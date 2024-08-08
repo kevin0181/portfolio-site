@@ -1,5 +1,5 @@
 import React, {useEffect, useRef} from "react";
-import {useBox} from "@react-three/cannon";
+import {useBox, useCompoundBody, useCylinder} from "@react-three/cannon";
 import {useGLTF} from "@react-three/drei";
 import * as THREE from "three";
 import {useLoader} from "@react-three/fiber";
@@ -55,12 +55,33 @@ const Rocket = (props) => {
     );
 };
 
+const Pin = (props) => {
+    const model = useLoader(FBXLoader, './models/bowling_pin.fbx');
+
+    const [ref] = useCompoundBody(() => ({
+        mass: 0.1,
+        shapes: [
+            { type: 'Cylinder', args: [0.35, 0.35, 0.5, 18], position: [0, -0.3, 0] }, // 하단
+            { type: 'Cylinder', args: [0.05, 0.05, 0.6, 18], position: [0, 0.3, 0] }  // 상단
+        ],
+        position: [-2, 0.5, -3],
+        ...props,
+    }));
+
+    return (
+        <>
+            <primitive object={model} ref={ref} scale={0.03} receiveShadow />
+        </>
+    );
+};
+
 let Toy = () => {
     return (
         <>
             <Duck/>
             <Truck/>
             <Rocket/>
+            <Pin/>
         </>
     );
 }

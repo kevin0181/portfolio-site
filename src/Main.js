@@ -66,7 +66,7 @@ const Car = ({move, setCarPosition, jump, isGrounded, setIsGrounded}) => {
     const model = useGLTF('./models/soccer_ball.glb'); // car 모델 로드
 
     const [ref, api] = useSphere(() => ({
-        mass: 4,
+        mass: 10,
         position: initialPosition,
         args: [0.1], // 공의 반지름을 지정합니다.
     }));
@@ -104,7 +104,7 @@ const Car = ({move, setCarPosition, jump, isGrounded, setIsGrounded}) => {
         api.velocity.set(velocity[0], velocity[1], velocity[2]);
 
         if (jump && isGrounded) {
-            api.applyImpulse([0, 20, 0], [0, 0, 0]); // 점프할 때 위쪽으로 힘을 가함
+            api.applyImpulse([0, 50, 0], [0, 0, 0]); // 점프할 때 위쪽으로 힘을 가함
         }
     });
 
