@@ -61,16 +61,25 @@ const Pin = (props) => {
     const [ref] = useCompoundBody(() => ({
         mass: 0.1,
         shapes: [
-            { type: 'Cylinder', args: [0.35, 0.35, 0.5, 18], position: [0, -0.3, 0] }, // 하단
-            { type: 'Cylinder', args: [0.05, 0.05, 0.6, 18], position: [0, 0.3, 0] }  // 상단
+            { type: 'Sphere', args: [0.5], position: [0, -0.1, 0], mass: 0.5 }, // lower cylinder
+            { type: 'Sphere', args: [0.45], position: [0, 0.1, 0], mass: 0.5 },  // upper sphere
         ],
         position: [-2, 0.5, -3],
         ...props,
     }));
 
+    const helperRef = useRef();
+    useEffect(() => {
+        if (ref.current) {
+            const helper = new THREE.BoxHelper(ref.current);
+            helperRef.current.add(helper);
+        }
+    }, [ref]);
+
     return (
         <>
-            <primitive object={model} ref={ref} scale={0.03} receiveShadow />
+            <primitive object={model} ref={ref} scale={0.03} receiveShadow/>
+            <group ref={helperRef}/>
         </>
     );
 };
