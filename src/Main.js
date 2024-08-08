@@ -62,7 +62,7 @@ const GoalPost = (props) => {
 
 const Car = ({move, setCarPosition, jump, isGrounded, setIsGrounded}) => {
 
-    const initialPosition = [0, 0.5, 0];
+    const initialPosition = [3, 0.5, 3];
     const model = useGLTF('./models/soccer_ball.glb'); // car 모델 로드
 
     const [ref, api] = useSphere(() => ({

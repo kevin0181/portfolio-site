@@ -2,28 +2,38 @@ import React, {useEffect, useRef} from "react";
 import {useBox} from "@react-three/cannon";
 import {useGLTF} from "@react-three/drei";
 import * as THREE from "three";
+import {useLoader} from "@react-three/fiber";
+import {FBXLoader} from "three/examples/jsm/loaders/FBXLoader";
 
-const Locket = (props) => {
-    const model = useGLTF("./models/Duck.glb");
-
+const Duck = (props) => {
+    const model = useLoader(FBXLoader, './models/duck.fbx');
     const [ref] = useBox(() => ({
-        args: [1, 1, 1],
-        position: [0, 1, 0],
+        mass: 2,
+        args: [0.5, 0.3, 0.8],
+        position: [2, 3, 0],
         ...props,
     }));
 
-    const helperRef = useRef();
-    useEffect(() => {
-        if (ref.current) {
-            const helper = new THREE.BoxHelper(ref.current);
-            helperRef.current.add(helper);
-        }
-    }, [ref]);
+    return (
+        <>
+            <primitive object={model} ref={ref} scale={0.001} receiveShadow/>
+        </>
+    );
+};
+
+const Truck = (props) => {
+    const model = useLoader(FBXLoader, './models/truck.fbx');
+
+    const [ref] = useBox(() => ({
+        mass: 2,
+        args: [1.5, 1, 0.6],
+        position: [-2, 3, 0],
+        ...props,
+    }));
 
     return (
         <>
-            <primitive object={model.scene} ref={ref} scale={0.02} receiveShadow/>
-            <group ref={helperRef}/>
+            <primitive object={model} ref={ref} scale={0.03} receiveShadow/>
         </>
     );
 };
@@ -31,7 +41,8 @@ const Locket = (props) => {
 let Toy = () => {
     return (
         <>
-            <Locket/>
+            <Duck/>
+            <Truck/>
         </>
     );
 }
