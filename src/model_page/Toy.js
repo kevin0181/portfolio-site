@@ -38,11 +38,29 @@ const Truck = (props) => {
     );
 };
 
+const Rocket = (props) => {
+    const model = useLoader(FBXLoader, './models/Rocket.fbx');
+
+    const [ref] = useBox(() => ({
+        mass: 2,
+        args: [0.8, 1, 0.8],
+        position: [-2, 5, 3],
+        ...props,
+    }));
+
+    return (
+        <>
+            <primitive object={model} ref={ref} scale={0.02} receiveShadow/>
+        </>
+    );
+};
+
 let Toy = () => {
     return (
         <>
             <Duck/>
             <Truck/>
+            <Rocket/>
         </>
     );
 }
