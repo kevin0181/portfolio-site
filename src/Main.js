@@ -1,34 +1,22 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Canvas, useFrame, useLoader, useThree} from "@react-three/fiber";
 import {Environment, OrbitControls, useGLTF} from "@react-three/drei";
-import { Physics, useSphere, Debug, useBox } from "@react-three/cannon";
+import {Physics, useSphere, Debug, useBox} from "@react-three/cannon";
 import "./css/main.css";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {FBXLoader} from "three/examples/jsm/loaders/FBXLoader";
-
-/*const Ground = (props) => {
-    const model = useGLTF('./models/football_field_for_gtec.glb');
-    const [ref] = useBox(() => ({
-        args: [100, 0.1, 100],
-        position: [0, 0, 0],
-        ...props,
-    }));
-
-    model.scene.traverse((object) => {
-        if (object.isMesh) {
-            object.castShadow = true;
-            object.receiveShadow = true;
-            //object.material.color.set('red');
-        }
-    });
-
-    return (
-        <primitive object={model.scene} ref={ref} position={[0, 0, 0]} scale={0.2} />
-    );
-};*/
+import * as THREE from 'three';
 
 const Ground = (props) => {
     const fbx = useLoader(FBXLoader, './models/soccer field.fbx');
+    const texture = useLoader(THREE.TextureLoader, './models/Soccer Field Texture.png'); // 텍스처 경로를 올바르게 지정
+
+    // FBX 모델에 텍스처를 적용
+    fbx.traverse((child) => {
+        if (child.isMesh) {
+            child.material = new THREE.MeshStandardMaterial({map: texture});
+        }
+    });
 
     const [ref] = useBox(() => ({
         args: [10, 0.1, 20],
@@ -36,10 +24,10 @@ const Ground = (props) => {
         ...props,
     }));
 
-    return <primitive object={fbx}  ref={ref} scale={0.1}/>;
+    return <primitive object={fbx} ref={ref} scale={0.1} receiveShadow/>;
 };
 
-const Car = ({ move, setCarPosition }) => {
+const Car = ({move, setCarPosition}) => {
 
     const initialPosition = [0, 1, 0];
     const model = useGLTF('./models/soccer_ball.glb'); // car 모델 로드
@@ -54,7 +42,7 @@ const Car = ({ move, setCarPosition }) => {
     const navigate = useNavigate();
     useEffect(() => {
         const unsubscribe = api.position.subscribe((position) => {
-            setCarPosition({ x: position[0], y: position[1], z: position[2] });
+            setCarPosition({x: position[0], y: position[1], z: position[2]});
             console.log(position[1]);
 
             if (position[1] < -2) {
@@ -79,12 +67,12 @@ const Car = ({ move, setCarPosition }) => {
     });
 
     return (
-        <primitive object={model.scene} ref={ref} scale={0.2}/>
+        <primitive object={model.scene} ref={ref} scale={0.2} castShadow={true}/>
     );
 };
 
 const CameraControls = ({carPosition}) => {
-    const { camera } = useThree();
+    const {camera} = useThree();
 
     const xOffset = 10; // x 방향 오프셋
     const yOffset = 10; // y 방향 오프셋
@@ -97,10 +85,9 @@ const CameraControls = ({carPosition}) => {
         camera.lookAt(carPosition.x, carPosition.y, carPosition.z);
     });
 
-    return(
+    return (
         <>
-            <OrbitControls />
-            <Environment preset={"sunset"}/>
+            <OrbitControls/>
         </>
     );
 };
@@ -113,21 +100,21 @@ const Main = () => {
         right: false,
     });
 
-    const [carPosition, setCarPosition] = useState({ x: 0, y: 1, z: 0 });
+    const [carPosition, setCarPosition] = useState({x: 0, y: 1, z: 0});
 
     const handleKeyDown = (event) => {
         switch (event.key) {
             case "ArrowUp":
-                setMove((prev) => ({ ...prev, forward: true }));
+                setMove((prev) => ({...prev, forward: true}));
                 break;
             case "ArrowDown":
-                setMove((prev) => ({ ...prev, backward: true }));
+                setMove((prev) => ({...prev, backward: true}));
                 break;
             case "ArrowLeft":
-                setMove((prev) => ({ ...prev, left: true }));
+                setMove((prev) => ({...prev, left: true}));
                 break;
             case "ArrowRight":
-                setMove((prev) => ({ ...prev, right: true }));
+                setMove((prev) => ({...prev, right: true}));
                 break;
             default:
                 break;
@@ -137,16 +124,16 @@ const Main = () => {
     const handleKeyUp = (event) => {
         switch (event.key) {
             case "ArrowUp":
-                setMove((prev) => ({ ...prev, forward: false }));
+                setMove((prev) => ({...prev, forward: false}));
                 break;
             case "ArrowDown":
-                setMove((prev) => ({ ...prev, backward: false }));
+                setMove((prev) => ({...prev, backward: false}));
                 break;
             case "ArrowLeft":
-                setMove((prev) => ({ ...prev, left: false }));
+                setMove((prev) => ({...prev, left: false}));
                 break;
             case "ArrowRight":
-                setMove((prev) => ({ ...prev, right: false }));
+                setMove((prev) => ({...prev, right: false}));
                 break;
             default:
                 break;
@@ -165,8 +152,8 @@ const Main = () => {
 
     return (
         <div className={"container"}>
-            <Canvas shadows camera={{ fov: 40 }}>
-                <ambientLight intensity={3} />
+            <Canvas shadows camera={{fov: 40}}>
+                <ambientLight intensity={3}/>
                 <directionalLight
                     position={[3, 3, -3]}
                     intensity={0.5}
@@ -175,10 +162,10 @@ const Main = () => {
                     shadow-mapSize-height={1024}
                 />
                 <Physics gravity={[0, -100, 0]}> {/* 중력 설정 */}
-                    <Debug /> {/* 물리 객체를 시각화하여 디버깅 */}
-                    <Ground />
-                    <Car move={move} setCarPosition={setCarPosition} />
-                    <CameraControls carPosition={carPosition} />
+                    <Debug/> {/* 물리 객체를 시각화하여 디버깅 */}
+                    <Ground/>
+                    <Car move={move} setCarPosition={setCarPosition}/>
+                    <CameraControls carPosition={carPosition}/>
                 </Physics>
             </Canvas>
         </div>
