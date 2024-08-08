@@ -43,9 +43,17 @@ const GoalPost = (props) => {
         }
     }, [ref]);
 
+    const goal_post_l_fbx = useLoader(FBXLoader, './models/goal post_l.fbx');
+    const [ref_l, api_l] = useBox(() => ({
+        args: [0, 0, 0],
+        position: [0, 0, 8.25], // 위치만 props로 변경
+        ...props,
+    }));
+
     return (
         <>
             <primitive object={goal_post_fbx} ref={ref} scale={0.1} receiveShadow/>
+            <primitive object={goal_post_l_fbx} ref={ref_l} scale={0.1} receiveShadow/>
             <group ref={helperRef}/>
         </>
     );
