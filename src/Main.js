@@ -6,10 +6,11 @@ import "./css/main.css";
 import {useNavigate} from "react-router-dom";
 import {FBXLoader} from "three/examples/jsm/loaders/FBXLoader";
 import * as THREE from 'three';
+import Toy from "./model_page/Toy";
 
 const Ground = (props) => {
     const fbx = useLoader(FBXLoader, './models/soccer field.fbx');
-    const texture = useLoader(THREE.TextureLoader, './models/Soccer Field Texture_v2_1.png'); // 텍스처 경로를 올바르게 지정
+    const texture = useLoader(THREE.TextureLoader, './models/Soccer Field Texture_v2.png'); // 텍스처 경로를 올바르게 지정
 
     // FBX 모델에 텍스처를 적용
     fbx.traverse((child) => {
@@ -96,10 +97,10 @@ const Car = ({move, setCarPosition, jump, isGrounded, setIsGrounded}) => {
 
     useFrame(() => {
         const velocity = [0, 0, 0];
-        if (move.forward) velocity[0] -= 5;
-        if (move.backward) velocity[0] += 5;
-        if (move.left) velocity[2] += 5;
-        if (move.right) velocity[2] -= 5;
+        if (move.forward) velocity[0] += 5;
+        if (move.backward) velocity[0] -= 5;
+        if (move.left) velocity[2] -= 5;
+        if (move.right) velocity[2] += 5;
         api.velocity.set(velocity[0], velocity[1], velocity[2]);
 
         if (jump && isGrounded) {
@@ -115,9 +116,9 @@ const Car = ({move, setCarPosition, jump, isGrounded, setIsGrounded}) => {
 const CameraControls = ({carPosition}) => {
     const {camera} = useThree();
 
-    const xOffset = 10; // x 방향 오프셋
+    const xOffset = -10; // x 방향 오프셋
     const yOffset = 10; // y 방향 오프셋
-    const zOffset = 5; // z 방향 오프셋
+    const zOffset = -5; // z 방향 오프셋
 
     useFrame(() => {
         camera.position.x = carPosition.x + xOffset; // 카메라가 Car의 위치를 따라가도록 설정
@@ -248,6 +249,7 @@ const Main = () => {
                         <InvisibleBlock position={[-1.25, 0, 8.75]} args={[0.1, 2, 1]}/>
                         <InvisibleBlock position={[0, 0.7, 8.75]} args={[2.6, 0.1, 1]}/>
                     </>
+                    <Toy/>
                     <CameraControls carPosition={carPosition}/>
                 </Physics>
             </Canvas>
