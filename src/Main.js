@@ -1,6 +1,6 @@
 import React, {Suspense, useEffect, useRef, useState} from "react";
 import {Canvas, useFrame, useLoader, useThree} from "@react-three/fiber";
-import {OrbitControls, useGLTF} from "@react-three/drei";
+import {OrbitControls, useGLTF, Html} from "@react-three/drei";
 import {Physics, useSphere, Debug, useBox} from "@react-three/cannon";
 import "./css/main.css";
 import {useNavigate} from "react-router-dom";
@@ -215,6 +215,27 @@ const Resume_InvisibleBlock = (props) => {
     );
 };
 
+const LoadingBar = ({progress}) => {
+    return (
+        <Html position={[0, 1.5, -4]} transform>
+            <div style={{
+                width: '100px',
+                height: '10px',
+                backgroundColor: 'greenyellow',
+                borderRadius: '5px',
+                overflow: 'hidden'
+            }}>
+                <div style={{
+                    width: `${progress}%`,
+                    height: '100%',
+                    backgroundColor: 'white',
+                    transition: 'width 0.1s ease'
+                }}/>
+            </div>
+        </Html>
+    );
+};
+
 const Main = () => {
     const [move, setMove] = useState({
         forward: false,
@@ -227,6 +248,8 @@ const Main = () => {
     const [carPosition, setCarPosition] = useState({x: 0, y: 1, z: 0});
     const [isGrounded, setIsGrounded] = useState(true);
     const [targetPosition, setTargetPosition] = useState(null);
+    const [loadingProgress, setLoadingProgress] = useState(0);  // Loading progress state
+    const [showLoadingBar, setShowLoadingBar] = useState(false); // Loading bar visibility
 
     const handleKeyDown = (event) => {
         switch (event.key) {
@@ -293,16 +316,26 @@ const Main = () => {
             // Check if the collided object is the "resume_block"
             if (event.body.userData && event.body.userData.type === 'resume_block') {
                 if (!collisionTimeoutRef.current) {
-                    collisionTimeoutRef.current = setTimeout(() => {
-                        navigate("/resume");
-                    }, 4000);
+                    setShowLoadingBar(true);  // Show the loading bar
+                    let progress = 0;
+                    const interval = setInterval(() => {
+                        progress += 4;
+                        setLoadingProgress(progress);
+                        if (progress >= 100) {
+                            clearInterval(interval);
+                            navigate("/resume");
+                        }
+                    }, 62.5); // 4 seconds total
+
+                    collisionTimeoutRef.current = interval;
                 }
             } else {
                 // Clear the timeout if the collision ends before 4 seconds
                 if (collisionTimeoutRef.current) {
-                    console.log(collisionTimeoutRef.current);
-                    clearTimeout(collisionTimeoutRef.current);
+                    clearInterval(collisionTimeoutRef.current);
                     collisionTimeoutRef.current = null;
+                    setShowLoadingBar(false);  // Hide the loading bar
+                    setLoadingProgress(0); // Reset progress
                 }
             }
         }
@@ -339,19 +372,22 @@ const Main = () => {
                             carPosition={carPosition}
                             setTargetPosition={setTargetPosition}
                         />
-                        <InvisibleBlock position={[0, 0, -9.2]} args={[2.6, 2, 0.1]}/>
-                        <InvisibleBlock position={[1.25, 0, -8.75]} args={[0.1, 2, 1]}/>
-                        <InvisibleBlock position={[-1.25, 0, -8.75]} args={[0.1, 2, 1]}/>
-                        <InvisibleBlock position={[0, 0.7, -8.75]} args={[2.6, 0.1, 1]}/>
-                        <InvisibleBlock position={[0, 0, 9.2]} args={[2.6, 2, 0.1]}/>
+                        <Resume_InvisibleBlock position={[0, 0, -9.2]} args={[2.6, 2, 0.1]}/>
+                        <Resume_InvisibleBlock position={[1.25, 0, -8.75]} args={[0.1, 2, 1]}/>
+                        <Resume_InvisibleBlock position={[-1.25, 0, -8.75]} args={[0.1, 2, 1]}/>
+                        <Resume_InvisibleBlock position={[0, 0.7, -8.75]} args={[2.6, 0.1, 1]}/>
+                        <Resume_InvisibleBlock position={[0, 0.01, -8.75]} args={[2.6, 0.1, 1]}/>
+
+                        {/*<InvisibleBlock position={[0, 0, 9.2]} args={[2.6, 2, 0.1]}/>
                         <InvisibleBlock position={[1.25, 0, 8.75]} args={[0.1, 2, 1]}/>
                         <InvisibleBlock position={[-1.25, 0, 8.75]} args={[0.1, 2, 1]}/>
-                        <InvisibleBlock position={[0, 0.7, 8.75]} args={[2.6, 0.1, 1]}/>
-                        <Resume_InvisibleBlock position={[0, 0.01, -8.75]} args={[2.6, 0.1, 1]}/>
+                        <InvisibleBlock position={[0, 0.7, 8.75]} args={[2.6, 0.1, 1]}/>*/}
+
                         <Toy/>
                         <CameraControls carPosition={carPosition}/>
                     </Physics>
 
+                    {showLoadingBar && <LoadingBar progress={loadingProgress}/>} {/* Render loading bar */}
                     <MouseHandler setTargetPosition={setTargetPosition}/>
                 </Suspense>
             </Canvas>
