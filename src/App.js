@@ -27,7 +27,6 @@ function App() {
             <div className="App">
                 <Routes>
                     <Route path={"/"} element={<Main/>}/>
-                    {/*<Route path={"/"} exact element={<Loading/>}/>*/}
                     <Route path={"/resume"} element={<Resume/>}/>
                     <Route component={RedirectHandler} />
                 </Routes>
