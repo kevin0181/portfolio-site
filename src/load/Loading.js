@@ -1,7 +1,4 @@
 import "./../css/load.css";
-import {useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
-
 import React from 'react';
 import {Html, useProgress} from '@react-three/drei';
 
@@ -11,7 +8,7 @@ const LoadingScreen = ({progress}) => {
             <p>넨이의 포트폴리오</p>
             <br/>
             <div className="spinner"></div>
-            <p>Loading... {progress}%</p>
+            <p>Loading... {progress.toFixed(2)}%</p>
         </div>
     );
 };
