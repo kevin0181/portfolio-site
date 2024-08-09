@@ -1,12 +1,13 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {Suspense, useEffect, useRef, useState} from "react";
 import {Canvas, useFrame, useLoader, useThree} from "@react-three/fiber";
-import {Environment, OrbitControls, useGLTF} from "@react-three/drei";
+import {Environment, Loader, OrbitControls, useGLTF} from "@react-three/drei";
 import {Physics, useSphere, Debug, useBox} from "@react-three/cannon";
 import "./css/main.css";
 import {useNavigate} from "react-router-dom";
 import {FBXLoader} from "three/examples/jsm/loaders/FBXLoader";
 import * as THREE from 'three';
 import Toy from "./model_page/Toy";
+import Loading from "./load/Loading";
 
 const Ground = (props) => {
     const fbx = useLoader(FBXLoader, './models/soccer field.fbx');
@@ -15,7 +16,7 @@ const Ground = (props) => {
     // FBX 모델에 텍스처 및 그림자 설정 적용
     fbx.traverse((child) => {
         if (child.isMesh) {
-            child.material = new THREE.MeshStandardMaterial({ map: texture });
+            child.material = new THREE.MeshStandardMaterial({map: texture});
             child.castShadow = true;    // 메쉬가 그림자를 드리우도록 설정
             child.receiveShadow = true; // 메쉬가 그림자를 받도록 설정
         }
@@ -246,40 +247,42 @@ const Main = () => {
     return (
         <div className={"container"}>
             <Canvas shadows camera={{fov: 40}}>
-                <ambientLight intensity={3}/>
-                <directionalLight
-                    position={[-5, 10, 5]}
-                    castShadow
-                    shadow-mapSize-width={2048}  // 해상도를 높임
-                    shadow-mapSize-height={2048} // 해상도를 높임
-                    shadow-camera-far={50}
-                    shadow-camera-left={-10}  // 카메라 범위를 확장
-                    shadow-camera-right={10}  // 카메라 범위를 확장
-                    shadow-camera-top={10}    // 카메라 범위를 확장
-                    shadow-camera-bottom={-10} // 카메라 범위를 확장
-                />
-                <Physics gravity={[0, -100, 0]}> {/* 중력 설정 */}
-                    <Debug/> {/* 물리 객체를 시각화하여 디버깅 */}
-                    <Ground/>
-                    <GoalPost/> {/* GoalPost 위치 변경 */}
-                    <Car move={move} setCarPosition={setCarPosition} jump={jump} isGrounded={isGrounded}
-                         setIsGrounded={setIsGrounded}/> {/* 점프 상태 및 땅에 닿음 상태 전달 */}
-                    <>
-                        {/*right invisible block*/}
-                        <InvisibleBlock position={[0, 0, -9.2]} args={[2.6, 2, 0.1]}/>
-                        <InvisibleBlock position={[1.25, 0, -8.75]} args={[0.1, 2, 1]}/>
-                        <InvisibleBlock position={[-1.25, 0, -8.75]} args={[0.1, 2, 1]}/>
-                        <InvisibleBlock position={[0, 0.7, -8.75]} args={[2.6, 0.1, 1]}/>
-                    </>
-                    <>
-                        <InvisibleBlock position={[0, 0, 9.2]} args={[2.6, 2, 0.1]}/>
-                        <InvisibleBlock position={[1.25, 0, 8.75]} args={[0.1, 2, 1]}/>
-                        <InvisibleBlock position={[-1.25, 0, 8.75]} args={[0.1, 2, 1]}/>
-                        <InvisibleBlock position={[0, 0.7, 8.75]} args={[2.6, 0.1, 1]}/>
-                    </>
-                    <Toy/>
-                    <CameraControls carPosition={carPosition}/>
-                </Physics>
+                <Suspense fallback={<Loading/>}>
+                    <ambientLight intensity={3}/>
+                    <directionalLight
+                        position={[-5, 10, 5]}
+                        castShadow
+                        shadow-mapSize-width={2048}  // 해상도를 높임
+                        shadow-mapSize-height={2048} // 해상도를 높임
+                        shadow-camera-far={50}
+                        shadow-camera-left={-10}  // 카메라 범위를 확장
+                        shadow-camera-right={10}  // 카메라 범위를 확장
+                        shadow-camera-top={10}    // 카메라 범위를 확장
+                        shadow-camera-bottom={-10} // 카메라 범위를 확장
+                    />
+                    <Physics gravity={[0, -100, 0]}> {/* 중력 설정 */}
+                        <Debug/> {/* 물리 객체를 시각화하여 디버깅 */}
+                        <Ground/>
+                        <GoalPost/> {/* GoalPost 위치 변경 */}
+                        <Car move={move} setCarPosition={setCarPosition} jump={jump} isGrounded={isGrounded}
+                             setIsGrounded={setIsGrounded}/> {/* 점프 상태 및 땅에 닿음 상태 전달 */}
+                        <>
+                            {/*right invisible block*/}
+                            <InvisibleBlock position={[0, 0, -9.2]} args={[2.6, 2, 0.1]}/>
+                            <InvisibleBlock position={[1.25, 0, -8.75]} args={[0.1, 2, 1]}/>
+                            <InvisibleBlock position={[-1.25, 0, -8.75]} args={[0.1, 2, 1]}/>
+                            <InvisibleBlock position={[0, 0.7, -8.75]} args={[2.6, 0.1, 1]}/>
+                        </>
+                        <>
+                            <InvisibleBlock position={[0, 0, 9.2]} args={[2.6, 2, 0.1]}/>
+                            <InvisibleBlock position={[1.25, 0, 8.75]} args={[0.1, 2, 1]}/>
+                            <InvisibleBlock position={[-1.25, 0, 8.75]} args={[0.1, 2, 1]}/>
+                            <InvisibleBlock position={[0, 0.7, 8.75]} args={[2.6, 0.1, 1]}/>
+                        </>
+                        <Toy/>
+                        <CameraControls carPosition={carPosition}/>
+                    </Physics>
+                </Suspense>
             </Canvas>
         </div>
     );

@@ -26,8 +26,8 @@ function App() {
         <BrowserRouter basename={process.env.PUBLIC_URL}>
             <div className="App">
                 <Routes>
-                    <Route path={"/main"} element={<Main/>}/>
-                    <Route path={"/"} exact element={<Loading/>}/>
+                    <Route path={"/"} element={<Main/>}/>
+                    {/*<Route path={"/"} exact element={<Loading/>}/>*/}
                     <Route path={"/resume"} element={<Resume/>}/>
                     <Route component={RedirectHandler} />
                 </Routes>
