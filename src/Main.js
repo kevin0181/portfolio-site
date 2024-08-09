@@ -87,6 +87,13 @@ const Car = ({move, setCarPosition, jump, isGrounded, setIsGrounded, onCollision
         onCollide: (e) => onCollision(e),
     }));
 
+    model.scene.traverse((child) => {
+        if (child.isMesh) {
+            child.castShadow = true;
+            child.receiveShadow = true;
+        }
+    });
+
     const navigate = useNavigate();
 
     useEffect(() => {
