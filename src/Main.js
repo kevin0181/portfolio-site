@@ -83,6 +83,7 @@ const Car = ({move, setCarPosition, jump, isGrounded, setIsGrounded, onCollision
         mass: 10,
         position: initialPosition,
         args: [0.1],
+        angularDamping: 0.5,
         onCollide: (e) => onCollision(e),
     }));
 
