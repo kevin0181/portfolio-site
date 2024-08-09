@@ -1,6 +1,6 @@
-import React, {Suspense, useEffect, useRef, useState} from "react";
+import React, {Suspense, useEffect, useState} from "react";
 import {Canvas, useFrame, useLoader, useThree} from "@react-three/fiber";
-import {Environment, Loader, OrbitControls, useGLTF} from "@react-three/drei";
+import {OrbitControls, useGLTF} from "@react-three/drei";
 import {Physics, useSphere, Debug, useBox} from "@react-three/cannon";
 import "./css/main.css";
 import {useNavigate} from "react-router-dom";
@@ -9,16 +9,18 @@ import * as THREE from 'three';
 import Toy from "./model_page/Toy";
 import Loading from "./load/Loading";
 
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+
 const Ground = (props) => {
     const fbx = useLoader(FBXLoader, './models/soccer field.fbx');
-    const texture = useLoader(THREE.TextureLoader, './models/Soccer Field Texture_v2.png'); // 텍스처 경로를 올바르게 지정
+    const texture = useLoader(THREE.TextureLoader, './models/Soccer Field Texture_v2.png');
 
-    // FBX 모델에 텍스처 및 그림자 설정 적용
     fbx.traverse((child) => {
         if (child.isMesh) {
             child.material = new THREE.MeshStandardMaterial({map: texture});
-            child.castShadow = true;    // 메쉬가 그림자를 드리우도록 설정
-            child.receiveShadow = true; // 메쉬가 그림자를 받도록 설정
+            child.castShadow = true;
+            child.receiveShadow = true;
         }
     });
 
@@ -29,49 +31,39 @@ const Ground = (props) => {
     }));
 
     return (
-        <>
-            <mesh ref={ref} scale={0.1} receiveShadow>
-                <primitive object={fbx}/>
-            </mesh>
-        </>
+        <mesh ref={ref} scale={0.1} receiveShadow>
+            <primitive object={fbx}/>
+        </mesh>
     );
 };
 
 const GoalPost = (props) => {
     const goal_post_fbx = useLoader(FBXLoader, './models/goal post.fbx');
-    const [ref, api] = useBox(() => ({
+    const [ref] = useBox(() => ({
         args: [0, 0, 0],
-        position: [0, 0, -8.25], // 위치만 props로 변경
+        position: [0, 0, -8.25],
         ...props,
     }));
 
     goal_post_fbx.traverse((child) => {
         if (child.isMesh) {
-            child.castShadow = true;    // 메쉬가 그림자를 드리우도록 설정
-            child.receiveShadow = true; // 메쉬가 그림자를 받도록 설정
+            child.castShadow = true;
+            child.receiveShadow = true;
         }
     });
-
-    const helperRef = useRef();
-    useEffect(() => {
-        if (ref.current) {
-            const helper = new THREE.BoxHelper(ref.current);
-            helperRef.current.add(helper);
-        }
-    }, [ref]);
 
     const goal_post_l_fbx = useLoader(FBXLoader, './models/goal post_l.fbx');
 
     goal_post_l_fbx.traverse((child) => {
         if (child.isMesh) {
-            child.castShadow = true;    // 메쉬가 그림자를 드리우도록 설정
-            child.receiveShadow = true; // 메쉬가 그림자를 받도록 설정
+            child.castShadow = true;
+            child.receiveShadow = true;
         }
     });
 
-    const [ref_l, api_l] = useBox(() => ({
+    const [ref_l] = useBox(() => ({
         args: [0, 0, 0],
-        position: [0, 0, 8.25], // 위치만 props로 변경
+        position: [0, 0, 8.25],
         ...props,
     }));
 
@@ -79,38 +71,35 @@ const GoalPost = (props) => {
         <>
             <primitive object={goal_post_fbx} ref={ref} scale={0.1} receiveShadow/>
             <primitive object={goal_post_l_fbx} ref={ref_l} scale={0.1} receiveShadow/>
-            <group ref={helperRef}/>
         </>
     );
 };
 
-const Car = ({move, setCarPosition, jump, isGrounded, setIsGrounded, onCollision}) => {
-
+const Car = ({move, setCarPosition, jump, isGrounded, setIsGrounded, onCollision, targetPosition, carPosition, setTargetPosition}) => {
     const initialPosition = [3, 0.5, 3];
-    const model = useGLTF('./models/soccer_ball.glb'); // car 모델 로드
+    const model = useGLTF('./models/soccer_ball.glb');
 
     const [ref, api] = useSphere(() => ({
         mass: 10,
         position: initialPosition,
-        args: [0.1], // 공의 반지름을 지정합니다
-        onCollide: (e) => onCollision(e), // 충돌 이벤트 핸들러 추가
+        args: [0.1],
+        onCollide: (e) => onCollision(e),
     }));
 
-    // car가 특정 위치로 가면 특정 페이지로 이동.
     const navigate = useNavigate();
+
     useEffect(() => {
         const unsubscribe = api.position.subscribe((position) => {
             setCarPosition({x: position[0], y: position[1], z: position[2]});
             if (position[1] < -2) {
-                api.position.set(...initialPosition); // 위치 초기화
-                api.velocity.set(0, 0, 0); // 속도 초기화
+                api.position.set(...initialPosition);
+                api.velocity.set(0, 0, 0);
             }
 
-            if (position[0] > 10) { // 예: x 좌표가 10보다 크면 페이지 이동
+            if (position[0] > 10) {
                 //navigate('/resume');
             }
 
-            // 땅에 닿았는지 여부를 확인
             if (position[1] <= 0.6) {
                 setIsGrounded(true);
             } else {
@@ -121,15 +110,38 @@ const Car = ({move, setCarPosition, jump, isGrounded, setIsGrounded, onCollision
     }, [api.position, navigate, setCarPosition, setIsGrounded]);
 
     useFrame(() => {
-        const velocity = [0, 0, 0];
-        if (move.forward) velocity[0] += 5;
-        if (move.backward) velocity[0] -= 5;
-        if (move.left) velocity[2] -= 5;
-        if (move.right) velocity[2] += 5;
+        let velocity = [0, 0, 0];
+
+        if (targetPosition) {
+            const distance = Math.sqrt(
+                Math.pow(targetPosition.x - carPosition.x, 2) +
+                Math.pow(targetPosition.z - carPosition.z, 2)
+            );
+
+            if (distance > 0.1) { // 목표 위치와의 거리가 0.1 이상이면 계속 이동
+                const direction = new THREE.Vector3(
+                    targetPosition.x - carPosition.x,
+                    0,
+                    targetPosition.z - carPosition.z
+                ).normalize();
+
+                velocity = [direction.x * 5, 0, direction.z * 5];
+            } else {
+                setTargetPosition(null); // 목표 위치에 도달하면 초기화
+            }
+        }
+
+        if (!targetPosition) {
+            if (move.forward) velocity[0] += 5;
+            if (move.backward) velocity[0] -= 5;
+            if (move.left) velocity[2] -= 5;
+            if (move.right) velocity[2] += 5;
+        }
+
         api.velocity.set(velocity[0], velocity[1], velocity[2]);
 
         if (jump && isGrounded) {
-            api.applyImpulse([0, 50, 0], [0, 0, 0]); // 점프할 때 위쪽으로 힘을 가함
+            api.applyImpulse([0, 50, 0], [0, 0, 0]);
         }
     });
 
@@ -141,59 +153,51 @@ const Car = ({move, setCarPosition, jump, isGrounded, setIsGrounded, onCollision
 const CameraControls = ({carPosition}) => {
     const {camera} = useThree();
 
-    const xOffset = -10; // x 방향 오프셋
-    const yOffset = 10; // y 방향 오프셋
-    const zOffset = -5; // z 방향 오프셋
+    const xOffset = -10;
+    const yOffset = 10;
+    const zOffset = -5;
 
     useFrame(() => {
-        camera.position.x = carPosition.x + xOffset; // 카메라가 Car의 위치를 따라가도록 설정
+        camera.position.x = carPosition.x + xOffset;
         camera.position.y = carPosition.y + yOffset;
         camera.position.z = carPosition.z + zOffset;
         camera.lookAt(carPosition.x, carPosition.y, carPosition.z);
     });
 
     return (
-        <>
-            <OrbitControls/>
-        </>
+        <OrbitControls/>
     );
 };
 
 const InvisibleBlock = (props) => {
     const [ref] = useBox(() => ({
-        userData: { type: 'InvisibleBlock' }, // userData 추가
-        args: props.args, // 블록의 크기
-        position: props.position, // 블록의 위치
+        userData: {type: 'InvisibleBlock'},
+        args: props.args,
+        position: props.position,
         ...props,
     }));
 
     return (
-        <>
-            {/*충돌 와이어 프레임*/}
-            <mesh ref={ref} visible={true}>
-                <boxGeometry args={props.args}/>
-                <meshBasicMaterial color="blue" wireframe/>
-            </mesh>
-        </>
+        <mesh ref={ref} visible={true}>
+            <boxGeometry args={props.args}/>
+            <meshBasicMaterial color="blue" wireframe/>
+        </mesh>
     );
 };
 
 const InvisibleBlock_l = (props) => {
     const [ref] = useBox(() => ({
-        userData: { type: 'InvisibleBlock_l' }, // userData 추가
-        args: props.args, // 블록의 크기
-        position: props.position, // 블록의 위치
+        userData: {type: 'InvisibleBlock_l'},
+        args: props.args,
+        position: props.position,
         ...props,
     }));
 
     return (
-        <>
-            {/*충돌 와이어 프레임*/}
-            <mesh ref={ref} visible={true}>
-                <boxGeometry args={props.args}/>
-                <meshBasicMaterial color="blue" wireframe/>
-            </mesh>
-        </>
+        <mesh ref={ref} visible={true}>
+            <boxGeometry args={props.args}/>
+            <meshBasicMaterial color="blue" wireframe/>
+        </mesh>
     );
 };
 
@@ -205,9 +209,10 @@ const Main = () => {
         right: false,
     });
 
-    const [jump, setJump] = useState(false); // 점프 상태 추가
+    const [jump, setJump] = useState(false);
     const [carPosition, setCarPosition] = useState({x: 0, y: 1, z: 0});
-    const [isGrounded, setIsGrounded] = useState(true); // 땅에 닿아 있는지 여부
+    const [isGrounded, setIsGrounded] = useState(true);
+    const [targetPosition, setTargetPosition] = useState(null);
 
     const handleKeyDown = (event) => {
         switch (event.key) {
@@ -225,7 +230,7 @@ const Main = () => {
                 break;
             case " ":
                 if (isGrounded) {
-                    setJump(true); // 스페이스바를 누르면 점프
+                    setJump(true);
                 }
                 break;
             default:
@@ -248,7 +253,7 @@ const Main = () => {
                 setMove((prev) => ({...prev, right: false}));
                 break;
             case " ":
-                setJump(false); // 스페이스바를 떼면 점프 중지
+                setJump(false);
                 break;
             default:
                 break;
@@ -289,46 +294,76 @@ const Main = () => {
                     <directionalLight
                         position={[-5, 10, 5]}
                         castShadow
-                        shadow-mapSize-width={2048}  // 해상도를 높임
-                        shadow-mapSize-height={2048} // 해상도를 높임
+                        shadow-mapSize-width={2048}
+                        shadow-mapSize-height={2048}
                         shadow-camera-far={50}
-                        shadow-camera-left={-10}  // 카메라 범위를 확장
-                        shadow-camera-right={10}  // 카메라 범위를 확장
-                        shadow-camera-top={10}    // 카메라 범위를 확장
-                        shadow-camera-bottom={-10} // 카메라 범위를 확장
+                        shadow-camera-left={-10}
+                        shadow-camera-right={10}
+                        shadow-camera-top={10}
+                        shadow-camera-bottom={-10}
                     />
-                    <Physics gravity={[0, -100, 0]}> {/* 중력 설정 */}
-                        <Debug/> {/* 물리 객체를 시각화하여 디버깅 */}
+                    <Physics gravity={[0, -100, 0]}>
+                        <Debug/>
                         <Ground/>
-                        <GoalPost/> {/* GoalPost 위치 변경 */}
+                        <GoalPost/>
                         <Car
                             move={move}
                             setCarPosition={setCarPosition}
                             jump={jump}
                             isGrounded={isGrounded}
                             setIsGrounded={setIsGrounded}
-                            onCollision={handleCollision} // 충돌 이벤트 처리 함수 전달
+                            onCollision={handleCollision}
+                            targetPosition={targetPosition}
+                            carPosition={carPosition}
+                            setTargetPosition={setTargetPosition}
                         />
-                        <>
-                            {/*right invisible block*/}
-                            <InvisibleBlock_l position={[0, 0, -9.2]} args={[2.6, 2, 0.1]}/>
-                            <InvisibleBlock_l position={[1.25, 0, -8.75]} args={[0.1, 2, 1]}/>
-                            <InvisibleBlock_l position={[-1.25, 0, -8.75]} args={[0.1, 2, 1]}/>
-                            <InvisibleBlock_l position={[0, 0.7, -8.75]} args={[2.6, 0.1, 1]}/>
-                        </>
-                        <>
-                            <InvisibleBlock position={[0, 0, 9.2]} args={[2.6, 2, 0.1]}/>
-                            <InvisibleBlock position={[1.25, 0, 8.75]} args={[0.1, 2, 1]}/>
-                            <InvisibleBlock position={[-1.25, 0, 8.75]} args={[0.1, 2, 1]}/>
-                            <InvisibleBlock position={[0, 0.7, 8.75]} args={[2.6, 0.1, 1]}/>
-                        </>
+                        <InvisibleBlock_l position={[0, 0, -9.2]} args={[2.6, 2, 0.1]}/>
+                        <InvisibleBlock_l position={[1.25, 0, -8.75]} args={[0.1, 2, 1]}/>
+                        <InvisibleBlock_l position={[-1.25, 0, -8.75]} args={[0.1, 2, 1]}/>
+                        <InvisibleBlock_l position={[0, 0.7, -8.75]} args={[2.6, 0.1, 1]}/>
+                        <InvisibleBlock position={[0, 0, 9.2]} args={[2.6, 2, 0.1]}/>
+                        <InvisibleBlock position={[1.25, 0, 8.75]} args={[0.1, 2, 1]}/>
+                        <InvisibleBlock position={[-1.25, 0, 8.75]} args={[0.1, 2, 1]}/>
+                        <InvisibleBlock position={[0, 0.7, 8.75]} args={[2.6, 0.1, 1]}/>
                         <Toy/>
                         <CameraControls carPosition={carPosition}/>
                     </Physics>
+
+                    <MouseHandler setTargetPosition={setTargetPosition}/>
                 </Suspense>
             </Canvas>
         </div>
     );
+};
+
+const MouseHandler = ({setTargetPosition}) => {
+    const {camera} = useThree();
+
+    useEffect(() => {
+        const handleMouseClick = (event) => {
+            event.preventDefault();
+
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+            raycaster.setFromCamera(mouse, camera);
+
+            const groundPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
+            const intersect = new THREE.Vector3();
+
+            raycaster.ray.intersectPlane(groundPlane, intersect);
+
+            setTargetPosition(intersect);
+        };
+
+        window.addEventListener("click", handleMouseClick);
+
+        return () => {
+            window.removeEventListener("click", handleMouseClick);
+        };
+    }, [camera, setTargetPosition]);
+
+    return null;
 };
 
 export default Main;
