@@ -481,7 +481,7 @@ const Main = () => {
                                     color2={"white"}/>} {/* resume */}
                     {showLoadingBar_project &&
                         <LoadingBar progress={loadingProgress_project} position={[0, 1, 12]} color1={"white"}
-                                    color2={"greenyellow"} border={"0.5px solid greenyellow"}/>} {/* project */}
+                                    color2={"greenyellow"}/>} {/* project */}
 
 
                     <MouseHandler setTargetPosition={setTargetPosition}/>
