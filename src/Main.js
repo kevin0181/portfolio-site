@@ -217,13 +217,14 @@ const Resume_InvisibleBlock = (props) => {
 
 const LoadingBar = ({progress}) => {
     return (
-        <Html position={[0, 1.5, -4]} transform>
+        <Html position={[0, 1, -6]} transform>
             <div style={{
                 width: '100px',
                 height: '10px',
                 backgroundColor: 'greenyellow',
                 borderRadius: '5px',
-                overflow: 'hidden'
+                overflow: 'hidden',
+                //transform: 'rotate(45deg)', // 로딩 바를 45도 회전
             }}>
                 <div style={{
                     width: `${progress}%`,
