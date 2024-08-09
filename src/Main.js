@@ -1,6 +1,6 @@
 import React, {Suspense, useEffect, useRef, useState} from "react";
 import {Canvas, useFrame, useLoader, useThree} from "@react-three/fiber";
-import {OrbitControls, useGLTF, Html} from "@react-three/drei";
+import {OrbitControls, useGLTF, Html, Text} from "@react-three/drei";
 import {Physics, useSphere, Debug, useBox} from "@react-three/cannon";
 import "./css/main.css";
 import {useNavigate} from "react-router-dom";
@@ -11,6 +11,36 @@ import Loading from "./load/Loading";
 
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
+
+const BoxWithText = ({ text, boxSize, textColor, position }) => {
+    const [ref] = useBox(() => ({
+        args: boxSize,
+        position: position,
+    }));
+
+    // 텍스트를 줄바꿈으로 분리하여 배열로 만듭니다.
+    const lines = text.split('/n');
+
+    return (
+        <mesh ref={ref}>
+            <boxGeometry args={boxSize} />
+            <meshStandardMaterial color="lightblue" />
+            {lines.map((line, index) => (
+                <Text
+                    key={index}
+                    position={[-boxSize[0] / 2 - 0.01, 0.5 * (lines.length - index - 1), 0]} // 각 줄의 위치 설정
+                    rotation={[0, -Math.PI / 2, 0]} // Y축을 기준으로 -90도 회전
+                    fontSize={0.5} // 텍스트 크기
+                    color={textColor} // 텍스트 색상
+                    anchorX="center"
+                    anchorY="middle"
+                >
+                    {line}
+                </Text>
+            ))}
+        </mesh>
+    );
+};
 
 const Ground = (props) => {
     const fbx = useLoader(FBXLoader, './models/soccer field.fbx');
@@ -393,7 +423,13 @@ const Main = () => {
 
     return (
         <div className={"container"}>
-            <Canvas shadows camera={{fov: 40}}>
+            <Canvas shadows camera={{fov: 40}}
+                /*gl={{alpha: false, antialias: true}}
+                onCreated={({gl}) => {
+                    gl.setClearColor("skyblue"); // 하늘색 배경
+                }}*/
+                    style={{background: "skyblue"}}
+            >
                 <Suspense fallback={<Loading/>}>
                     <ambientLight intensity={3}/>
                     <directionalLight
@@ -436,6 +472,8 @@ const Main = () => {
 
                         <Toy/>
                         <CameraControls carPosition={carPosition}/>
+                        <BoxWithText text="유영빈 /n 인생사 세옹지마" boxSize={[0.1, 4, 5]} position={[6, 3, -7]} textColor="black"/>
+
                     </Physics>
 
                     {showLoadingBar &&
@@ -444,6 +482,8 @@ const Main = () => {
                     {showLoadingBar_project &&
                         <LoadingBar progress={loadingProgress_project} position={[0, 1, 12]} color1={"white"}
                                     color2={"greenyellow"} border={"0.5px solid greenyellow"}/>} {/* project */}
+
+
                     <MouseHandler setTargetPosition={setTargetPosition}/>
                 </Suspense>
             </Canvas>
