@@ -14,7 +14,7 @@ const mouse = new THREE.Vector2();
 
 const Ground = (props) => {
     const fbx = useLoader(FBXLoader, './models/soccer field.fbx');
-    const texture = useLoader(THREE.TextureLoader, './models/Soccer Field Texture_v2.png');
+    const texture = useLoader(THREE.TextureLoader, './models/Soccer Field Texture_v3.png');
 
     fbx.traverse((child) => {
         if (child.isMesh) {
