@@ -1,4 +1,4 @@
-import React, {Suspense, useEffect, useState} from "react";
+import React, {Suspense, useEffect, useRef, useState} from "react";
 import {Canvas, useFrame, useLoader, useThree} from "@react-three/fiber";
 import {OrbitControls, useGLTF} from "@react-three/drei";
 import {Physics, useSphere, Debug, useBox} from "@react-three/cannon";
@@ -75,7 +75,17 @@ const GoalPost = (props) => {
     );
 };
 
-const Car = ({move, setCarPosition, jump, isGrounded, setIsGrounded, onCollision, targetPosition, carPosition, setTargetPosition}) => {
+const Car = ({
+                 move,
+                 setCarPosition,
+                 jump,
+                 isGrounded,
+                 setIsGrounded,
+                 onCollision,
+                 targetPosition,
+                 carPosition,
+                 setTargetPosition
+             }) => {
     const initialPosition = [3, 0.5, 3];
     const model = useGLTF('./models/soccer_ball.glb');
 
@@ -102,10 +112,6 @@ const Car = ({move, setCarPosition, jump, isGrounded, setIsGrounded, onCollision
             if (position[1] < -2) {
                 api.position.set(...initialPosition);
                 api.velocity.set(0, 0, 0);
-            }
-
-            if (position[0] > 10) {
-                //navigate('/resume');
             }
 
             if (position[1] <= 0.6) {
@@ -193,9 +199,9 @@ const InvisibleBlock = (props) => {
     );
 };
 
-const InvisibleBlock_l = (props) => {
+const Resume_InvisibleBlock = (props) => {
     const [ref] = useBox(() => ({
-        userData: {type: 'InvisibleBlock_l'},
+        userData: {type: 'resume_block'},
         args: props.args,
         position: props.position,
         ...props,
@@ -280,16 +286,24 @@ const Main = () => {
 
     const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate hook
 
+    const collisionTimeoutRef = useRef(null);
+
     const handleCollision = (event) => {
-
         if (event.body) {
-            // 충돌한 객체가 InvisibleBlock인지 확인 후 페이지 이동
-            if (event.body.userData && event.body.userData.type === 'InvisibleBlock') {
-                console.log(1);
-            }
-
-            if (event.body.userData && event.body.userData.type === 'InvisibleBlock_l') {
-                console.log(2);
+            // Check if the collided object is the "resume_block"
+            if (event.body.userData && event.body.userData.type === 'resume_block') {
+                if (!collisionTimeoutRef.current) {
+                    collisionTimeoutRef.current = setTimeout(() => {
+                        navigate("/resume");
+                    }, 4000);
+                }
+            } else {
+                // Clear the timeout if the collision ends before 4 seconds
+                if (collisionTimeoutRef.current) {
+                    console.log(collisionTimeoutRef.current);
+                    clearTimeout(collisionTimeoutRef.current);
+                    collisionTimeoutRef.current = null;
+                }
             }
         }
     };
@@ -325,14 +339,15 @@ const Main = () => {
                             carPosition={carPosition}
                             setTargetPosition={setTargetPosition}
                         />
-                        <InvisibleBlock_l position={[0, 0, -9.2]} args={[2.6, 2, 0.1]}/>
-                        <InvisibleBlock_l position={[1.25, 0, -8.75]} args={[0.1, 2, 1]}/>
-                        <InvisibleBlock_l position={[-1.25, 0, -8.75]} args={[0.1, 2, 1]}/>
-                        <InvisibleBlock_l position={[0, 0.7, -8.75]} args={[2.6, 0.1, 1]}/>
+                        <InvisibleBlock position={[0, 0, -9.2]} args={[2.6, 2, 0.1]}/>
+                        <InvisibleBlock position={[1.25, 0, -8.75]} args={[0.1, 2, 1]}/>
+                        <InvisibleBlock position={[-1.25, 0, -8.75]} args={[0.1, 2, 1]}/>
+                        <InvisibleBlock position={[0, 0.7, -8.75]} args={[2.6, 0.1, 1]}/>
                         <InvisibleBlock position={[0, 0, 9.2]} args={[2.6, 2, 0.1]}/>
                         <InvisibleBlock position={[1.25, 0, 8.75]} args={[0.1, 2, 1]}/>
                         <InvisibleBlock position={[-1.25, 0, 8.75]} args={[0.1, 2, 1]}/>
                         <InvisibleBlock position={[0, 0.7, 8.75]} args={[2.6, 0.1, 1]}/>
+                        <Resume_InvisibleBlock position={[0, 0.01, -8.75]} args={[2.6, 0.1, 1]}/>
                         <Toy/>
                         <CameraControls carPosition={carPosition}/>
                     </Physics>
