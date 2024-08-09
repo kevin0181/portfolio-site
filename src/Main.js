@@ -84,7 +84,7 @@ const GoalPost = (props) => {
     );
 };
 
-const Car = ({move, setCarPosition, jump, isGrounded, setIsGrounded}) => {
+const Car = ({move, setCarPosition, jump, isGrounded, setIsGrounded, onCollision}) => {
 
     const initialPosition = [3, 0.5, 3];
     const model = useGLTF('./models/soccer_ball.glb'); // car 모델 로드
@@ -92,7 +92,8 @@ const Car = ({move, setCarPosition, jump, isGrounded, setIsGrounded}) => {
     const [ref, api] = useSphere(() => ({
         mass: 10,
         position: initialPosition,
-        args: [0.1], // 공의 반지름을 지정합니다.
+        args: [0.1], // 공의 반지름을 지정합니다
+        onCollide: (e) => onCollision(e), // 충돌 이벤트 핸들러 추가
     }));
 
     // car가 특정 위치로 가면 특정 페이지로 이동.
@@ -160,6 +161,26 @@ const CameraControls = ({carPosition}) => {
 
 const InvisibleBlock = (props) => {
     const [ref] = useBox(() => ({
+        userData: { type: 'InvisibleBlock' }, // userData 추가
+        args: props.args, // 블록의 크기
+        position: props.position, // 블록의 위치
+        ...props,
+    }));
+
+    return (
+        <>
+            {/*충돌 와이어 프레임*/}
+            <mesh ref={ref} visible={true}>
+                <boxGeometry args={props.args}/>
+                <meshBasicMaterial color="blue" wireframe/>
+            </mesh>
+        </>
+    );
+};
+
+const InvisibleBlock_l = (props) => {
+    const [ref] = useBox(() => ({
+        userData: { type: 'InvisibleBlock_l' }, // userData 추가
         args: props.args, // 블록의 크기
         position: props.position, // 블록의 위치
         ...props,
@@ -244,6 +265,22 @@ const Main = () => {
         };
     }, [isGrounded]);
 
+    const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate hook
+
+    const handleCollision = (event) => {
+
+        if (event.body) {
+            // 충돌한 객체가 InvisibleBlock인지 확인 후 페이지 이동
+            if (event.body.userData && event.body.userData.type === 'InvisibleBlock') {
+                console.log(1);
+            }
+
+            if (event.body.userData && event.body.userData.type === 'InvisibleBlock_l') {
+                console.log(2);
+            }
+        }
+    };
+
     return (
         <div className={"container"}>
             <Canvas shadows camera={{fov: 40}}>
@@ -264,14 +301,20 @@ const Main = () => {
                         <Debug/> {/* 물리 객체를 시각화하여 디버깅 */}
                         <Ground/>
                         <GoalPost/> {/* GoalPost 위치 변경 */}
-                        <Car move={move} setCarPosition={setCarPosition} jump={jump} isGrounded={isGrounded}
-                             setIsGrounded={setIsGrounded}/> {/* 점프 상태 및 땅에 닿음 상태 전달 */}
+                        <Car
+                            move={move}
+                            setCarPosition={setCarPosition}
+                            jump={jump}
+                            isGrounded={isGrounded}
+                            setIsGrounded={setIsGrounded}
+                            onCollision={handleCollision} // 충돌 이벤트 처리 함수 전달
+                        />
                         <>
                             {/*right invisible block*/}
-                            <InvisibleBlock position={[0, 0, -9.2]} args={[2.6, 2, 0.1]}/>
-                            <InvisibleBlock position={[1.25, 0, -8.75]} args={[0.1, 2, 1]}/>
-                            <InvisibleBlock position={[-1.25, 0, -8.75]} args={[0.1, 2, 1]}/>
-                            <InvisibleBlock position={[0, 0.7, -8.75]} args={[2.6, 0.1, 1]}/>
+                            <InvisibleBlock_l position={[0, 0, -9.2]} args={[2.6, 2, 0.1]}/>
+                            <InvisibleBlock_l position={[1.25, 0, -8.75]} args={[0.1, 2, 1]}/>
+                            <InvisibleBlock_l position={[-1.25, 0, -8.75]} args={[0.1, 2, 1]}/>
+                            <InvisibleBlock_l position={[0, 0.7, -8.75]} args={[2.6, 0.1, 1]}/>
                         </>
                         <>
                             <InvisibleBlock position={[0, 0, 9.2]} args={[2.6, 2, 0.1]}/>
