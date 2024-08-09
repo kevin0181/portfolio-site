@@ -183,6 +183,22 @@ const CameraControls = ({carPosition}) => {
     );
 };
 
+const Project_InvisibleBlock = (props) => {
+    const [ref] = useBox(() => ({
+        userData: {type: 'project_block'},
+        args: props.args,
+        position: props.position,
+        ...props,
+    }));
+
+    return (
+        <mesh ref={ref} visible={true}>
+            <boxGeometry args={props.args}/>
+            <meshBasicMaterial color="blue" wireframe/>
+        </mesh>
+    );
+};
+
 const InvisibleBlock = (props) => {
     const [ref] = useBox(() => ({
         userData: {type: 'InvisibleBlock'},
@@ -215,21 +231,22 @@ const Resume_InvisibleBlock = (props) => {
     );
 };
 
-const LoadingBar = ({progress}) => {
+const LoadingBar = ({progress, position, color1, color2, border}) => {
     return (
-        <Html position={[0, 1, -6]} transform>
+        <Html position={position} transform>
             <div style={{
                 width: '100px',
                 height: '10px',
-                backgroundColor: 'greenyellow',
+                backgroundColor: color1,
                 borderRadius: '5px',
+                border: border,
                 overflow: 'hidden',
                 //transform: 'rotate(45deg)', // 로딩 바를 45도 회전
             }}>
                 <div style={{
                     width: `${progress}%`,
                     height: '100%',
-                    backgroundColor: 'white',
+                    backgroundColor: color2,
                     transition: 'width 0.1s ease'
                 }}/>
             </div>
@@ -250,7 +267,9 @@ const Main = () => {
     const [isGrounded, setIsGrounded] = useState(true);
     const [targetPosition, setTargetPosition] = useState(null);
     const [loadingProgress, setLoadingProgress] = useState(0);  // Loading progress state
+    const [loadingProgress_project, setLoadingProgress_project] = useState(0);  // Loading progress state
     const [showLoadingBar, setShowLoadingBar] = useState(false); // Loading bar visibility
+    const [showLoadingBar_project, setShowLoadingBar_project] = useState(false); // Loading bar visibility
 
     const handleKeyDown = (event) => {
         switch (event.key) {
@@ -311,6 +330,7 @@ const Main = () => {
     const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate hook
 
     const collisionTimeoutRef = useRef(null);
+    const collisionTimeoutRef2 = useRef(null);
 
     const handleCollision = (event) => {
         if (event.body) {
@@ -340,6 +360,35 @@ const Main = () => {
                 }
             }
         }
+
+
+        if (event.body) {
+            if (event.body.userData && event.body.userData.type === 'project_block') {
+                if (!collisionTimeoutRef2.current) {
+                    setShowLoadingBar_project(true);  // Show the loading bar
+                    let progress = 0;
+                    const interval = setInterval(() => {
+                        progress += 4;
+                        setLoadingProgress_project(progress);
+                        if (progress >= 100) {
+                            clearInterval(interval);
+                            navigate("/project");
+                        }
+                    }, 62.5); // 4 seconds total
+
+                    collisionTimeoutRef2.current = interval;
+                }
+            } else {
+                // Clear the timeout if the collision ends before 4 seconds
+                if (collisionTimeoutRef2.current) {
+                    clearInterval(collisionTimeoutRef2.current);
+                    collisionTimeoutRef2.current = null;
+                    setShowLoadingBar_project(false);  // Hide the loading bar
+                    setLoadingProgress_project(0); // Reset progress
+                }
+            }
+        }
+
     };
 
     return (
@@ -377,18 +426,24 @@ const Main = () => {
                         <Resume_InvisibleBlock position={[1.25, 0, -8.75]} args={[0.1, 2, 1]}/>
                         <Resume_InvisibleBlock position={[-1.25, 0, -8.75]} args={[0.1, 2, 1]}/>
                         <Resume_InvisibleBlock position={[0, 0.7, -8.75]} args={[2.6, 0.1, 1]}/>
-                        <Resume_InvisibleBlock position={[0, 0.01, -8.75]} args={[2.6, 0.1, 1]}/>
+                        <Resume_InvisibleBlock position={[0, 0.005, -8.75]} args={[2.6, 0.1, 1]}/>
 
-                        {/*<InvisibleBlock position={[0, 0, 9.2]} args={[2.6, 2, 0.1]}/>
-                        <InvisibleBlock position={[1.25, 0, 8.75]} args={[0.1, 2, 1]}/>
-                        <InvisibleBlock position={[-1.25, 0, 8.75]} args={[0.1, 2, 1]}/>
-                        <InvisibleBlock position={[0, 0.7, 8.75]} args={[2.6, 0.1, 1]}/>*/}
+                        <Project_InvisibleBlock position={[0, 0, 9.2]} args={[2.6, 2, 0.1]}/>
+                        <Project_InvisibleBlock position={[1.25, 0, 8.75]} args={[0.1, 2, 1]}/>
+                        <Project_InvisibleBlock position={[-1.25, 0, 8.75]} args={[0.1, 2, 1]}/>
+                        <Project_InvisibleBlock position={[0, 0.7, 8.75]} args={[2.6, 0.1, 1]}/>
+                        <Project_InvisibleBlock position={[0, 0.005, 8.75]} args={[2.6, 0.1, 1]}/>
 
                         <Toy/>
                         <CameraControls carPosition={carPosition}/>
                     </Physics>
 
-                    {showLoadingBar && <LoadingBar progress={loadingProgress}/>} {/* Render loading bar */}
+                    {showLoadingBar &&
+                        <LoadingBar progress={loadingProgress} position={[0, 1, -6]} color1={"greenyellow"}
+                                    color2={"white"}/>} {/* resume */}
+                    {showLoadingBar_project &&
+                        <LoadingBar progress={loadingProgress_project} position={[0, 1, 12]} color1={"white"}
+                                    color2={"greenyellow"} border={"0.5px solid greenyellow"}/>} {/* project */}
                     <MouseHandler setTargetPosition={setTargetPosition}/>
                 </Suspense>
             </Canvas>
