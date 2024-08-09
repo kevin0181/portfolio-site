@@ -1,5 +1,5 @@
 import React, {Suspense, useEffect, useRef} from "react";
-import {useBox, useCompoundBody, useCylinder} from "@react-three/cannon";
+import {useBox, useCompoundBody, useCylinder, useSphere} from "@react-three/cannon";
 import {Loader, useFBX, useGLTF} from "@react-three/drei";
 import * as THREE from "three";
 import {useLoader} from "@react-three/fiber";
@@ -8,6 +8,14 @@ import {clone} from "three/examples/jsm/utils/SkeletonUtils";
 
 const Duck = (props) => {
     const model = useLoader(FBXLoader, './models/duck.fbx');
+
+    model.traverse((child) => {
+        if (child.isMesh) {
+            child.castShadow = true;    // 메쉬가 그림자를 드리우도록 설정
+            child.receiveShadow = true; // 메쉬가 그림자를 받도록 설정
+        }
+    });
+
     const [ref] = useBox(() => ({
         mass: 2,
         args: [0.5, 0.3, 0.8],
@@ -25,6 +33,13 @@ const Duck = (props) => {
 const Truck = (props) => {
     const model = useLoader(FBXLoader, './models/truck.fbx');
 
+    model.traverse((child) => {
+        if (child.isMesh) {
+            child.castShadow = true;    // 메쉬가 그림자를 드리우도록 설정
+            child.receiveShadow = true; // 메쉬가 그림자를 받도록 설정
+        }
+    });
+
     const [ref] = useBox(() => ({
         mass: 2,
         args: [1.5, 1, 0.6],
@@ -41,6 +56,14 @@ const Truck = (props) => {
 
 const Rocket = (props) => {
     const model = useLoader(FBXLoader, './models/Rocket.fbx');
+
+    // FBX 모델에 그림자 설정 적용
+    model.traverse((child) => {
+        if (child.isMesh) {
+            child.castShadow = true;    // 메쉬가 그림자를 드리우도록 설정
+            child.receiveShadow = true; // 메쉬가 그림자를 받도록 설정
+        }
+    });
 
     const [ref] = useBox(() => ({
         mass: 2,
@@ -61,6 +84,13 @@ const Pin = (props) => {
     let fbx = useFBX(props.fbx);
     let fbxClone = fbx.clone();
 
+    fbxClone.traverse((child) => {
+        if (child.isMesh) {
+            child.castShadow = true;    // 메쉬가 그림자를 드리우도록 설정
+            child.receiveShadow = true; // 메쉬가 그림자를 받도록 설정
+        }
+    });
+
     const [bodyRef] = useCompoundBody(() => ({
         mass: 0.1,
         shapes: [
@@ -72,14 +102,33 @@ const Pin = (props) => {
     }));
 
     return (
-        <Suspense fallback={<Loader />}>
-            <mesh ref={bodyRef} scale={props.scale} castShadow receiveShadow >
-                <primitive object={fbxClone} dispose={null} />
-                <meshStandardMaterial reflectivity={1} />
+        <Suspense fallback={<Loader/>}>
+            <mesh ref={bodyRef} scale={props.scale} castShadow receiveShadow>
+                <primitive object={fbxClone} dispose={null}/>
+                <meshStandardMaterial reflectivity={1}/>
             </mesh>
         </Suspense>
     );
 };
+
+let Sphere_ = (props) => {
+
+    let [ref] = useSphere(() => ({
+        mass: 1,
+        position: [-3, 1, -5],
+        args: [0.5],
+    }));
+
+    return (
+        <>
+            <mesh ref={ref} scale={0.5} castShadow receiveShadow>
+                <sphereGeometry/>
+                <meshStandardMaterial color="red"/>
+            </mesh>
+        </>
+    );
+}
+
 
 let Toy = () => {
 
@@ -88,6 +137,7 @@ let Toy = () => {
             <Duck/>
             <Truck/>
             <Rocket/>
+            <Sphere_/>
             <Pin fbx={'./models/bowling_pin.fbx'} scale={0.02} position={[3.75, 0.5, 7.5]}/>
             <Pin fbx={'./models/bowling_pin.fbx'} scale={0.02} position={[3.5, 0.5, 8]}/>
             <Pin fbx={'./models/bowling_pin.fbx'} scale={0.02} position={[4, 0.5, 8]}/>

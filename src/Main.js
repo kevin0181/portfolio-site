@@ -12,10 +12,12 @@ const Ground = (props) => {
     const fbx = useLoader(FBXLoader, './models/soccer field.fbx');
     const texture = useLoader(THREE.TextureLoader, './models/Soccer Field Texture_v2.png'); // 텍스처 경로를 올바르게 지정
 
-    // FBX 모델에 텍스처를 적용
+    // FBX 모델에 텍스처 및 그림자 설정 적용
     fbx.traverse((child) => {
         if (child.isMesh) {
-            child.material = new THREE.MeshStandardMaterial({map: texture});
+            child.material = new THREE.MeshStandardMaterial({ map: texture });
+            child.castShadow = true;    // 메쉬가 그림자를 드리우도록 설정
+            child.receiveShadow = true; // 메쉬가 그림자를 받도록 설정
         }
     });
 
@@ -42,6 +44,13 @@ const GoalPost = (props) => {
         ...props,
     }));
 
+    goal_post_fbx.traverse((child) => {
+        if (child.isMesh) {
+            child.castShadow = true;    // 메쉬가 그림자를 드리우도록 설정
+            child.receiveShadow = true; // 메쉬가 그림자를 받도록 설정
+        }
+    });
+
     const helperRef = useRef();
     useEffect(() => {
         if (ref.current) {
@@ -51,6 +60,14 @@ const GoalPost = (props) => {
     }, [ref]);
 
     const goal_post_l_fbx = useLoader(FBXLoader, './models/goal post_l.fbx');
+
+    goal_post_l_fbx.traverse((child) => {
+        if (child.isMesh) {
+            child.castShadow = true;    // 메쉬가 그림자를 드리우도록 설정
+            child.receiveShadow = true; // 메쉬가 그림자를 받도록 설정
+        }
+    });
+
     const [ref_l, api_l] = useBox(() => ({
         args: [0, 0, 0],
         position: [0, 0, 8.25], // 위치만 props로 변경
@@ -231,11 +248,15 @@ const Main = () => {
             <Canvas shadows camera={{fov: 40}}>
                 <ambientLight intensity={3}/>
                 <directionalLight
-                    position={[3, 3, -3]}
-                    intensity={0.5}
+                    position={[-5, 10, 5]}
                     castShadow
-                    shadow-mapSize-width={1024}
-                    shadow-mapSize-height={1024}
+                    shadow-mapSize-width={2048}  // 해상도를 높임
+                    shadow-mapSize-height={2048} // 해상도를 높임
+                    shadow-camera-far={50}
+                    shadow-camera-left={-10}  // 카메라 범위를 확장
+                    shadow-camera-right={10}  // 카메라 범위를 확장
+                    shadow-camera-top={10}    // 카메라 범위를 확장
+                    shadow-camera-bottom={-10} // 카메라 범위를 확장
                 />
                 <Physics gravity={[0, -100, 0]}> {/* 중력 설정 */}
                     <Debug/> {/* 물리 객체를 시각화하여 디버깅 */}
