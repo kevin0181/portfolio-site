@@ -1,34 +1,18 @@
- import {
-    BrowserRouter, Route, Routes, useLocation
+import {
+    BrowserRouter, Navigate, Route, Routes
 } from "react-router-dom";
-import Loading from "./load/Loading";
 import Main from "./Main";
 import Resume from "./resume/Resume";
-
-
-function useQuery() {
-    return new URLSearchParams(useLocation().search);
-}
-
-function RedirectHandler() {
-    const query = useQuery();
-    const path = query.get('');
-
-    if (path) {
-        window.history.replaceState(null, '', path);
-    }
-
-    return null;
-}
+import React from "react";
 
 function App() {
     return (
         <BrowserRouter basename={process.env.PUBLIC_URL}>
             <div className="App">
                 <Routes>
-                    <Route path={"/"} element={<Main/>}/>
+                    <Route path={"/"} element={<Navigate to="/main" replace />} />
+                    <Route path={"/main"} element={<Main/>}/>
                     <Route path={"/resume"} element={<Resume/>}/>
-                    <Route component={RedirectHandler} />
                 </Routes>
             </div>
         </BrowserRouter>
