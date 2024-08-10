@@ -4,6 +4,7 @@ import "./css/main.css";
 import Model from "./model_page/Model";
 import {Leva, useControls} from "leva";
 import {Debug, Physics} from "@react-three/cannon";
+import DefaultInfoModal from "./model_page/DefaultInfoModal";
 
 const Main = () => {
 
@@ -24,6 +25,7 @@ const Main = () => {
                 }}
             />
             <Canvas shadows camera={{fov: 45}} style={{background: "skyblue"}}>
+
                 {options.wireframe ? (
                     <Physics gravity={[0, -100, 0]}>
                         <Debug color="hotpink" scale={1.0}>

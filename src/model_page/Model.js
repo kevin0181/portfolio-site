@@ -1,5 +1,5 @@
 import Loading from "../load/Loading";
-import {Physics, useBox, useSphere} from "@react-three/cannon";
+import {useBox, useSphere} from "@react-three/cannon";
 import BackgroundModel from "./BackgroundModel";
 import Toy from "./Toy";
 import React, {Suspense, useEffect, useRef, useState} from "react";
@@ -8,6 +8,7 @@ import * as THREE from "three";
 import {Html, OrbitControls, Text, useGLTF} from "@react-three/drei";
 import {useFrame, useLoader, useThree} from "@react-three/fiber";
 import {FBXLoader} from "three/examples/jsm/loaders/FBXLoader";
+import DefaultInfoModal from "./DefaultInfoModal";
 
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
@@ -40,37 +41,6 @@ const MouseHandler = ({setTargetPosition}) => {
     }, [camera, setTargetPosition]);
 
     return null;
-};
-
-
-const BoxWithText = ({text, boxSize, textColor, position}) => {
-    const [ref] = useBox(() => ({
-        args: boxSize,
-        position: position,
-    }));
-
-    // 텍스트를 줄바꿈으로 분리하여 배열로 만듭니다.
-    const lines = text.split('/n');
-
-    return (
-        <mesh ref={ref}>
-            <boxGeometry args={boxSize}/>
-            <meshStandardMaterial color="lightblue"/>
-            {lines.map((line, index) => (
-                <Text
-                    key={index}
-                    position={[-boxSize[0] / 2 - 0.01, 0.5 * (lines.length - index - 1), 0]} // 각 줄의 위치 설정
-                    rotation={[0, -Math.PI / 2, 0]} // Y축을 기준으로 -90도 회전
-                    fontSize={0.5} // 텍스트 크기
-                    color={textColor} // 텍스트 색상
-                    anchorX="center"
-                    anchorY="middle"
-                >
-                    {line}
-                </Text>
-            ))}
-        </mesh>
-    );
 };
 
 const Ground = (props) => {
@@ -478,9 +448,12 @@ let Model = () => {
                 <BackgroundModel/>
                 <Toy/>
                 <CameraControls carPosition={carPosition}/>
-                <BoxWithText text="유영빈 /n 인생사 세옹지마" boxSize={[0.1, 4, 5]} position={[6, 3, -7]}
-                             textColor="black"/>
+
+                {/*카메라 컨트롤보다 아래에 위치해야됨*/}
+                <DefaultInfoModal/>
+
             </Suspense>
+
             {showLoadingBar &&
                 <LoadingBar progress={loadingProgress} position={[0, 1, -6]} color1={"greenyellow"}
                             color2={"white"}/>}
