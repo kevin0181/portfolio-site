@@ -1,5 +1,5 @@
 import React, {Suspense, useEffect, useRef} from "react";
-import {useBox, useCompoundBody, useCylinder, useSphere} from "@react-three/cannon";
+import {Debug, useBox, useCompoundBody, useCylinder, useSphere} from "@react-three/cannon";
 import {Loader, useFBX, useGLTF} from "@react-three/drei";
 import * as THREE from "three";
 import {useLoader} from "@react-three/fiber";
@@ -7,26 +7,30 @@ import {FBXLoader} from "three/examples/jsm/loaders/FBXLoader";
 import {clone} from "three/examples/jsm/utils/SkeletonUtils";
 
 const Duck = (props) => {
-    const model = useLoader(FBXLoader, './models/duck.fbx');
+    let fbx = useFBX("./models/duck.fbx");
+    let fbxClone = fbx.clone();
 
-    model.traverse((child) => {
+    fbxClone.traverse((child) => {
         if (child.isMesh) {
             child.castShadow = true;    // 메쉬가 그림자를 드리우도록 설정
             child.receiveShadow = true; // 메쉬가 그림자를 받도록 설정
         }
     });
 
-    const [ref] = useBox(() => ({
+    const [bodyRef] = useCompoundBody(() => ({
         mass: 2,
-        args: [0.5, 0.3, 0.8],
+        shapes: [
+            {type: 'Box', args: [0.6, 0.5, 0.85], position: [0, 0, 0], mass: 2}, // lower cylinder
+            {type: 'Box', args: [0.3, 0.2, 0.35], position: [0, 0.3, 0.15], mass: 2},  // upper sphere
+        ],
         position: [2, 3, 0],
         ...props,
     }));
 
     return (
-        <>
-            <primitive object={model} ref={ref} scale={0.001} castShadow receiveShadow/>
-        </>
+        <mesh ref={bodyRef} scale={0.001} castShadow receiveShadow>
+            <primitive object={fbxClone}/>
+        </mesh>
     );
 };
 

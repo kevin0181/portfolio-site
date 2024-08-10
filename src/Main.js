@@ -1,7 +1,7 @@
 import React, {Suspense, useEffect, useRef, useState} from "react";
 import {Canvas, useFrame, useLoader, useThree} from "@react-three/fiber";
 import {OrbitControls, useGLTF, Html, Text} from "@react-three/drei";
-import {Physics, useSphere, Debug, useBox} from "@react-three/cannon";
+import {Physics, useSphere, useBox, Debug} from "@react-three/cannon";
 import "./css/main.css";
 import {useNavigate} from "react-router-dom";
 import {FBXLoader} from "three/examples/jsm/loaders/FBXLoader";
@@ -223,23 +223,7 @@ const Project_InvisibleBlock = (props) => {
     }));
 
     return (
-        <mesh ref={ref} visible={true}>
-            <boxGeometry args={props.args}/>
-            <meshBasicMaterial color="blue" wireframe/>
-        </mesh>
-    );
-};
-
-const InvisibleBlock = (props) => {
-    const [ref] = useBox(() => ({
-        userData: {type: 'InvisibleBlock'},
-        args: props.args,
-        position: props.position,
-        ...props,
-    }));
-
-    return (
-        <mesh ref={ref} visible={true}>
+        <mesh ref={ref} visible={false}>
             <boxGeometry args={props.args}/>
             <meshBasicMaterial color="blue" wireframe/>
         </mesh>
@@ -255,9 +239,9 @@ const Resume_InvisibleBlock = (props) => {
     }));
 
     return (
-        <mesh ref={ref} visible={true}>
+        <mesh ref={ref} visible={false}>
             <boxGeometry args={props.args}/>
-            <meshBasicMaterial color="blue" wireframe/>
+            <meshBasicMaterial/>
         </mesh>
     );
 };
@@ -445,37 +429,37 @@ const Main = () => {
                         shadow-camera-bottom={-10}
                     />
                     <Physics gravity={[0, -100, 0]}>
-                        <Debug/>
-                        <Ground/>
-                        <GoalPost/>
-                        <Car
-                            move={move}
-                            setCarPosition={setCarPosition}
-                            jump={jump}
-                            isGrounded={isGrounded}
-                            setIsGrounded={setIsGrounded}
-                            onCollision={handleCollision}
-                            targetPosition={targetPosition}
-                            carPosition={carPosition}
-                            setTargetPosition={setTargetPosition}
-                        />
-                        <Resume_InvisibleBlock position={[0, 0, -9.2]} args={[2.6, 2, 0.1]}/>
-                        <Resume_InvisibleBlock position={[1.25, 0, -8.75]} args={[0.1, 2, 1]}/>
-                        <Resume_InvisibleBlock position={[-1.25, 0, -8.75]} args={[0.1, 2, 1]}/>
-                        <Resume_InvisibleBlock position={[0, 0.7, -8.75]} args={[2.6, 0.1, 1]}/>
-                        <Resume_InvisibleBlock position={[0, 0.005, -8.75]} args={[2.6, 0.1, 1]}/>
+                        {/*<Debug color="hotpink" scale={1.0}>*/}
+                            <Ground/>
+                            <GoalPost/>
+                            <Car
+                                move={move}
+                                setCarPosition={setCarPosition}
+                                jump={jump}
+                                isGrounded={isGrounded}
+                                setIsGrounded={setIsGrounded}
+                                onCollision={handleCollision}
+                                targetPosition={targetPosition}
+                                carPosition={carPosition}
+                                setTargetPosition={setTargetPosition}
+                            />
+                            <Resume_InvisibleBlock position={[0, 0, -9.2]} args={[2.6, 2, 0.1]}/>
+                            <Resume_InvisibleBlock position={[1.25, 0, -8.75]} args={[0.1, 2, 1]}/>
+                            <Resume_InvisibleBlock position={[-1.25, 0, -8.75]} args={[0.1, 2, 1]}/>
+                            <Resume_InvisibleBlock position={[0, 0.7, -8.75]} args={[2.6, 0.1, 1]}/>
+                            <Resume_InvisibleBlock position={[0, 0.005, -8.75]} args={[2.6, 0.1, 1]}/>
 
-                        <Project_InvisibleBlock position={[0, 0, 9.2]} args={[2.6, 2, 0.1]}/>
-                        <Project_InvisibleBlock position={[1.25, 0, 8.75]} args={[0.1, 2, 1]}/>
-                        <Project_InvisibleBlock position={[-1.25, 0, 8.75]} args={[0.1, 2, 1]}/>
-                        <Project_InvisibleBlock position={[0, 0.7, 8.75]} args={[2.6, 0.1, 1]}/>
-                        <Project_InvisibleBlock position={[0, 0.005, 8.75]} args={[2.6, 0.1, 1]}/>
-                        <BackgroundModel/>
-                        <Toy/>
-                        <CameraControls carPosition={carPosition}/>
-                        <BoxWithText text="유영빈 /n 인생사 세옹지마" boxSize={[0.1, 4, 5]} position={[6, 3, -7]}
-                                     textColor="black"/>
-
+                            <Project_InvisibleBlock position={[0, 0, 9.2]} args={[2.6, 2, 0.1]}/>
+                            <Project_InvisibleBlock position={[1.25, 0, 8.75]} args={[0.1, 2, 1]}/>
+                            <Project_InvisibleBlock position={[-1.25, 0, 8.75]} args={[0.1, 2, 1]}/>
+                            <Project_InvisibleBlock position={[0, 0.7, 8.75]} args={[2.6, 0.1, 1]}/>
+                            <Project_InvisibleBlock position={[0, 0.005, 8.75]} args={[2.6, 0.1, 1]}/>
+                            <BackgroundModel/>
+                            <Toy/>
+                            <CameraControls carPosition={carPosition}/>
+                            <BoxWithText text="유영빈 /n 인생사 세옹지마" boxSize={[0.1, 4, 5]} position={[6, 3, -7]}
+                                         textColor="black"/>
+                        {/*</Debug>*/}
                     </Physics>
 
                     {showLoadingBar &&
