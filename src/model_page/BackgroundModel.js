@@ -19,11 +19,29 @@ const Cloud = (props) => {
     );
 };
 
+const Sun = (props) => {
+    const model = useLoader(FBXLoader, './models/sun.fbx');
+
+    const [ref] = useBox(() => ({
+        type: 'Kinematic',
+        position: [14, 0, 17],
+        rotation: [0, -(Math.PI / 1.5), 0],
+        ...props,
+    }));
+
+    return (
+        <>
+            <primitive object={model} ref={ref} scale={0.05}/>
+        </>
+    );
+};
+
 
 let BackgroundModel = () => {
     return (
         <>
             <Cloud/>
+            <Sun/>
         </>
     );
 }
