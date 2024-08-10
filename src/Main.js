@@ -8,11 +8,12 @@ import {FBXLoader} from "three/examples/jsm/loaders/FBXLoader";
 import * as THREE from 'three';
 import Toy from "./model_page/Toy";
 import Loading from "./load/Loading";
+import BackgroundModel from "./model_page/BackgroundModel";
 
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 
-const BoxWithText = ({ text, boxSize, textColor, position }) => {
+const BoxWithText = ({text, boxSize, textColor, position}) => {
     const [ref] = useBox(() => ({
         args: boxSize,
         position: position,
@@ -23,8 +24,8 @@ const BoxWithText = ({ text, boxSize, textColor, position }) => {
 
     return (
         <mesh ref={ref}>
-            <boxGeometry args={boxSize} />
-            <meshStandardMaterial color="lightblue" />
+            <boxGeometry args={boxSize}/>
+            <meshStandardMaterial color="lightblue"/>
             {lines.map((line, index) => (
                 <Text
                     key={index}
@@ -469,10 +470,11 @@ const Main = () => {
                         <Project_InvisibleBlock position={[-1.25, 0, 8.75]} args={[0.1, 2, 1]}/>
                         <Project_InvisibleBlock position={[0, 0.7, 8.75]} args={[2.6, 0.1, 1]}/>
                         <Project_InvisibleBlock position={[0, 0.005, 8.75]} args={[2.6, 0.1, 1]}/>
-
+                        <BackgroundModel/>
                         <Toy/>
                         <CameraControls carPosition={carPosition}/>
-                        <BoxWithText text="유영빈 /n 인생사 세옹지마" boxSize={[0.1, 4, 5]} position={[6, 3, -7]} textColor="black"/>
+                        <BoxWithText text="유영빈 /n 인생사 세옹지마" boxSize={[0.1, 4, 5]} position={[6, 3, -7]}
+                                     textColor="black"/>
 
                     </Physics>
 
