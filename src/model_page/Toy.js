@@ -1,10 +1,9 @@
 import React, {Suspense, useEffect, useRef} from "react";
 import {Debug, useBox, useCompoundBody, useCylinder, useSphere} from "@react-three/cannon";
 import {Loader, useFBX, useGLTF} from "@react-three/drei";
-import * as THREE from "three";
 import {useLoader} from "@react-three/fiber";
 import {FBXLoader} from "three/examples/jsm/loaders/FBXLoader";
-import {clone} from "three/examples/jsm/utils/SkeletonUtils";
+import * as THREE from "three";
 
 const Duck = (props) => {
     let fbx = useFBX("./models/duck.fbx");
@@ -115,20 +114,55 @@ const Pin = (props) => {
     );
 };
 
-let Sphere_ = (props) => {
+let Quadrangle = (props) => {
 
-    let [ref] = useSphere(() => ({
-        mass: 1,
-        position: [-3, 1, -5],
-        args: [0.5],
+    const model = useLoader(FBXLoader, './models/quadrangle.fbx');
+    const texture = useLoader(THREE.TextureLoader, './models/quadrangle texture.jpg');
+
+    model.traverse((child) => {
+        if (child.isMesh) {
+            child.material = new THREE.MeshStandardMaterial({map: texture});
+            child.castShadow = true;
+            child.receiveShadow = true;
+        }
+    });
+
+    const [ref] = useBox(() => ({
+        mass: 7,
+        args: [0.8, 0.8, 0.8],
+        position: [3.5, 1, -5],
+        ...props,
     }));
 
     return (
         <>
-            <mesh ref={ref} scale={0.5} castShadow receiveShadow>
-                <sphereGeometry/>
-                <meshStandardMaterial color="red"/>
-            </mesh>
+            <primitive object={model} ref={ref} scale={0.02} castShadow receiveShadow/>
+        </>
+    );
+}
+
+let Sphere = (props) => {
+    const model = useLoader(FBXLoader, './models/Sphere.fbx');
+    const texture = useLoader(THREE.TextureLoader, './models/asphalt_track_diff_4k.jpg');
+
+    model.traverse((child) => {
+        if (child.isMesh) {
+            child.material = new THREE.MeshStandardMaterial({map: texture});
+            child.castShadow = true;
+            child.receiveShadow = true;
+        }
+    });
+
+    const [ref] = useSphere(() => ({
+        mass: 7,
+        args: [0.4],
+        position: [-3.5, 1, -5],
+        ...props,
+    }));
+
+    return (
+        <>
+            <primitive object={model} ref={ref} scale={0.01} castShadow receiveShadow/>
         </>
     );
 }
@@ -141,7 +175,8 @@ let Toy = () => {
             <Duck/>
             <Truck/>
             <Rocket/>
-            <Sphere_/>
+            <Quadrangle/>
+            <Sphere/>
             <Pin fbx={'./models/bowling_pin.fbx'} scale={0.02} position={[3.75, 0.5, 7.5]}/>
             <Pin fbx={'./models/bowling_pin.fbx'} scale={0.02} position={[3.5, 0.5, 8]}/>
             <Pin fbx={'./models/bowling_pin.fbx'} scale={0.02} position={[4, 0.5, 8]}/>

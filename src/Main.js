@@ -23,7 +23,7 @@ const Main = () => {
                     position: {x: 0, y: 0}
                 }}
             />
-            <Canvas shadows camera={{fov: 40}} style={{background: "skyblue"}} className={"canvas-container"}>
+            <Canvas shadows camera={{fov: 40}} style={{background: "skyblue"}}>
                 {options.wireframe ? (
                     <Physics gravity={[0, -100, 0]}>
                         <Debug color="hotpink" scale={1.0}>
