@@ -9,6 +9,7 @@ import {Html, OrbitControls, Text, useGLTF} from "@react-three/drei";
 import {useFrame, useLoader, useThree} from "@react-three/fiber";
 import {FBXLoader} from "three/examples/jsm/loaders/FBXLoader";
 import DefaultInfoModal from "./DefaultInfoModal";
+import {useControls} from "leva";
 
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
@@ -56,7 +57,7 @@ const Ground = (props) => {
     });
 
     const [ref] = useBox(() => ({
-        args: [10, 0.1, 20],
+        args: [10, 0.3, 20],
         position: [0, 0, 0],
         ...props,
     }));
@@ -72,7 +73,7 @@ const GoalPost = (props) => {
     const goal_post_fbx = useLoader(FBXLoader, './models/goal post.fbx');
     const [ref] = useBox(() => ({
         args: [0, 0, 0],
-        position: [0, 0, -8.25],
+        position: [0, 0.15, -8.25],
         ...props,
     }));
 
@@ -94,7 +95,7 @@ const GoalPost = (props) => {
 
     const [ref_l] = useBox(() => ({
         args: [0, 0, 0],
-        position: [0, 0, 8.25],
+        position: [0, 0.15, 8.25],
         ...props,
     }));
 
@@ -106,7 +107,7 @@ const GoalPost = (props) => {
     );
 };
 
-const Car = ({
+const Ball = ({
                  move,
                  setCarPosition,
                  jump,
@@ -121,7 +122,7 @@ const Car = ({
     const model = useGLTF('./models/soccer_ball.glb');
 
     const [ref, api] = useSphere(() => ({
-        mass: 10,
+        mass: 20,
         position: initialPosition,
         args: [0.1],
         angularDamping: 0.5,
@@ -186,7 +187,7 @@ const Car = ({
         api.velocity.set(velocity[0], velocity[1], velocity[2]);
 
         if (jump && isGrounded) {
-            api.applyImpulse([0, 50, 0], [0, 0, 0]);
+            api.applyImpulse([0, 100, 0], [0, 0, 0]);
         }
     });
 
@@ -270,6 +271,15 @@ const LoadingBar = ({progress, position, color1, color2, border}) => {
 };
 
 let Model = () => {
+
+
+    const options = useControls('이동', {
+        useMouse: {
+            value: false,
+            options: [true, false]
+        }
+    });
+
 
     const [move, setMove] = useState({
         forward: false,
@@ -424,7 +434,7 @@ let Model = () => {
                 />
                 <Ground/>
                 <GoalPost/>
-                <Car
+                <Ball
                     move={move}
                     setCarPosition={setCarPosition}
                     jump={jump}
@@ -435,16 +445,16 @@ let Model = () => {
                     carPosition={carPosition}
                     setTargetPosition={setTargetPosition}
                 />
-                <Resume_InvisibleBlock position={[0, 0, -9.2]} args={[2.6, 2, 0.1]}/>
-                <Resume_InvisibleBlock position={[1.25, 0, -8.75]} args={[0.1, 2, 1]}/>
-                <Resume_InvisibleBlock position={[-1.25, 0, -8.75]} args={[0.1, 2, 1]}/>
-                <Resume_InvisibleBlock position={[0, 0.7, -8.75]} args={[2.6, 0.1, 1]}/>
-                <Resume_InvisibleBlock position={[0, 0.005, -8.75]} args={[2.6, 0.1, 1]}/>
-                <Project_InvisibleBlock position={[0, 0, 9.2]} args={[2.6, 2, 0.1]}/>
-                <Project_InvisibleBlock position={[1.25, 0, 8.75]} args={[0.1, 2, 1]}/>
-                <Project_InvisibleBlock position={[-1.25, 0, 8.75]} args={[0.1, 2, 1]}/>
-                <Project_InvisibleBlock position={[0, 0.7, 8.75]} args={[2.6, 0.1, 1]}/>
-                <Project_InvisibleBlock position={[0, 0.005, 8.75]} args={[2.6, 0.1, 1]}/>
+                <Resume_InvisibleBlock position={[0, 0.15, -9.2]} args={[2.6, 2, 0.1]}/>
+                <Resume_InvisibleBlock position={[1.25, 0.15, -8.75]} args={[0.1, 2, 1]}/>
+                <Resume_InvisibleBlock position={[-1.25, 0.15, -8.75]} args={[0.1, 2, 1]}/>
+                <Resume_InvisibleBlock position={[0, 0.85, -8.75]} args={[2.6, 0.1, 1]}/>
+                <Resume_InvisibleBlock position={[0, 0.155, -8.75]} args={[2.6, 0.1, 1]}/>
+                <Project_InvisibleBlock position={[0, 0.15, 9.2]} args={[2.6, 2, 0.1]}/>
+                <Project_InvisibleBlock position={[1.25, 0.15, 8.75]} args={[0.1, 2, 1]}/>
+                <Project_InvisibleBlock position={[-1.25, 0.15, 8.75]} args={[0.1, 2, 1]}/>
+                <Project_InvisibleBlock position={[0, 0.85, 8.75]} args={[2.6, 0.1, 1]}/>
+                <Project_InvisibleBlock position={[0, 0.155, 8.75]} args={[2.6, 0.1, 1]}/>
                 <BackgroundModel/>
                 <Toy/>
                 <CameraControls carPosition={carPosition}/>
@@ -455,12 +465,12 @@ let Model = () => {
             </Suspense>
 
             {showLoadingBar &&
-                <LoadingBar progress={loadingProgress} position={[0, 1, -6]} color1={"greenyellow"}
+                <LoadingBar progress={loadingProgress} position={[0, 1.4, -6]} color1={"greenyellow"}
                             color2={"white"}/>}
             {showLoadingBar_project &&
-                <LoadingBar progress={loadingProgress_project} position={[0, 1, 12]} color1={"white"}
+                <LoadingBar progress={loadingProgress_project} position={[0, 1.4, 12]} color1={"white"}
                             color2={"greenyellow"}/>}
-            <MouseHandler setTargetPosition={setTargetPosition}/>
+            {options.useMouse && <MouseHandler setTargetPosition={setTargetPosition}/>}
         </>
     )
 }

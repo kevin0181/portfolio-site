@@ -99,7 +99,7 @@ const Pin = (props) => {
     const [bodyRef] = useCompoundBody(() => ({
         mass: 0.1,
         shapes: [
-            {type: 'Sphere', args: [0.25], position: [0, -0.1, 0], mass: 0.5}, // lower cylinder
+            {type: 'Sphere', args: [0.25], position: [0, -0.15, 0], mass: 0.5}, // lower cylinder
             {type: 'Sphere', args: [0.25], position: [0, 0.1, 0], mass: 0.5},  // upper sphere
         ],
         position: props.position,
@@ -132,7 +132,7 @@ let Quadrangle = (props) => {
     const [ref] = useBox(() => ({
         mass: 7,
         args: [0.8, 0.8, 0.8],
-        position: [3.5, 1, -5],
+        position: [3.5, 2, -5],
         ...props,
     }));
 
@@ -158,7 +158,7 @@ let Sphere = (props) => {
     const [ref] = useSphere(() => ({
         mass: 3,
         args: [0.4],
-        position: [3.5, 1, 5],
+        position: [3.5, 2, 5],
         ...props,
     }));
 
@@ -179,12 +179,12 @@ let Toy = () => {
             <Rocket/>
             <Quadrangle/>
             <Sphere/>
-            <Pin fbx={'./models/bowling_pin.fbx'} scale={0.02} position={[3.75, 0.5, 7.5]}/>
-            <Pin fbx={'./models/bowling_pin.fbx'} scale={0.02} position={[3.5, 0.5, 8]}/>
-            <Pin fbx={'./models/bowling_pin.fbx'} scale={0.02} position={[4, 0.5, 8]}/>
-            <Pin fbx={'./models/bowling_pin.fbx'} scale={0.02} position={[4.25, 0.5, 8.5]}/>
-            <Pin fbx={'./models/bowling_pin.fbx'} scale={0.02} position={[3.75, 0.5, 8.5]}/>
-            <Pin fbx={'./models/bowling_pin.fbx'} scale={0.02} position={[3.25, 0.5, 8.5]}/>
+            <Pin fbx={'./models/bowling_pin.fbx'} scale={0.02} position={[3.75, 1, 7.5]}/>
+            <Pin fbx={'./models/bowling_pin.fbx'} scale={0.02} position={[3.5, 1, 8]}/>
+            <Pin fbx={'./models/bowling_pin.fbx'} scale={0.02} position={[4, 1, 8]}/>
+            <Pin fbx={'./models/bowling_pin.fbx'} scale={0.02} position={[4.25, 1, 8.5]}/>
+            <Pin fbx={'./models/bowling_pin.fbx'} scale={0.02} position={[3.75, 1, 8.5]}/>
+            <Pin fbx={'./models/bowling_pin.fbx'} scale={0.02} position={[3.25, 1, 8.5]}/>
         </>
     );
 }

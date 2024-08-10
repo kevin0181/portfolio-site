@@ -1,6 +1,7 @@
 import {useBox} from "@react-three/cannon";
 import React from "react";
 import {Html} from "@react-three/drei";
+import "./../css/model/model.css";
 
 let DefaultInfoModal = () => {
 
@@ -23,8 +24,11 @@ let DefaultInfoModal = () => {
                         height: `${boxSize[2] * 33.6}px`,
                         boxSizing: 'border-box',
                     }}
+                    className={"model_modal_container"}
                 >
-                    Hello, World!
+                    <div>
+                        
+                    </div>
                 </div>
             </Html>
 
