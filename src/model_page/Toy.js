@@ -22,7 +22,8 @@ const Duck = (props) => {
             {type: 'Box', args: [0.6, 0.5, 0.85], position: [0, 0, 0], mass: 2}, // lower cylinder
             {type: 'Box', args: [0.3, 0.2, 0.35], position: [0, 0.3, 0.15], mass: 2},  // upper sphere
         ],
-        position: [2, 3, 0],
+        rotation: [0, -(Math.PI / 2), 0],
+        position: [4, 2, 0],
         ...props,
     }));
 
@@ -46,7 +47,8 @@ const Truck = (props) => {
     const [ref] = useBox(() => ({
         mass: 2,
         args: [1.5, 1, 0.6],
-        position: [-2, 3, 0],
+        position: [-4, 2, -6],
+        rotation: [0, -(Math.PI / 2) + 0.5, 0],
         ...props,
     }));
 
@@ -71,7 +73,7 @@ const Rocket = (props) => {
     const [ref] = useBox(() => ({
         mass: 2,
         args: [0.8, 1, 0.8],
-        position: [-2, 5, 3],
+        position: [-3.7, 2, 4],
         ...props,
     }));
 
@@ -142,8 +144,8 @@ let Quadrangle = (props) => {
 }
 
 let Sphere = (props) => {
-    const model = useLoader(FBXLoader, './models/Sphere.fbx');
-    const texture = useLoader(THREE.TextureLoader, './models/asphalt_track_diff_4k.jpg');
+    const model = useLoader(FBXLoader, './models/baseball_01_4k.fbx');
+    const texture = useLoader(THREE.TextureLoader, './models/baseball_01_diff_4k.jpg');
 
     model.traverse((child) => {
         if (child.isMesh) {
@@ -154,15 +156,15 @@ let Sphere = (props) => {
     });
 
     const [ref] = useSphere(() => ({
-        mass: 7,
+        mass: 3,
         args: [0.4],
-        position: [-3.5, 1, -5],
+        position: [3.5, 1, 5],
         ...props,
     }));
 
     return (
         <>
-            <primitive object={model} ref={ref} scale={0.01} castShadow receiveShadow/>
+            <primitive object={model} ref={ref} scale={0.1} castShadow receiveShadow/>
         </>
     );
 }
