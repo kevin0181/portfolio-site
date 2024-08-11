@@ -4,6 +4,7 @@ import {
 import Main from "./Main";
 import Resume from "./resume/Resume";
 import React from "react";
+import Razer from "./model_page/Razer";
 
 function App() {
     return (
@@ -12,6 +13,7 @@ function App() {
                 <Routes>
                     <Route path={"/"} element={<Navigate to="/main" replace/>}/>
                     <Route path={"/main"} element={<Main/>}/>
+                    <Route path={"/razer"} element={<Razer/>}/>
                     <Route path={"/resume"} element={<Resume/>}/>
                     <Route path={"/project"}/>
                 </Routes>

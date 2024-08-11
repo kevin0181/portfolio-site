@@ -108,16 +108,16 @@ const GoalPost = (props) => {
 };
 
 const Ball = ({
-                 move,
-                 setCarPosition,
-                 jump,
-                 isGrounded,
-                 setIsGrounded,
-                 onCollision,
-                 targetPosition,
-                 carPosition,
-                 setTargetPosition
-             }) => {
+                  move,
+                  setCarPosition,
+                  jump,
+                  isGrounded,
+                  setIsGrounded,
+                  onCollision,
+                  targetPosition,
+                  carPosition,
+                  setTargetPosition
+              }) => {
     const initialPosition = [3, 1, 3];
     const model = useGLTF('./models/soccer_ball.glb');
 
@@ -171,7 +171,7 @@ const Ball = ({
                     targetPosition.z - carPosition.z
                 ).normalize();
 
-                velocity = [direction.x * 15, 0, direction.z * 15];
+                velocity = [direction.x * 5, 0, direction.z * 5];
             } else {
                 setTargetPosition(null); // 목표 위치에 도달하면 초기화
             }
@@ -422,15 +422,15 @@ let Model = () => {
             <Suspense fallback={<Loading/>}>
                 <ambientLight intensity={3}/>
                 <directionalLight
-                    position={[-5, 10, 5]}
+                    position={[5, 20, 5]}
                     castShadow
-                    shadow-mapSize-width={2048}
-                    shadow-mapSize-height={2048}
-                    shadow-camera-far={50}
-                    shadow-camera-left={-10}
-                    shadow-camera-right={10}
-                    shadow-camera-top={10}
-                    shadow-camera-bottom={-10}
+                    shadow-mapSize-width={4096}
+                    shadow-mapSize-height={4096}
+                    shadow-camera-far={100}  // 그림자가 렌더링될 최대 거리
+                    shadow-camera-left={-100}  // 카메라의 좌측 경계를 넓힘
+                    shadow-camera-right={100}  // 카메라의 우측 경계를 넓힘
+                    shadow-camera-top={100}  // 카메라의 상단 경계를 넓힘
+                    shadow-camera-bottom={-100}  // 카메라의 하단 경계를 넓힘
                 />
                 <Ground/>
                 <GoalPost/>
@@ -448,7 +448,7 @@ let Model = () => {
                 <Resume_InvisibleBlock position={[0, 2.5, -46.3]} args={[12.5, 5, 0.1]}/>
                 <Resume_InvisibleBlock position={[6.3, 2.5, -43.8]} args={[0.1, 5, 5]}/>
                 <Resume_InvisibleBlock position={[-6.6, 2.5, -43.8]} args={[0.1, 5, 5]}/>
-               {/* <Resume_InvisibleBlock position={[0, 0.85, -46.3]} args={[2.6, 0.1, 1]}/>*/}
+                {/* <Resume_InvisibleBlock position={[0, 0.85, -46.3]} args={[2.6, 0.1, 1]}/>*/}
                 <Resume_InvisibleBlock position={[0, 0.97, -43.3]} args={[12.5, 0.1, 5]}/>
 
                 <Project_InvisibleBlock position={[0, 2.5, 46.3]} args={[12.5, 5, 0.1]}/>

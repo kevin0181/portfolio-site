@@ -1,0 +1,218 @@
+# 3ds Max Wavefront OBJ Exporter v0.99 - (c)2007 guruware
+# File Created: 11.08.2024 22:59:27
+
+newmtl Material_014
+	Kd 0.0160 0.0160 0.0160
+	Ks 0.0160 0.0160 0.0160
+	Tr 0.0000
+	d 1.0000
+	Tf 0.0000 0.0000 0.0000
+	Pr 0.5356
+	Pm 0.0000
+	Pc 0.0000
+	Pcr 0.0000
+	Ni 1.5200
+	Ke 0.0000 0.0000 0.0000
+	illum 2
+	norm C:\Users\???\Downloads\razer_setup_scene\textures\Material.014_normal.png
+
+newmtl Material_006
+	Kd 0.8000 0.8000 0.8000
+	Ks 0.8000 0.8000 0.8000
+	Tr 0.0000
+	d 1.0000
+	Tf 0.0000 0.0000 0.0000
+	Pr 1.0000
+	Pm 0.0000
+	Pc 0.0000
+	Pcr 0.0000
+	Ni 1.5200
+	illum 2
+	map_Kd C:\Users\???\Downloads\razer_setup_scene\textures\Material.006_baseColor.jpeg
+	map_Ke C:\Users\???\Downloads\razer_setup_scene\textures\Material.006_baseColor.jpeg
+
+newmtl Material_009
+	Kd 0.8000 0.8000 0.8000
+	Ks 0.8000 0.8000 0.8000
+	Tr 0.0000
+	d 1.0000
+	Tf 0.0000 0.0000 0.0000
+	Pr 0.5356
+	Pm 0.0000
+	Pc 0.0000
+	Pcr 0.0000
+	Ni 1.5200
+	illum 2
+	map_Kd C:\Users\???\Downloads\razer_setup_scene\textures\Material.003_baseColor.jpeg
+	map_Ke C:\Users\???\Downloads\razer_setup_scene\textures\Material.003_baseColor.jpeg
+
+newmtl Grain
+	Kd 0.0160 0.0160 0.0160
+	Ks 0.0160 0.0160 0.0160
+	Tr 0.0000
+	d 1.0000
+	Tf 0.0000 0.0000 0.0000
+	Pr 0.5356
+	Pm 0.0000
+	Pc 0.0000
+	Pcr 0.0000
+	Ni 1.5200
+	Ke 0.0000 0.0000 0.0000
+	illum 2
+
+newmtl Gloss
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Tr 0.0000
+	d 1.0000
+	Tf 0.0000 0.0000 0.0000
+	Pr 1.0000
+	Pm 0.0000
+	Pc 0.0000
+	Pcr 0.0000
+	Ni 1.5200
+	Ke 0.0000 0.0000 0.0000
+	illum 2
+
+newmtl Skates
+	Kd 0.8000 0.8000 0.8000
+	Ks 0.8000 0.8000 0.8000
+	Tr 0.0000
+	d 1.0000
+	Tf 0.0000 0.0000 0.0000
+	Pr 1.0000
+	Pm 0.0000
+	Pc 0.0000
+	Pcr 0.0000
+	Ni 1.5200
+	Ke 0.0000 0.0000 0.0000
+	illum 2
+
+newmtl Rubber
+	Kd 0.0036 0.0036 0.0036
+	Ks 0.0036 0.0036 0.0036
+	Tr 0.0000
+	d 1.0000
+	Tf 0.0000 0.0000 0.0000
+	Pr 1.0000
+	Pm 0.0000
+	Pc 0.0000
+	Pcr 0.0000
+	Ni 1.5200
+	Ke 0.0000 0.0000 0.0000
+	illum 2
+
+newmtl Material_002
+	Kd 0.0040 0.3264 0.0005
+	Ks 0.0040 0.3264 0.0005
+	Tr 0.0000
+	d 1.0000
+	Tf 0.0000 0.0000 0.0000
+	Pr 0.5356
+	Pm 0.0000
+	Pc 0.0000
+	Pcr 0.0000
+	Ni 1.5200
+	Ke 0.0256 1.0000 0.0000
+	illum 2
+
+newmtl Material_010
+	Kd 0.0100 0.0100 0.0100
+	Ks 0.0100 0.0100 0.0100
+	Tr 0.0000
+	d 1.0000
+	Tf 0.0000 0.0000 0.0000
+	Pr 0.5356
+	Pm 0.0000
+	Pc 0.0000
+	Pcr 0.0000
+	Ni 1.5200
+	Ke 0.0000 0.0000 0.0000
+	illum 2
+
+newmtl Material_012
+	Kd 0.3264 0.0302 0.0200
+	Ks 0.3264 0.0302 0.0200
+	Tr 0.0000
+	d 1.0000
+	Tf 0.0000 0.0000 0.0000
+	Pr 0.5356
+	Pm 0.0000
+	Pc 0.0000
+	Pcr 0.0000
+	Ni 1.5200
+	Ke 0.0000 0.0000 0.0000
+	illum 2
+
+newmtl Material_001
+	Kd 0.0204 0.0204 0.0204
+	Ks 0.0204 0.0204 0.0204
+	Tr 0.0000
+	d 1.0000
+	Tf 0.0000 0.0000 0.0000
+	Pr 0.5356
+	Pm 0.0000
+	Pc 0.0000
+	Pcr 0.0000
+	Ni 1.5200
+	Ke 0.0000 0.0000 0.0000
+	illum 2
+	norm C:\Users\???\Downloads\razer_setup_scene\textures\Material.001_normal.png
+
+newmtl Material_003
+	Kd 0.8000 0.8000 0.8000
+	Ks 0.8000 0.8000 0.8000
+	Tr 0.0000
+	d 1.0000
+	Tf 0.0000 0.0000 0.0000
+	Pr 0.5356
+	Pm 0.0000
+	Pc 0.0000
+	Pcr 0.0000
+	Ni 1.5200
+	illum 2
+	map_Kd C:\Users\???\Downloads\razer_setup_scene\textures\Material.003_baseColor.jpeg
+	map_Ke C:\Users\???\Downloads\razer_setup_scene\textures\Material.003_baseColor.jpeg
+
+newmtl Material_004
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Tr 0.0000
+	d 1.0000
+	Tf 0.0000 0.0000 0.0000
+	Pr 0.5356
+	Pm 0.0000
+	Pc 0.0000
+	Pcr 0.0000
+	Ni 1.5200
+	Ke 0.0000 0.0000 0.0000
+	illum 2
+
+newmtl Material_005
+	Kd 0.4385 0.2409 0.0277
+	Ks 0.4385 0.2409 0.0277
+	Tr 0.0000
+	d 1.0000
+	Tf 0.0000 0.0000 0.0000
+	Pr 0.3891
+	Pm 0.0000
+	Pc 0.0000
+	Pcr 0.0000
+	Ni 1.5200
+	Ke 0.0000 0.0000 0.0000
+	illum 2
+
+newmtl Material_007
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Tr 0.0000
+	d 1.0000
+	Tf 0.0000 0.0000 0.0000
+	Pr 0.5356
+	Pm 0.0000
+	Pc 0.0000
+	Pcr 0.0000
+	Ni 1.5200
+	Ke 0.0000 0.0000 0.0000
+	illum 2
+	norm C:\Users\???\Downloads\razer_setup_scene\textures\Material.007_normal.png

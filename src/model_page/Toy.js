@@ -4,6 +4,8 @@ import {Loader, useFBX, useGLTF} from "@react-three/drei";
 import {useLoader} from "@react-three/fiber";
 import {FBXLoader} from "three/examples/jsm/loaders/FBXLoader";
 import * as THREE from "three";
+import {MTLLoader} from "three/examples/jsm/loaders/MTLLoader";
+import {OBJLoader} from "three/examples/jsm/loaders/OBJLoader";
 
 const Duck = (props) => {
     let fbx = useFBX("./models/duck.fbx");
@@ -20,7 +22,7 @@ const Duck = (props) => {
         mass: 2,
         args: [3.2, 3, 3.5],
         rotation: [0, -(Math.PI / 2), 0],
-        position: [4, 3, 0],
+        position: [20, 3, 0],
         ...props,
     }));
 
@@ -44,7 +46,7 @@ const Truck = (props) => {
     const [ref] = useBox(() => ({
         mass: 2,
         args: [4.9, 3, 1.8],
-        position: [-4, 2, -6],
+        position: [-15, 2, -25],
         rotation: [0, -(Math.PI / 2) + 0.5, 0],
         ...props,
     }));
@@ -70,7 +72,7 @@ const Rocket = (props) => {
     const [ref] = useBox(() => ({
         mass: 2,
         args: [3.8, 7, 3.8],
-        position: [-3.7, 4, 4],
+        position: [-17, 4, 28],
         ...props,
     }));
 
@@ -81,39 +83,40 @@ const Rocket = (props) => {
     );
 };
 
-const Pin = (props) => {
+// const Pin = (props) => {
+//
+//     let fbx = useFBX(props.fbx);
+//     let fbxClone = fbx.clone();
+//
+//     fbxClone.traverse((child) => {
+//         if (child.isMesh) {
+//             child.castShadow = true;    // 메쉬가 그림자를 드리우도록 설정
+//             child.receiveShadow = true; // 메쉬가 그림자를 받도록 설정
+//         }
+//     });
+//
+//     const [bodyRef] = useCompoundBody(() => ({
+//         mass: 0.1,
+//         shapes: [
+//             {type: 'Sphere', args: [1], position: [0, 0, 0], mass: 2}, // lower cylinder
+//             {type: 'Sphere', args: [0.8], position: [0, 2, 0], mass: 2},  // upper sphere
+//             /* {type: 'Box', args: [1, 1, 1], position: [0, -1.2, 0], mass: 4},  // upper sphere*/
+//             {type: 'Sphere', args: [1], position: [0, -2, 0], mass: 2},  // upper sphere
+//         ],
+//         position: props.position,
+//         ...props,
+//     }));
+//
+//     return (
+//         <Suspense fallback={<Loader/>}>
+//             <mesh ref={bodyRef} scale={props.scale} castShadow receiveShadow>
+//                 <primitive object={fbxClone} dispose={null}/>
+//                 <meshStandardMaterial reflectivity={0}/>
+//             </mesh>
+//         </Suspense>
+//     );
+// };
 
-    let fbx = useFBX(props.fbx);
-    let fbxClone = fbx.clone();
-
-    fbxClone.traverse((child) => {
-        if (child.isMesh) {
-            child.castShadow = true;    // 메쉬가 그림자를 드리우도록 설정
-            child.receiveShadow = true; // 메쉬가 그림자를 받도록 설정
-        }
-    });
-
-    const [bodyRef] = useCompoundBody(() => ({
-        mass: 0.1,
-        shapes: [
-            {type: 'Sphere', args: [0.7], position: [0, -0.5, 0], mass: 4}, // lower cylinder
-            {type: 'Sphere', args: [0.7], position: [0, 0.5, 0], mass: 4},  // upper sphere
-            {type: 'Sphere', args: [0.7], position: [0, -1.2, 0], mass: 4},  // upper sphere
-            {type: 'Sphere', args: [0.7], position: [0, 1.2, 0], mass: 4},  // upper sphere
-        ],
-        position: props.position,
-        ...props,
-    }));
-
-    return (
-        <Suspense fallback={<Loader/>}>
-            <mesh ref={bodyRef} scale={props.scale} castShadow receiveShadow>
-                <primitive object={fbxClone} dispose={null}/>
-                <meshStandardMaterial reflectivity={1}/>
-            </mesh>
-        </Suspense>
-    );
-};
 
 let Quadrangle = (props) => {
 
@@ -131,7 +134,7 @@ let Quadrangle = (props) => {
     const [ref] = useBox(() => ({
         mass: 7,
         args: [4, 4, 4],
-        position: [3.5, 4, -5],
+        position: [10, 4, -30],
         ...props,
     }));
 
@@ -157,7 +160,7 @@ let Sphere = (props) => {
     const [ref] = useSphere(() => ({
         mass: 3,
         args: [2],
-        position: [3.5, 4, 5],
+        position: [-5, 4, 18],
         ...props,
     }));
 
@@ -178,12 +181,7 @@ let Toy = () => {
             <Rocket/>
             <Quadrangle/>
             <Sphere/>
-            <Pin fbx={'./models/bowling_pin.fbx'} scale={0.1} position={[3.75, 4, 7.5]}/>
-            {/*<Pin fbx={'./models/bowling_pin.fbx'} scale={0.1} position={[3.5, 4, 8]}/>
-            <Pin fbx={'./models/bowling_pin.fbx'} scale={0.1} position={[4, 4, 8]}/>
-            <Pin fbx={'./models/bowling_pin.fbx'} scale={0.1} position={[4.25, 4, 8.5]}/>
-            <Pin fbx={'./models/bowling_pin.fbx'} scale={0.1} position={[3.75, 4, 8.5]}/>
-            <Pin fbx={'./models/bowling_pin.fbx'} scale={0.1} position={[3.25, 4, 8.5]}/>*/}
+            {/*<Pin fbx={'./models/bowling_pin.fbx'} scale={0.15} position={[3.75, 4, 7.5]}/>*/}
         </>
     );
 }
