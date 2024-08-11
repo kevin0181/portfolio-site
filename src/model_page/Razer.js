@@ -45,7 +45,12 @@ let Window_ = () => {
                 rotation={rotation.toArray()} // rotation 속성에 Euler 객체 적용
             >
                 <div className={"razer_container"}>
-                    hi
+
+                    <div className={"mac_dock"}>
+                        <div>
+
+                        </div>
+                    </div>
                 </div>
             </Html>
         </>
