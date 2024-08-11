@@ -11,6 +11,7 @@ import macPS from "../img/mac/ps.png";
 import macYoutube from "../img/mac/mac_youtube.png";
 import macSetting from "../img/mac/mac_stting.png";
 import macFinder from "../img/mac/mac_finder.png";
+import macPhoto from "../img/mac/mac_photo.png";
 
 let Razer = (props) => {
     const model = useLoader(FBXLoader, './models/razer.fbx');
@@ -58,6 +59,12 @@ let Window_ = () => {
                                     <img src={macTerminal} alt={"icon"}/>
                                 </div>
                                 <div className={"mac_icon"}>
+                                    <img src={macFinder} alt={"icon"}/>
+                                </div>
+                                <div className={"mac_icon"}>
+                                    <img src={macPhoto} alt={"icon"}/>
+                                </div>
+                                <div className={"mac_icon"}>
                                     <img src={macPS} alt={"icon"}/>
                                 </div>
                                 <div className={"mac_icon"}>
@@ -65,9 +72,6 @@ let Window_ = () => {
                                 </div>
                                 <div className={"mac_icon"}>
                                     <img src={macSetting} alt={"icon"}/>
-                                </div>
-                                <div className={"mac_icon"}>
-                                    <img src={macFinder} alt={"icon"}/>
                                 </div>
                             </div>
                         </div>
