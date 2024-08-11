@@ -1,6 +1,6 @@
 import {Canvas, useLoader, useFrame} from "@react-three/fiber";
 import {FBXLoader} from "three/examples/jsm/loaders/FBXLoader";
-import React, {useRef, useState} from "react";
+import React, {Suspense, useRef, useState} from "react";
 import {Html, OrbitControls} from "@react-three/drei";
 import * as THREE from "three";
 
@@ -16,6 +16,7 @@ import macSpotify from "../img/mac/mac_spotify.png";
 
 import Browser from "./Browser";
 import Terminal from "./Terminal";
+import {useNavigate} from "react-router-dom";
 
 let Razer = (props) => {
     const model = useLoader(FBXLoader, './models/razer.fbx');
@@ -29,23 +30,27 @@ let Razer = (props) => {
         }
     });
 
+    const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate hook
+
     return (
         <div className={"container_m"} style={{
             backgroundColor: "black"
         }}>
             <Canvas camera={{position: [-300, 100, 300], fov: 75}}>
-                <ambientLight intensity={0.5}/>
-                <directionalLight position={[5, 10, 5]} intensity={30}/>
-                <primitive object={model} scale={0.1}/>
-                <Window_/>
-                <CameraMovement/>
-                {/*<OrbitControls/>*/}
+                <Suspense fallback={<div>Loading...</div>}>
+                    <ambientLight intensity={0.5}/>
+                    <directionalLight position={[5, 10, 5]} intensity={30}/>
+                    <primitive object={model} scale={0.1}/>
+                    <Window_ navigate={navigate}/>
+                    <CameraMovement/>
+                    {/*<OrbitControls/>*/}
+                </Suspense>
             </Canvas>
         </div>
     );
 }
 
-let Window_ = () => {
+let Window_ = ({navigate}) => {
     const rotation = new THREE.Euler(-(Math.PI / 15), -(Math.PI / 2), 0, 'YXZ');
 
     let [program, setProgram] = useState("");
@@ -71,7 +76,8 @@ let Window_ = () => {
                             program !== "" ? (<Browser program={program} setProgram={setProgram}/>) : (<></>)
                         }
                         {
-                            terminalStatus ? (<Terminal/>) : (<></>)
+                            terminalStatus ? (
+                                <Terminal navigate={navigate} setTerminalStatus={setTerminalStatus}/>) : (<></>)
                         }
                     </div>
 
