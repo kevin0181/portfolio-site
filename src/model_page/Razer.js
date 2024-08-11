@@ -52,6 +52,27 @@ let Window_ = () => {
                 rotation={rotation.toArray()} // rotation 속성에 Euler 객체 적용
             >
                 <div className={"razer_container"} style={{backgroundImage: `url(${macBackground})`}}>
+
+                    <div className={"mac_view"}>
+                        <div className="mx-auto" style={{
+                            height: "100%"
+                        }}>
+                            <div style={{
+                                height: "4%",
+                                borderRadius: "70px 70px 0px 0px"
+                            }}
+                                 className="bg-gray-200 flex items-center space-x-6 px-4">
+                                <span className="w-24 h-24 rounded-full bg-red-400"></span>
+                                <span className="w-24 h-24 rounded-full bg-yellow-400"></span>
+                                <span className="w-24 h-24 rounded-full bg-green-400"></span>
+                            </div>
+                            <div className="bg-gray-100 border-t-0 w-full h-96" style={{
+                                height: "80%",
+                                borderRadius: "0px 0px 70px 70px"
+                            }}></div>
+                        </div>
+                    </div>
+
                     <div className={"mac_dock"}>
                         <div>
                             <div className={"mac_icons"}>
@@ -82,12 +103,12 @@ let Window_ = () => {
     );
 }
 
-// Camera movement component
+
 const CameraMovement = () => {
     const cameraRef = useRef();
 
     // Target position for the camera
-    const targetPosition = new THREE.Vector3(-105, 20, 0);
+    const targetPosition = new THREE.Vector3(-85, 20, 0);
 
     // Smooth camera movement using useFrame
     useFrame(({camera}) => {

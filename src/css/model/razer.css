@@ -37,3 +37,11 @@
     justify-content: center;
     align-content: center;
 }
+
+.mac_view {
+    position: absolute;
+    top: 9%;
+    left: 15%;
+    width: 70%;
+    height: 80%;
+}
