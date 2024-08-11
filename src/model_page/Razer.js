@@ -5,6 +5,8 @@ import {Html, OrbitControls} from "@react-three/drei";
 import * as THREE from "three";
 
 import "../css/model/razer.css";
+import macBackground from "../img/mac/mac_background.jpg";
+import macTerminal from "../img/mac/mac_terminal.png";
 
 let Razer = (props) => {
     const model = useLoader(FBXLoader, './models/razer.fbx');
@@ -44,11 +46,14 @@ let Window_ = () => {
                 position={[0, 0, 0]}
                 rotation={rotation.toArray()} // rotation 속성에 Euler 객체 적용
             >
-                <div className={"razer_container"}>
-
+                <div className={"razer_container"} style={{backgroundImage: `url(${macBackground})`}}>
                     <div className={"mac_dock"}>
                         <div>
-
+                            <div className={"mac_icons"}>
+                                <div className={"mac_icon"}>
+                                    <img src={macTerminal} alt={"icon"}/>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -62,7 +67,7 @@ const CameraMovement = () => {
     const cameraRef = useRef();
 
     // Target position for the camera
-    const targetPosition = new THREE.Vector3(-110, 15, 0);
+    const targetPosition = new THREE.Vector3(-105, 20, 0);
 
     // Smooth camera movement using useFrame
     useFrame(({camera}) => {
