@@ -9,13 +9,13 @@ const Cloud = (props) => {
 
     const [ref] = useBox(() => ({
         type: 'Kinematic',
-        position: [16, 0, 7],
+        position: [150, 15, 20],
         ...props,
     }));
 
     return (
         <>
-            <primitive object={model} ref={ref} scale={0.05}/>
+            <primitive object={model} ref={ref} scale={0.5}/>
         </>
     );
 };
@@ -25,14 +25,14 @@ const Sun = (props) => {
 
     const [ref] = useBox(() => ({
         type: 'Kinematic',
-        position: [14, 0, 17],
+        position: [64, 35, 67],
         rotation: [0, -(Math.PI / 1.5), 0],
         ...props,
     }));
 
     return (
         <>
-            <primitive object={model} ref={ref} scale={0.05}/>
+            <primitive object={model} ref={ref} scale={0.2}/>
         </>
     );
 };
@@ -42,14 +42,14 @@ const Wind_Turbine = (props) => {
 
     const [ref] = useBox(() => ({
         type: 'Kinematic',
-        position: [0, -6, 20],
+        position: [0, -90, 90],
         rotation: [0, 0, 0],
         ...props,
     }));
 
     return (
         <>
-            <primitive object={model} ref={ref} scale={0.1}/>
+            <primitive object={model} ref={ref} scale={1}/>
         </>
     );
 };
@@ -69,14 +69,14 @@ const Bench = (props) => {
         type: 'Kinematic',
         position: props.position,
         rotation: props.rotation,
-        args: [3.2, 1, 1.4],
+        args: [18, 5, 7],
         ...props,
     }));
 
     return (
         <>
             <group ref={ref}>
-                <primitive object={fbxClone} scale={1}/>
+                <primitive object={fbxClone} scale={5.5}/>
             </group>
         </>
     );
@@ -88,10 +88,10 @@ let BackgroundModel = () => {
             <Cloud/>
             <Sun/>
             <Wind_Turbine/>
-            <Bench fbx={"./models/bench.fbx"} position={[3.5, 0.6, -10.68]} rotation={[0, 0, 0]}/>
-            <Bench fbx={"./models/bench.fbx"} position={[-3.5, 0.6, -10.68]} rotation={[0, 0, 0]}/>
-            <Bench fbx={"./models/bench.fbx"} position={[3.5, 0.6, 10.68]} rotation={[0, Math.PI, 0]}/>
-            <Bench fbx={"./models/bench.fbx"} position={[-3.5, 0.6, 10.68]} rotation={[0, Math.PI, 0]}/>
+            <Bench fbx={"./models/bench.fbx"} position={[16.2, 3, -54]} rotation={[0, 0, 0]}/>
+            <Bench fbx={"./models/bench.fbx"} position={[-16.2, 3, -54]} rotation={[0, 0, 0]}/>
+            <Bench fbx={"./models/bench.fbx"} position={[16.2, 3, 54]} rotation={[0, Math.PI, 0]}/>
+            <Bench fbx={"./models/bench.fbx"} position={[-16.2, 3, 54]} rotation={[0, Math.PI, 0]}/>
         </>
     );
 }

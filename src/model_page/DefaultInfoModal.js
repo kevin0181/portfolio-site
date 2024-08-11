@@ -28,7 +28,7 @@ let DefaultInfoModal = () => {
                     className={"model_modal_container"}
                 >
                     <div>
-                        <img src={`${process.env.PUBLIC_URL}/img/intagram_profile_white1.png`} loading="lazy"
+                        <img src={`${process.env.PUBLIC_URL}/img/intagram_profile_white3.png`} loading="lazy"
                              className={"instagram_profile_img"} alt={"인스타 프로필 이미지"}/>
                     </div>
                 </div>

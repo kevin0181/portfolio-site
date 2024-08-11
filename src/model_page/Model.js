@@ -57,13 +57,13 @@ const Ground = (props) => {
     });
 
     const [ref] = useBox(() => ({
-        args: [10, 0.3, 20],
+        args: [49.9, 2, 100],
         position: [0, 0, 0],
         ...props,
     }));
 
     return (
-        <mesh ref={ref} scale={0.1} receiveShadow>
+        <mesh ref={ref} scale={0.5} receiveShadow>
             <primitive object={fbx}/>
         </mesh>
     );
@@ -73,7 +73,7 @@ const GoalPost = (props) => {
     const goal_post_fbx = useLoader(FBXLoader, './models/goal post.fbx');
     const [ref] = useBox(() => ({
         args: [0, 0, 0],
-        position: [0, 0.15, -8.25],
+        position: [0, 0.15, -41.25],
         ...props,
     }));
 
@@ -95,14 +95,14 @@ const GoalPost = (props) => {
 
     const [ref_l] = useBox(() => ({
         args: [0, 0, 0],
-        position: [0, 0.15, 8.25],
+        position: [0, 0.15, 41.25],
         ...props,
     }));
 
     return (
         <>
-            <primitive object={goal_post_fbx} ref={ref} scale={0.1} receiveShadow/>
-            <primitive object={goal_post_l_fbx} ref={ref_l} scale={0.1} receiveShadow/>
+            <primitive object={goal_post_fbx} ref={ref} scale={0.5} receiveShadow/>
+            <primitive object={goal_post_l_fbx} ref={ref_l} scale={0.5} receiveShadow/>
         </>
     );
 };
@@ -118,14 +118,14 @@ const Ball = ({
                  carPosition,
                  setTargetPosition
              }) => {
-    const initialPosition = [3, 0.5, 3];
+    const initialPosition = [3, 1, 3];
     const model = useGLTF('./models/soccer_ball.glb');
 
     const [ref, api] = useSphere(() => ({
-        mass: 20,
+        mass: 10,
         position: initialPosition,
-        args: [0.1],
-        angularDamping: 0.5,
+        args: [0.9],
+        angularDamping: 0,
         onCollide: (e) => onCollision(e),
     }));
 
@@ -146,7 +146,7 @@ const Ball = ({
                 api.velocity.set(0, 0, 0);
             }
 
-            if (position[1] <= 0.6) {
+            if (position[1] <= 2.5) {
                 setIsGrounded(true);
             } else {
                 setIsGrounded(false);
@@ -171,17 +171,17 @@ const Ball = ({
                     targetPosition.z - carPosition.z
                 ).normalize();
 
-                velocity = [direction.x * 5, 0, direction.z * 5];
+                velocity = [direction.x * 15, 0, direction.z * 15];
             } else {
                 setTargetPosition(null); // 목표 위치에 도달하면 초기화
             }
         }
 
         if (!targetPosition) {
-            if (move.forward) velocity[0] += 5;
-            if (move.backward) velocity[0] -= 5;
-            if (move.left) velocity[2] -= 5;
-            if (move.right) velocity[2] += 5;
+            if (move.forward) velocity[0] += 15;
+            if (move.backward) velocity[0] -= 15;
+            if (move.left) velocity[2] -= 15;
+            if (move.right) velocity[2] += 15;
         }
 
         api.velocity.set(velocity[0], velocity[1], velocity[2]);
@@ -192,16 +192,16 @@ const Ball = ({
     });
 
     return (
-        <primitive object={model.scene} ref={ref} scale={0.2} castShadow={true}/>
+        <primitive object={model.scene} ref={ref} scale={1} castShadow={true}/>
     );
 };
 
 const CameraControls = ({carPosition}) => {
     const {camera} = useThree();
 
-    const xOffset = -10;
-    const yOffset = 10;
-    const zOffset = -5;
+    const xOffset = -20;
+    const yOffset = 20;
+    const zOffset = -10;
 
     useFrame(() => {
         camera.position.x = carPosition.x + xOffset;
@@ -445,16 +445,17 @@ let Model = () => {
                     carPosition={carPosition}
                     setTargetPosition={setTargetPosition}
                 />
-                <Resume_InvisibleBlock position={[0, 0.15, -9.2]} args={[2.6, 2, 0.1]}/>
-                <Resume_InvisibleBlock position={[1.25, 0.15, -8.75]} args={[0.1, 2, 1]}/>
-                <Resume_InvisibleBlock position={[-1.25, 0.15, -8.75]} args={[0.1, 2, 1]}/>
-                <Resume_InvisibleBlock position={[0, 0.85, -8.75]} args={[2.6, 0.1, 1]}/>
-                <Resume_InvisibleBlock position={[0, 0.155, -8.75]} args={[2.6, 0.1, 1]}/>
-                <Project_InvisibleBlock position={[0, 0.15, 9.2]} args={[2.6, 2, 0.1]}/>
-                <Project_InvisibleBlock position={[1.25, 0.15, 8.75]} args={[0.1, 2, 1]}/>
-                <Project_InvisibleBlock position={[-1.25, 0.15, 8.75]} args={[0.1, 2, 1]}/>
-                <Project_InvisibleBlock position={[0, 0.85, 8.75]} args={[2.6, 0.1, 1]}/>
-                <Project_InvisibleBlock position={[0, 0.155, 8.75]} args={[2.6, 0.1, 1]}/>
+                <Resume_InvisibleBlock position={[0, 2.5, -46.3]} args={[12.5, 5, 0.1]}/>
+                <Resume_InvisibleBlock position={[6.3, 2.5, -43.8]} args={[0.1, 5, 5]}/>
+                <Resume_InvisibleBlock position={[-6.6, 2.5, -43.8]} args={[0.1, 5, 5]}/>
+               {/* <Resume_InvisibleBlock position={[0, 0.85, -46.3]} args={[2.6, 0.1, 1]}/>*/}
+                <Resume_InvisibleBlock position={[0, 0.97, -43.3]} args={[12.5, 0.1, 5]}/>
+
+                <Project_InvisibleBlock position={[0, 2.5, 46.3]} args={[12.5, 5, 0.1]}/>
+                <Project_InvisibleBlock position={[6.3, 2.5, 43.8]} args={[0.1, 5, 5]}/>
+                <Project_InvisibleBlock position={[-6.6, 2.5, 43.8]} args={[0.1, 5, 5]}/>
+                {/*<Project_InvisibleBlock position={[0, 0.85, 8.75]} args={[2.6, 0.1, 1]}/>*/}
+                <Project_InvisibleBlock position={[0, 0.97, 43.3]} args={[12.5, 0.1, 5]}/>
                 <BackgroundModel/>
                 <Toy/>
                 <CameraControls carPosition={carPosition}/>

@@ -16,19 +16,16 @@ const Duck = (props) => {
         }
     });
 
-    const [bodyRef] = useCompoundBody(() => ({
+    const [bodyRef] = useBox(() => ({
         mass: 2,
-        shapes: [
-            {type: 'Box', args: [0.6, 0.5, 0.85], position: [0, 0, 0], mass: 2}, // lower cylinder
-            {type: 'Box', args: [0.3, 0.2, 0.35], position: [0, 0.3, 0.15], mass: 2},  // upper sphere
-        ],
+        args: [3.2, 3, 3.5],
         rotation: [0, -(Math.PI / 2), 0],
-        position: [4, 2, 0],
+        position: [4, 3, 0],
         ...props,
     }));
 
     return (
-        <mesh ref={bodyRef} scale={0.001} castShadow receiveShadow>
+        <mesh ref={bodyRef} scale={0.005} castShadow receiveShadow>
             <primitive object={fbxClone}/>
         </mesh>
     );
@@ -46,7 +43,7 @@ const Truck = (props) => {
 
     const [ref] = useBox(() => ({
         mass: 2,
-        args: [1.5, 1, 0.6],
+        args: [4.9, 3, 1.8],
         position: [-4, 2, -6],
         rotation: [0, -(Math.PI / 2) + 0.5, 0],
         ...props,
@@ -54,7 +51,7 @@ const Truck = (props) => {
 
     return (
         <>
-            <primitive object={model} ref={ref} scale={0.03} castShadow receiveShadow/>
+            <primitive object={model} ref={ref} scale={0.1} castShadow receiveShadow/>
         </>
     );
 };
@@ -72,14 +69,14 @@ const Rocket = (props) => {
 
     const [ref] = useBox(() => ({
         mass: 2,
-        args: [0.8, 1, 0.8],
-        position: [-3.7, 2, 4],
+        args: [3.8, 7, 3.8],
+        position: [-3.7, 4, 4],
         ...props,
     }));
 
     return (
         <>
-            <primitive object={model} ref={ref} scale={0.02} castShadow receiveShadow/>
+            <primitive object={model} ref={ref} scale={0.1} castShadow receiveShadow/>
         </>
     );
 };
@@ -99,8 +96,10 @@ const Pin = (props) => {
     const [bodyRef] = useCompoundBody(() => ({
         mass: 0.1,
         shapes: [
-            {type: 'Sphere', args: [0.25], position: [0, -0.15, 0], mass: 0.5}, // lower cylinder
-            {type: 'Sphere', args: [0.25], position: [0, 0.1, 0], mass: 0.5},  // upper sphere
+            {type: 'Sphere', args: [0.7], position: [0, -0.5, 0], mass: 4}, // lower cylinder
+            {type: 'Sphere', args: [0.7], position: [0, 0.5, 0], mass: 4},  // upper sphere
+            {type: 'Sphere', args: [0.7], position: [0, -1.2, 0], mass: 4},  // upper sphere
+            {type: 'Sphere', args: [0.7], position: [0, 1.2, 0], mass: 4},  // upper sphere
         ],
         position: props.position,
         ...props,
@@ -131,14 +130,14 @@ let Quadrangle = (props) => {
 
     const [ref] = useBox(() => ({
         mass: 7,
-        args: [0.8, 0.8, 0.8],
-        position: [3.5, 2, -5],
+        args: [4, 4, 4],
+        position: [3.5, 4, -5],
         ...props,
     }));
 
     return (
         <>
-            <primitive object={model} ref={ref} scale={0.02} castShadow receiveShadow/>
+            <primitive object={model} ref={ref} scale={0.1} castShadow receiveShadow/>
         </>
     );
 }
@@ -157,14 +156,14 @@ let Sphere = (props) => {
 
     const [ref] = useSphere(() => ({
         mass: 3,
-        args: [0.4],
-        position: [3.5, 2, 5],
+        args: [2],
+        position: [3.5, 4, 5],
         ...props,
     }));
 
     return (
         <>
-            <primitive object={model} ref={ref} scale={0.1} castShadow receiveShadow/>
+            <primitive object={model} ref={ref} scale={0.5} castShadow receiveShadow/>
         </>
     );
 }
@@ -179,12 +178,12 @@ let Toy = () => {
             <Rocket/>
             <Quadrangle/>
             <Sphere/>
-            <Pin fbx={'./models/bowling_pin.fbx'} scale={0.02} position={[3.75, 1, 7.5]}/>
-            <Pin fbx={'./models/bowling_pin.fbx'} scale={0.02} position={[3.5, 1, 8]}/>
-            <Pin fbx={'./models/bowling_pin.fbx'} scale={0.02} position={[4, 1, 8]}/>
-            <Pin fbx={'./models/bowling_pin.fbx'} scale={0.02} position={[4.25, 1, 8.5]}/>
-            <Pin fbx={'./models/bowling_pin.fbx'} scale={0.02} position={[3.75, 1, 8.5]}/>
-            <Pin fbx={'./models/bowling_pin.fbx'} scale={0.02} position={[3.25, 1, 8.5]}/>
+            <Pin fbx={'./models/bowling_pin.fbx'} scale={0.1} position={[3.75, 4, 7.5]}/>
+            {/*<Pin fbx={'./models/bowling_pin.fbx'} scale={0.1} position={[3.5, 4, 8]}/>
+            <Pin fbx={'./models/bowling_pin.fbx'} scale={0.1} position={[4, 4, 8]}/>
+            <Pin fbx={'./models/bowling_pin.fbx'} scale={0.1} position={[4.25, 4, 8.5]}/>
+            <Pin fbx={'./models/bowling_pin.fbx'} scale={0.1} position={[3.75, 4, 8.5]}/>
+            <Pin fbx={'./models/bowling_pin.fbx'} scale={0.1} position={[3.25, 4, 8.5]}/>*/}
         </>
     );
 }
