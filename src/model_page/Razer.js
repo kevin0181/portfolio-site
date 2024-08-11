@@ -15,6 +15,7 @@ import macPhoto from "../img/mac/mac_photo.png";
 import macSpotify from "../img/mac/mac_spotify.png";
 
 import Browser from "./Browser";
+import Terminal from "./Terminal";
 
 let Razer = (props) => {
     const model = useLoader(FBXLoader, './models/razer.fbx');
@@ -49,8 +50,11 @@ let Window_ = () => {
 
     let [program, setProgram] = useState("");
 
+    let [terminalStatus, setTerminalStatus] = useState(false);
+
     let iconOnClick = (e) => {
         setProgram(e.target.name);
+        setTerminalStatus(false);
     }
 
     return (
@@ -66,13 +70,19 @@ let Window_ = () => {
                         {
                             program !== "" ? (<Browser program={program} setProgram={setProgram}/>) : (<></>)
                         }
+                        {
+                            terminalStatus ? (<Terminal/>) : (<></>)
+                        }
                     </div>
 
                     <div className={"mac_dock"}>
                         <div>
                             <div className={"mac_icons"}>
                                 <div className={"mac_icon"}>
-                                    <img src={macTerminal} alt={"icon"} name={"terminal"}/>
+                                    <img src={macTerminal} alt={"icon"} name={"terminal"} onClick={() => {
+                                        setTerminalStatus(!terminalStatus);
+                                        setProgram("");
+                                    }}/>
                                 </div>
                                 <div className={"mac_icon"}>
                                     <img src={macFinder} alt={"icon"}/>
