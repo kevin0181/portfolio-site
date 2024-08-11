@@ -12,8 +12,8 @@ function App() {
             <div className="App">
                 <Routes>
                     <Route path={"/"} element={<Navigate to="/main" replace/>}/>
-                    <Route path={"/main"} element={<Main/>}/>
-                    <Route path={"/razer"} element={<Razer/>}/>
+                    <Route path={"/main"} element={<Razer/>}/>
+                    <Route path={"/portfolio"} element={<Main/>}/>
                     <Route path={"/resume"} element={<Resume/>}/>
                     <Route path={"/project"}/>
                 </Routes>

@@ -1,6 +1,14 @@
-import React, {useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 
 let Terminal = ({setTerminalStatus, navigate}) => {
+
+    const inputRef = useRef(null);
+
+    useEffect(() => {
+        if (inputRef.current) {
+            inputRef.current.focus(); // 컴포넌트가 마운트될 때 input 요소에 포커스를 설정
+        }
+    }, []);
 
     let onClickClose = () => {
         setTerminalStatus("");
@@ -15,7 +23,7 @@ let Terminal = ({setTerminalStatus, navigate}) => {
     let onKeyPress = (e) => {
         if (e.key === "Enter") {
             if (answer === "a") {
-                navigate("/");  // "a" 입력 시 /portfolio 페이지로 이동
+                navigate("/portfolio");  // "a" 입력 시 /portfolio 페이지로 이동
             }
         }
     }
@@ -49,7 +57,7 @@ let Terminal = ({setTerminalStatus, navigate}) => {
                 </div>
                 <div className="flex">
                     <div className="mr-2">&gt;</div>
-                    <input type="text" className="flex-1 bg-gray-800 focus:outline-none"
+                    <input type="text" className="flex-1 bg-gray-800 focus:outline-none" ref={inputRef}
                            value={answer} name={answer} onChange={onChangeAnswer} onKeyUp={onKeyPress}
                            placeholder="Type your command here"/>
                 </div>

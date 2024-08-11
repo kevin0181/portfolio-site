@@ -17,6 +17,7 @@ import macSpotify from "../img/mac/mac_spotify.png";
 import Browser from "./Browser";
 import Terminal from "./Terminal";
 import {useNavigate} from "react-router-dom";
+import Loading from "../load/Loading";
 
 let Razer = (props) => {
     const model = useLoader(FBXLoader, './models/razer.fbx');
@@ -37,7 +38,7 @@ let Razer = (props) => {
             backgroundColor: "black"
         }}>
             <Canvas camera={{position: [-300, 100, 300], fov: 75}}>
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<Loading/>}>
                     <ambientLight intensity={0.5}/>
                     <directionalLight position={[5, 10, 5]} intensity={30}/>
                     <primitive object={model} scale={0.1}/>

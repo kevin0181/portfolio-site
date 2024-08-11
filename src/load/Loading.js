@@ -15,7 +15,6 @@ const LoadingScreen = ({progress}) => {
 
 function Loading() {
 
-
     const {progress} = useProgress();
 
     return (
