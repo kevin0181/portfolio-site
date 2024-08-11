@@ -7,6 +7,10 @@ import * as THREE from "three";
 import "../css/model/razer.css";
 import macBackground from "../img/mac/mac_background.jpg";
 import macTerminal from "../img/mac/mac_terminal.png";
+import macPS from "../img/mac/ps.png";
+import macYoutube from "../img/mac/mac_youtube.png";
+import macSetting from "../img/mac/mac_stting.png";
+import macFinder from "../img/mac/mac_finder.png";
 
 let Razer = (props) => {
     const model = useLoader(FBXLoader, './models/razer.fbx');
@@ -21,7 +25,7 @@ let Razer = (props) => {
     });
 
     return (
-        <div className={"container"} style={{
+        <div className={"container_m"} style={{
             backgroundColor: "black"
         }}>
             <Canvas camera={{position: [-300, 100, 300], fov: 75}}>
@@ -52,6 +56,18 @@ let Window_ = () => {
                             <div className={"mac_icons"}>
                                 <div className={"mac_icon"}>
                                     <img src={macTerminal} alt={"icon"}/>
+                                </div>
+                                <div className={"mac_icon"}>
+                                    <img src={macPS} alt={"icon"}/>
+                                </div>
+                                <div className={"mac_icon"}>
+                                    <img src={macYoutube} alt={"icon"}/>
+                                </div>
+                                <div className={"mac_icon"}>
+                                    <img src={macSetting} alt={"icon"}/>
+                                </div>
+                                <div className={"mac_icon"}>
+                                    <img src={macFinder} alt={"icon"}/>
                                 </div>
                             </div>
                         </div>

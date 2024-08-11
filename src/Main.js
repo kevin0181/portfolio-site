@@ -16,7 +16,7 @@ const Main = () => {
     });
 
     return (
-        <div className={"container"}>
+        <div className={"container_m"}>
             <Leva
                 titleBar={{
                     filter: true,
