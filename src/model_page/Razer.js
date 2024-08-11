@@ -1,17 +1,20 @@
 import {Canvas, useLoader, useFrame} from "@react-three/fiber";
 import {FBXLoader} from "three/examples/jsm/loaders/FBXLoader";
-import React, {useRef} from "react";
+import React, {useRef, useState} from "react";
 import {Html, OrbitControls} from "@react-three/drei";
 import * as THREE from "three";
 
 import "../css/model/razer.css";
 import macBackground from "../img/mac/mac_background.jpg";
 import macTerminal from "../img/mac/mac_terminal.png";
-import macPS from "../img/mac/ps.png";
+import macMap from "../img/mac/mac_map.png";
 import macYoutube from "../img/mac/mac_youtube.png";
 import macSetting from "../img/mac/mac_stting.png";
 import macFinder from "../img/mac/mac_finder.png";
 import macPhoto from "../img/mac/mac_photo.png";
+import macSpotify from "../img/mac/mac_spotify.png";
+
+import Browser from "./Browser";
 
 let Razer = (props) => {
     const model = useLoader(FBXLoader, './models/razer.fbx');
@@ -35,7 +38,7 @@ let Razer = (props) => {
                 <primitive object={model} scale={0.1}/>
                 <Window_/>
                 <CameraMovement/>
-                <OrbitControls/>
+                {/*<OrbitControls/>*/}
             </Canvas>
         </div>
     );
@@ -43,6 +46,12 @@ let Razer = (props) => {
 
 let Window_ = () => {
     const rotation = new THREE.Euler(-(Math.PI / 15), -(Math.PI / 2), 0, 'YXZ');
+
+    let [program, setProgram] = useState("");
+
+    let iconOnClick = (e) => {
+        setProgram(e.target.name);
+    }
 
     return (
         <>
@@ -54,30 +63,16 @@ let Window_ = () => {
                 <div className={"razer_container"} style={{backgroundImage: `url(${macBackground})`}}>
 
                     <div className={"mac_view"}>
-                        <div className="mx-auto" style={{
-                            height: "100%"
-                        }}>
-                            <div style={{
-                                height: "4%",
-                                borderRadius: "70px 70px 0px 0px"
-                            }}
-                                 className="bg-gray-200 flex items-center space-x-6 px-4">
-                                <span className="w-24 h-24 rounded-full bg-red-400"></span>
-                                <span className="w-24 h-24 rounded-full bg-yellow-400"></span>
-                                <span className="w-24 h-24 rounded-full bg-green-400"></span>
-                            </div>
-                            <div className="bg-gray-100 border-t-0 w-full h-96" style={{
-                                height: "80%",
-                                borderRadius: "0px 0px 70px 70px"
-                            }}></div>
-                        </div>
+                        {
+                            program !== "" ? (<Browser program={program} setProgram={setProgram}/>) : (<></>)
+                        }
                     </div>
 
                     <div className={"mac_dock"}>
                         <div>
                             <div className={"mac_icons"}>
                                 <div className={"mac_icon"}>
-                                    <img src={macTerminal} alt={"icon"}/>
+                                    <img src={macTerminal} alt={"icon"} name={"terminal"}/>
                                 </div>
                                 <div className={"mac_icon"}>
                                     <img src={macFinder} alt={"icon"}/>
@@ -86,13 +81,16 @@ let Window_ = () => {
                                     <img src={macPhoto} alt={"icon"}/>
                                 </div>
                                 <div className={"mac_icon"}>
-                                    <img src={macPS} alt={"icon"}/>
+                                    <img src={macMap} alt={"icon"} name={"map"} onClick={iconOnClick}/>
                                 </div>
                                 <div className={"mac_icon"}>
-                                    <img src={macYoutube} alt={"icon"}/>
+                                    <img src={macYoutube} alt={"icon"} name={"youtube"} onClick={iconOnClick}/>
                                 </div>
                                 <div className={"mac_icon"}>
-                                    <img src={macSetting} alt={"icon"}/>
+                                    <img src={macSpotify} alt={"icon"} name={"spotify"} onClick={iconOnClick}/>
+                                </div>
+                                <div className={"mac_icon"}>
+                                    <img src={macSetting} alt={"icon"} name={"setting"} onClick={iconOnClick}/>
                                 </div>
                             </div>
                         </div>
