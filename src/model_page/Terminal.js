@@ -77,7 +77,7 @@ let Terminal = ({setTerminalStatus, navigate}) => {
             className="mx-auto bg-gray-900 text-gray-200 font-mono"
             style={{
                 height: "100%",
-                borderRadius: "70px 70px 0px 0px",
+                borderRadius: "70px 70px 70px 70px",
             }}
         >
             <div
