@@ -32,7 +32,9 @@ let Terminal = ({setTerminalStatus, navigate}) => {
         if (e.key === "Enter") {
             if (answer === "a") {
                 setShowConnecting(true);
-                navigate("/portfolio"); // "a" 입력 시 /portfolio 페이지로 이동
+                setTimeout(() => {
+                    navigate("/portfolio"); // "a" 입력 후 1초 뒤에 /portfolio 페이지로 이동
+                }, 1000); // 1초(1000ms) 딜레이
             } else {
                 addNewInputField();
             }
@@ -56,9 +58,10 @@ let Terminal = ({setTerminalStatus, navigate}) => {
         if (e.key === "Enter") {
             if (inputs[index] === "a") {
                 setShowConnecting(true);
-                navigate("/portfolio"); // "a" 입력 시 /portfolio 페이지로 이동
-            }
-            if (inputs[index] === "clear") {
+                setTimeout(() => {
+                    navigate("/portfolio"); // "a" 입력 후 1초 뒤에 /portfolio 페이지로 이동
+                }, 1000); // 1초(1000ms) 딜레이
+            } else if (inputs[index] === "clear") {
                 setInputs([]);
                 setInputRefs([]);
                 initialInputRef.current.focus();
@@ -93,7 +96,7 @@ let Terminal = ({setTerminalStatus, navigate}) => {
                 className="flex-1 p-4 overflow-y-hidden"
                 style={{
                     fontSize: "100px",
-                    height: "96%"
+                    height: "96%",
                 }}
             >
                 <div className="mt-2">
@@ -106,6 +109,8 @@ let Terminal = ({setTerminalStatus, navigate}) => {
                             &nbsp; Hello! This is 넨이 portfolio site.
                             <br/>
                             &nbsp; If you want to access the portfolio site, please press >> a.
+                            <br/>
+                            &nbsp; >> clear (clear answer)
                         </p>
                     </div>
                 </div>
@@ -125,20 +130,6 @@ let Terminal = ({setTerminalStatus, navigate}) => {
                         }}
                     />
                 </div>
-
-                {showConnecting && (
-                    <div className="p-2 mt-1">
-                        <p
-                            className={"text-green-500"}
-                            style={{
-                                padding: "0.3% 2%",
-                            }}
-                        >
-                            Connecting...
-                        </p>
-                    </div>
-                )}
-
                 {inputs.map((input, index) => (
                     <div key={index}>
                         {errors[index] && (
@@ -170,6 +161,20 @@ let Terminal = ({setTerminalStatus, navigate}) => {
                         </div>
                     </div>
                 ))}
+
+
+                {showConnecting && (
+                    <div className="p-2 mt-1">
+                        <p
+                            className={"text-green-500"}
+                            style={{
+                                padding: "0.3% 2%",
+                            }}
+                        >
+                            Connecting...
+                        </p>
+                    </div>
+                )}
             </div>
         </div>
     );
