@@ -140,7 +140,7 @@ let Terminal = ({setTerminalStatus, navigate}) => {
                                         padding: "0.3% 2%",
                                     }}
                                 >
-                                    {errors[index]}
+                                    {errors[index]}...
                                 </p>
                             </div>
                         )}
