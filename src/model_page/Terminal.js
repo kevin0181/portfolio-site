@@ -35,6 +35,12 @@ let Terminal = ({setTerminalStatus, navigate}) => {
                 setTimeout(() => {
                     navigate("/portfolio"); // "a" 입력 후 1초 뒤에 /portfolio 페이지로 이동
                 }, 1000); // 1초(1000ms) 딜레이
+            } else if (answer === "b") {
+                window.location.href = "https://github.com/kevin0181";
+            } else if (answer === "c") {
+                window.location.href = "https://code-nen.tistory.com/";
+            } else if (answer === "d") {
+                window.location.href = "https://neneee.notion.site/My-Life-a89c7f78cc7c4b1cb1a0874d1283a15d";
             } else {
                 addNewInputField();
             }
@@ -61,6 +67,12 @@ let Terminal = ({setTerminalStatus, navigate}) => {
                 setTimeout(() => {
                     navigate("/portfolio"); // "a" 입력 후 1초 뒤에 /portfolio 페이지로 이동
                 }, 1000); // 1초(1000ms) 딜레이
+            } else if (inputs[index] === "b") {
+                window.location.href = "https://github.com/kevin0181";
+            } else if (inputs[index] === "c") {
+                window.location.href = "https://code-nen.tistory.com/";
+            } else if (inputs[index] === "d") {
+                window.location.href = "https://neneee.notion.site/My-Life-a89c7f78cc7c4b1cb1a0874d1283a15d";
             } else if (inputs[index] === "clear") {
                 setInputs([]);
                 setInputRefs([]);
@@ -108,7 +120,13 @@ let Terminal = ({setTerminalStatus, navigate}) => {
                         >
                             &nbsp; Hello! This is 넨이 portfolio site.
                             <br/>
-                            &nbsp; If you want to access the portfolio site, please press >> a.
+                            &nbsp; >> a (Portfolio)
+                            <br/>
+                            &nbsp; >> b (Github)
+                            <br/>
+                            &nbsp; >> c (Blog)
+                            <br/>
+                            &nbsp; >> d (Notion)
                             <br/>
                             &nbsp; >> clear (clear answer)
                         </p>

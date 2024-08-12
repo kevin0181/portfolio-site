@@ -47,10 +47,10 @@ let Razer = (props) => {
             backgroundColor: "black"
         }}>
             <Canvas camera={{position: [-300, 100, 300], fov: 75}}>
+                <ambientLight intensity={0.5}/>
+                <directionalLight position={[5, 10, 5]} intensity={30}/>
+                <primitive object={model} scale={0.1}/>
                 <Suspense fallback={<Loading/>}>
-                    <ambientLight intensity={0.5}/>
-                    <directionalLight position={[5, 10, 5]} intensity={30}/>
-                    <primitive object={model} scale={0.1}/>
                     <Window_ navigate={navigate}/>
                     <CameraMovement/>
                     {/*<OrbitControls/>*/}
