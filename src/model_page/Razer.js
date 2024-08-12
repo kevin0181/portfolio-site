@@ -21,11 +21,9 @@ import Loading from "../load/Loading";
 
 let Razer = (props) => {
     const model = useLoader(FBXLoader, './models/razer.fbx');
-    const texture = useLoader(THREE.TextureLoader, './textures/razer/Material.003_baseColor.jpeg');
 
     model.traverse((child) => {
         if (child.isMesh) {
-            //child.material = new THREE.MeshStandardMaterial({map: texture});
             child.castShadow = true;
             child.receiveShadow = true;
         }
@@ -56,7 +54,7 @@ let Window_ = ({navigate}) => {
 
     let [program, setProgram] = useState("");
 
-    let [terminalStatus, setTerminalStatus] = useState(false);
+    let [terminalStatus, setTerminalStatus] = useState(true);
 
     let iconOnClick = (e) => {
         setProgram(e.target.name);
