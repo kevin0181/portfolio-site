@@ -251,8 +251,8 @@ const LoadingBar = ({progress, position, color1, color2, border}) => {
     return (
         <Html position={position} transform>
             <div style={{
-                width: '100px',
-                height: '10px',
+                width: '400px',
+                height: '40px',
                 backgroundColor: color1,
                 borderRadius: '5px',
                 border: border,
@@ -270,7 +270,7 @@ const LoadingBar = ({progress, position, color1, color2, border}) => {
     );
 };
 
-let Model = () => {
+let Model = ({setShowHtml}) => {
 
 
     const options = useControls('이동', {
@@ -370,7 +370,8 @@ let Model = () => {
                         setLoadingProgress(progress);
                         if (progress >= 100) {
                             clearInterval(interval);
-                            navigate("/resume");
+                            //navigate("/resume");
+                            setShowHtml("resume");
                         }
                     }, 62.5); // 4 seconds total
 
@@ -383,6 +384,7 @@ let Model = () => {
                     collisionTimeoutRef.current = null;
                     setShowLoadingBar(false);  // Hide the loading bar
                     setLoadingProgress(0); // Reset progress
+                    setShowHtml("");
                 }
             }
         }
@@ -461,12 +463,12 @@ let Model = () => {
                 <CameraControls carPosition={carPosition}/>
 
                 {/*카메라 컨트롤보다 아래에 위치해야됨*/}
-                <DefaultInfoModal/>
+                {/* <DefaultInfoModal/>*/}
 
             </Suspense>
 
             {showLoadingBar &&
-                <LoadingBar progress={loadingProgress} position={[0, 1.4, -6]} color1={"greenyellow"}
+                <LoadingBar progress={loadingProgress} position={[0, 1.4, -20]} color1={"greenyellow"}
                             color2={"white"}/>}
             {showLoadingBar_project &&
                 <LoadingBar progress={loadingProgress_project} position={[0, 1.4, 12]} color1={"white"}

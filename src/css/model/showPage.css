@@ -1,0 +1,8 @@
+.showPage_container {
+    width: 40%;
+    height: 80%;
+    position: absolute;
+    z-index: 10;
+    background-color: rgb(0, 0, 0, 0.5);
+    left: 3%;
+}

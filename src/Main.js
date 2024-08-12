@@ -1,10 +1,10 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Canvas} from "@react-three/fiber";
 import "./css/main.css";
 import Model from "./model_page/Model";
 import {Leva, useControls} from "leva";
 import {Debug, Physics} from "@react-three/cannon";
-import DefaultInfoModal from "./model_page/DefaultInfoModal";
+import ShowPage from "./model_page/ShowPage";
 
 const Main = () => {
 
@@ -15,8 +15,11 @@ const Main = () => {
         }
     });
 
+    let [showHtml, setShowHtml] = useState("");
+
     return (
         <div className={"container_m"}>
+            {showHtml !== "" ? (<ShowPage/>) : (<></>)}
             <Leva
                 titleBar={{
                     filter: true,
@@ -24,17 +27,16 @@ const Main = () => {
                     position: {x: 0, y: 0}
                 }}
             />
-            <Canvas shadows camera={{fov: 100}} style={{background: "skyblue"}}>
-
+            <Canvas shadows camera={{fov: 70}} style={{background: "skyblue"}}>
                 {options.wireframe ? (
                     <Physics gravity={[0, -100, 0]}>
                         <Debug color="hotpink" scale={1.0}>
-                            <Model/>
+                            <Model setShowHtml={setShowHtml}/>
                         </Debug>
                     </Physics>
                 ) : (
                     <Physics gravity={[0, -100, 0]}>
-                        <Model/>
+                        <Model setShowHtml={setShowHtml}/>
                     </Physics>
                 )}
             </Canvas>

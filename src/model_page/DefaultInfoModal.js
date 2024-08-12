@@ -2,6 +2,7 @@ import {useBox} from "@react-three/cannon";
 import React from "react";
 import {Html} from "@react-three/drei";
 import "./../css/model/model.css";
+import main_insta from "./../img/instagram/main_insta.png";
 
 let DefaultInfoModal = () => {
 
@@ -28,8 +29,8 @@ let DefaultInfoModal = () => {
                     className={"model_modal_container"}
                 >
                     <div>
-                        <img src={`${process.env.PUBLIC_URL}/img/intagram_profile_white.png`} loading="lazy"
-                             className={"instagram_profile_img"} alt={"인스타 프로필 이미지"}/>
+                        <img src={main_insta} loading="lazy"
+                             className={"instagram_profile_img"} alt={"인스타 이미지"}/>
                     </div>
                 </div>
             </Html>
