@@ -1,6 +1,6 @@
 import {Canvas, useLoader, useFrame} from "@react-three/fiber";
 import {FBXLoader} from "three/examples/jsm/loaders/FBXLoader";
-import React, {Suspense, useRef, useState} from "react";
+import React, {Suspense, useEffect, useRef, useState} from "react";
 import {Html, OrbitControls} from "@react-three/drei";
 import * as THREE from "three";
 
@@ -20,6 +20,18 @@ import {useNavigate} from "react-router-dom";
 import Loading from "../load/Loading";
 
 let Razer = (props) => {
+
+    const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate hook
+
+    useEffect(() => {
+        // Check if the screen width is less than or equal to 768px (common mobile screen width)
+        const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
+        if (isMobile) {
+            navigate("/portfolio");
+        }
+    }, [navigate]);
+
     const model = useLoader(FBXLoader, './models/razer.fbx');
 
     model.traverse((child) => {
@@ -29,7 +41,6 @@ let Razer = (props) => {
         }
     });
 
-    const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate hook
 
     return (
         <div className={"container_m"} style={{
