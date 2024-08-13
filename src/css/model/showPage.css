@@ -1,8 +1,40 @@
+/* styles.css */
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
 .showPage_container {
-    width: 40%;
-    height: 80%;
-    position: absolute;
+    animation: slideIn 0.5s ease-out forwards;
+}
+
+.showPage_container.hide {
+    animation: slideOut 0.5s ease-out forwards;
+}
+
+.showPage_container {
+    position: fixed;
+    width: 90%;
+    height: 90%;
     z-index: 10;
     background-color: rgb(0, 0, 0, 0.5);
-    left: 3%;
+    /*left: 3%;*/
+    border-radius: 10px;
 }

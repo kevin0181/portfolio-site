@@ -254,7 +254,7 @@ const LoadingBar = ({progress, position, color1, color2, border}) => {
                 width: '400px',
                 height: '40px',
                 backgroundColor: color1,
-                borderRadius: '5px',
+                borderRadius: '20px',
                 border: border,
                 overflow: 'hidden',
                 //transform: 'rotate(45deg)', // 로딩 바를 45도 회전
@@ -372,6 +372,7 @@ let Model = ({setShowHtml}) => {
                             clearInterval(interval);
                             //navigate("/resume");
                             setShowHtml("resume");
+                            setShowLoadingBar(false);  // Hide the loading bar
                         }
                     }, 62.5); // 4 seconds total
 
@@ -400,7 +401,8 @@ let Model = ({setShowHtml}) => {
                         setLoadingProgress_project(progress);
                         if (progress >= 100) {
                             clearInterval(interval);
-                            navigate("/project");
+                            //navigate("/project");
+                            setShowLoadingBar(false);  // Hide the loading bar
                         }
                     }, 62.5); // 4 seconds total
 
