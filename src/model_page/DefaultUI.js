@@ -1,11 +1,10 @@
 import "./../css/ui.css";
 import React, {useState} from 'react';
 
-const ThemeToggle = () => {
-    const [isDarkMode, setIsDarkMode] = useState(true);
+const ThemeToggle = ({darkMode, setDarkMode}) => {
 
     const toggleDarkMode = () => {
-        setIsDarkMode(!isDarkMode);
+        setDarkMode(!darkMode);
         document.body.classList.toggle('dark');
     };
 
@@ -21,14 +20,7 @@ const ThemeToggle = () => {
                      aria-label="Toggle Dark Mode"
                 >
                     <svg
-                        className={`fill-violet-700 block ${isDarkMode ? 'hidden' : ''}`}
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                    >
-                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
-                    </svg>
-                    <svg
-                        className={`fill-yellow-500 ${isDarkMode ? 'block' : 'hidden'}`}
+                        className={`fill-yellow-500 block ${darkMode ? 'hidden' : ''}`}
                         fill="currentColor"
                         viewBox="0 0 20 20"
                     >
@@ -37,6 +29,13 @@ const ThemeToggle = () => {
                             fillRule="evenodd"
                             clipRule="evenodd"
                         ></path>
+                    </svg>
+                    <svg
+                        className={`fill-violet-700 ${darkMode ? 'block' : 'hidden'}`}
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                    >
+                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
                     </svg>
                 </div>
             </div>

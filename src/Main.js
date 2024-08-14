@@ -18,12 +18,12 @@ const Main = () => {
     });
 
     let [mouseStatus, setMouseStatus] = useState(false);
-
+    let [darkMode, setDarkMode] = useState(false);
     let [showHtml, setShowHtml] = useState("");
 
     return (
         <div className={"container_m"}>
-            <DefaultUI/>
+            <DefaultUI darkMode={darkMode} setDarkMode={setDarkMode}/>
             {showHtml !== "" ? (<ShowPage showHtml={showHtml} setShowHtml={setShowHtml}/>) : (<></>)}
             <Leva
                 titleBar={{
