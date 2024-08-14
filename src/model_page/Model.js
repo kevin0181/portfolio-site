@@ -385,7 +385,7 @@ let Model = ({setShowHtml}) => {
                     collisionTimeoutRef.current = null;
                     setShowLoadingBar(false);  // Hide the loading bar
                     setLoadingProgress(0); // Reset progress
-                    setShowHtml("");
+                    setShowHtml("cls");
                 }
             }
         }
