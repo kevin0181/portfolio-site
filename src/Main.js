@@ -6,6 +6,7 @@ import {Leva, useControls} from "leva";
 import {Debug, Physics} from "@react-three/cannon";
 import ShowPage from "./model_page/ShowPage";
 import "./css/model/showPage.css";
+import DefaultUI from "./model_page/DefaultUI";
 
 const Main = () => {
 
@@ -22,6 +23,7 @@ const Main = () => {
 
     return (
         <div className={"container_m"}>
+            <DefaultUI/>
             {showHtml !== "" ? (<ShowPage showHtml={showHtml} setShowHtml={setShowHtml}/>) : (<></>)}
             <Leva
                 titleBar={{

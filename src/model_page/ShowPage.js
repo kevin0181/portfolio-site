@@ -20,11 +20,11 @@ let ShowPage = ({showHtml, setShowHtml}) => {
     };
 
     return (
-        <div className={`showPage_container ${isVisible ? "" : "hide"}`}>
+        <div className={`showPage_container dark:bg-gray-800 ${isVisible ? "" : "hide"}`}>
             {/* 슬라이드 애니메이션이 적용될 내용 */}
             <div
                 onClick={handleClose}
-                className="close-button p-2 text-gray-400 cursor-pointer inline-flex items-center justify-center"
+                className="close-button p-2 dark:text-white text-gray-400 cursor-pointer inline-flex items-center justify-center"
                 role="button"
                 aria-label="Close menu"
             >
@@ -32,6 +32,9 @@ let ShowPage = ({showHtml, setShowHtml}) => {
                      stroke="currentColor" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/>
                 </svg>
+            </div>
+            <div>
+
             </div>
         </div>
     );
