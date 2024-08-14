@@ -7,10 +7,8 @@ let ShowPage = ({showHtml, setShowHtml}) => {
     useEffect(() => {
         console.log(showHtml);
         if (showHtml === "cls") {
-            console.log(2);
             handleClose();
         } else if (showHtml !== "") {
-            console.log(1);
             setIsVisible(true);
         }
     }, [showHtml]);
@@ -24,7 +22,16 @@ let ShowPage = ({showHtml, setShowHtml}) => {
     return (
         <div className={`showPage_container ${isVisible ? "" : "hide"}`}>
             {/* 슬라이드 애니메이션이 적용될 내용 */}
-            <button onClick={handleClose}>Close</button>
+            <button type="button" onClick={handleClose}
+                    className="close-button p-2 inline-flex items-center justify-center text-gray-400" style={{
+                border: "none"
+            }}>
+                <span className="sr-only">Close menu</span>
+                <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
         </div>
     );
 }

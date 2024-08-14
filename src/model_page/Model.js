@@ -171,7 +171,7 @@ const Ball = ({
                     targetPosition.z - carPosition.z
                 ).normalize();
 
-                velocity = [direction.x * 5, 0, direction.z * 5];
+                velocity = [direction.x * 15, 0, direction.z * 15];
             } else {
                 setTargetPosition(null); // 목표 위치에 도달하면 초기화
             }
@@ -401,7 +401,7 @@ let Model = ({setShowHtml}) => {
                         setLoadingProgress_project(progress);
                         if (progress >= 100) {
                             clearInterval(interval);
-                            //navigate("/project");
+                            options.useMouse.value = false;
                             setShowLoadingBar(false);  // Hide the loading bar
                         }
                     }, 62.5); // 4 seconds total

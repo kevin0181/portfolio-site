@@ -34,7 +34,16 @@
     width: 90%;
     height: 90%;
     z-index: 10;
-    background-color: rgb(0, 0, 0, 0.5);
+    background-color: rgba(255, 255, 255, 0.8);
     /*left: 3%;*/
     border-radius: 10px;
+}
+
+.showPage_container .close-button {
+    transition: all 0.3s ease;
+}
+
+.showPage_container .close-button:hover {
+    transform: rotate(90deg);
+    color: red;
 }
