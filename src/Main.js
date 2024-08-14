@@ -16,6 +16,8 @@ const Main = () => {
         }
     });
 
+    let [mouseStatus, setMouseStatus] = useState(false);
+
     let [showHtml, setShowHtml] = useState("");
 
     return (
@@ -32,12 +34,12 @@ const Main = () => {
                 {options.wireframe ? (
                     <Physics gravity={[0, -100, 0]}>
                         <Debug color="hotpink" scale={1.0}>
-                            <Model setShowHtml={setShowHtml}/>
+                            <Model setShowHtml={setShowHtml} mouseStatus={mouseStatus}/>
                         </Debug>
                     </Physics>
                 ) : (
                     <Physics gravity={[0, -100, 0]}>
-                        <Model setShowHtml={setShowHtml}/>
+                        <Model setShowHtml={setShowHtml} mouseStatus={mouseStatus}/>
                     </Physics>
                 )}
             </Canvas>

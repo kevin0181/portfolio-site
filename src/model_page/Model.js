@@ -270,16 +270,7 @@ const LoadingBar = ({progress, position, color1, color2, border}) => {
     );
 };
 
-let Model = ({setShowHtml}) => {
-
-
-    const options = useControls('이동', {
-        useMouse: {
-            value: false,
-            options: [true, false]
-        }
-    });
-
+let Model = ({setShowHtml, mouseStatus}) => {
 
     const [move, setMove] = useState({
         forward: false,
@@ -401,7 +392,6 @@ let Model = ({setShowHtml}) => {
                         setLoadingProgress_project(progress);
                         if (progress >= 100) {
                             clearInterval(interval);
-                            options.useMouse.value = false;
                             setShowLoadingBar(false);  // Hide the loading bar
                         }
                     }, 62.5); // 4 seconds total
@@ -475,7 +465,7 @@ let Model = ({setShowHtml}) => {
             {showLoadingBar_project &&
                 <LoadingBar progress={loadingProgress_project} position={[0, 1.4, 12]} color1={"white"}
                             color2={"greenyellow"}/>}
-            {options.useMouse && <MouseHandler setTargetPosition={setTargetPosition}/>}
+            {mouseStatus ? (<MouseHandler setTargetPosition={setTargetPosition}/>) : (<></>)}
         </>
     )
 }
