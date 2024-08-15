@@ -262,6 +262,38 @@ const Resume_InvisibleBlock = (props) => {
     );
 };
 
+const AboutMe_InvisibleBlock = (props) => {
+    const [ref] = useBox(() => ({
+        userData: {type: 'aboutMe'},
+        args: props.args,
+        position: props.position,
+        ...props,
+    }));
+
+    return (
+        <mesh ref={ref} visible={false}>
+            <boxGeometry args={props.args}/>
+            <meshBasicMaterial/>
+        </mesh>
+    );
+};
+
+const Career_InvisibleBlock = (props) => {
+    const [ref] = useBox(() => ({
+        userData: {type: 'career'},
+        args: props.args,
+        position: props.position,
+        ...props,
+    }));
+
+    return (
+        <mesh ref={ref} visible={false}>
+            <boxGeometry args={props.args}/>
+            <meshBasicMaterial/>
+        </mesh>
+    );
+};
+
 let Model = ({setShowHtml, mouseStatus, darkMode}) => {
 
     const [move, setMove] = useState({
@@ -347,7 +379,11 @@ let Model = ({setShowHtml, mouseStatus, darkMode}) => {
                         } else if (event.body.userData.type === 'project_block') {
                             setShowHtml("project");
                         } else if (event.body.userData.type === 'skill_block') {
-                            setShowHtml("skill")
+                            setShowHtml("skill");
+                        } else if (event.body.userData.type === 'aboutMe') {
+                            setShowHtml("aboutMe");
+                        } else if (event.body.userData.type === 'career') {
+                            setShowHtml("career");
                         }
                     }, 62.5); // 4 seconds total
 
@@ -393,6 +429,8 @@ let Model = ({setShowHtml, mouseStatus, darkMode}) => {
                     setTargetPosition={setTargetPosition}
                 />
                 <Skill_InvisibleBlock position={[16.8, 1, -12.2]} args={[4.3, 0.1, 5.6]}/>
+                <AboutMe_InvisibleBlock position={[-18.3, 1, -12.2]} args={[4.3, 0.1, 5.6]}/>
+                <Career_InvisibleBlock position={[-18.3, 1, 11.3]} args={[4.3, 0.1, 5.6]}/>
 
                 <Resume_InvisibleBlock position={[0, 2.5, -46.3]} args={[12.5, 5, 0.1]}/>
                 <Resume_InvisibleBlock position={[6.3, 2.5, -43.8]} args={[0.1, 5, 5]}/>
