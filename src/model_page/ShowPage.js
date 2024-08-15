@@ -42,7 +42,7 @@ let ShowPage = ({showHtml, setShowHtml}) => {
     }
 
     return (
-        <div className={`showPage_container dark:bg-gray-800 ${isVisible ? "" : "hide"}`}>
+        <div className={`showPage_container dark:bg-gray-800 text-black dark:text-white ${isVisible ? "" : "hide"}`}>
             {/* 슬라이드 애니메이션이 적용될 내용 */}
             <div
                 onClick={handleClose}
