@@ -1,5 +1,10 @@
 import "./../css/model/showPage.css";
 import {useEffect, useState} from "react";
+import Resume from "./modalComponent/Resume";
+import Project from "./modalComponent/Project";
+import Skill from "./modalComponent/Skill";
+import AboutMe from "./modalComponent/AboutMe";
+import Career from "./modalComponent/Career";
 
 let ShowPage = ({showHtml, setShowHtml}) => {
     const [isVisible, setIsVisible] = useState(false);
@@ -19,6 +24,23 @@ let ShowPage = ({showHtml, setShowHtml}) => {
         }, 500);
     };
 
+    let ModalComponent = ({showHtml}) => {
+
+        switch (showHtml) {
+            case 'resume':
+                return <Resume/>;
+            case 'project':
+                return <Project/>;
+            case 'skill':
+                return <Skill/>;
+            case 'aboutMe':
+                return <AboutMe/>;
+            case 'career':
+                return <Career/>;
+        }
+
+    }
+
     return (
         <div className={`showPage_container dark:bg-gray-800 ${isVisible ? "" : "hide"}`}>
             {/* 슬라이드 애니메이션이 적용될 내용 */}
@@ -34,7 +56,7 @@ let ShowPage = ({showHtml, setShowHtml}) => {
                 </svg>
             </div>
             <div>
-
+                <ModalComponent showHtml={showHtml}/>
             </div>
         </div>
     );
