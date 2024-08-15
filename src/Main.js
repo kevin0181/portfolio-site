@@ -33,16 +33,17 @@ const Main = () => {
                     position: {x: 0, y: 0}
                 }}
             />
-            <Canvas shadows camera={{fov: 70}} style={{background: "skyblue"}}>
+            <Canvas shadows camera={{fov: 70}} className={"dark:bg-gray-800 bg-sky-300"}
+                    key={darkMode ? "darkModeEnabled" : "darkModeDisabled"}>
                 {options.wireframe ? (
                     <Physics gravity={[0, -100, 0]}>
                         <Debug color="hotpink" scale={1.0}>
-                            <Model setShowHtml={setShowHtml} mouseStatus={mouseStatus}/>
+                            <Model setShowHtml={setShowHtml} mouseStatus={mouseStatus} darkMode={darkMode}/>
                         </Debug>
                     </Physics>
                 ) : (
                     <Physics gravity={[0, -100, 0]}>
-                        <Model setShowHtml={setShowHtml} mouseStatus={mouseStatus}/>
+                        <Model setShowHtml={setShowHtml} mouseStatus={mouseStatus} darkMode={darkMode}/>
                     </Physics>
                 )}
             </Canvas>

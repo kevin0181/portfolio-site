@@ -54,6 +54,22 @@ const Wind_Turbine = (props) => {
     );
 };
 
+const Stars = (props) => {
+    const model = useLoader(FBXLoader, './models/star1.fbx');
+
+    const [ref] = useBox(() => ({
+        type: 'Kinematic',
+        position: [60, 0, -25],
+        rotation: [0, 0, 0],
+        ...props,
+    }));
+
+    return (
+        <>
+            <primitive object={model} ref={ref} scale={1}/>
+        </>
+    );
+};
 const Bench = (props) => {
     let fbx = useFBX(props.fbx);
     let fbxClone = fbx.clone();
@@ -82,11 +98,17 @@ const Bench = (props) => {
     );
 };
 
-let BackgroundModel = () => {
+let BackgroundModel = ({darkMode}) => {
     return (
         <>
-            <Cloud/>
-            <Sun/>
+            {darkMode ? (
+                <>
+                    <Stars/>
+                </>) : (
+                <>
+                    <Cloud/>
+                    <Sun/>
+                </>)}
             <Wind_Turbine/>
             <Bench fbx={"./models/bench.fbx"} position={[16.2, 3, -54]} rotation={[0, 0, 0]}/>
             <Bench fbx={"./models/bench.fbx"} position={[-16.2, 3, -54]} rotation={[0, 0, 0]}/>

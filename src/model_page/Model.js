@@ -197,7 +197,7 @@ const Ball = ({
     );
 };
 
-const CameraControls = ({carPosition}) => {
+const CameraControls = ({carPosition, darkMode}) => {
     const {camera} = useThree();
 
     const xOffset = -20;
@@ -271,7 +271,7 @@ const LoadingBar = ({progress, position, color1, color2, border}) => {
     );
 };
 
-let Model = ({setShowHtml, mouseStatus}) => {
+let Model = ({setShowHtml, mouseStatus, darkMode}) => {
 
     const [move, setMove] = useState({
         forward: false,
@@ -450,9 +450,9 @@ let Model = ({setShowHtml, mouseStatus}) => {
                 <Project_InvisibleBlock position={[-6.6, 2.5, 43.8]} args={[0.1, 5, 5]}/>
                 {/*<Project_InvisibleBlock position={[0, 0.85, 8.75]} args={[2.6, 0.1, 1]}/>*/}
                 <Project_InvisibleBlock position={[0, 0.97, 43.3]} args={[12.5, 0.1, 5]}/>
-                <BackgroundModel/>
+                <BackgroundModel darkMode={darkMode}/>
                 <Toy/>
-                <CameraControls carPosition={carPosition}/>
+                <CameraControls carPosition={carPosition} darkMode={darkMode}/>
 
                 {/*카메라 컨트롤보다 아래에 위치해야됨*/}
                 {/* <DefaultInfoModal/>*/}
