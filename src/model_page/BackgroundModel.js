@@ -1,7 +1,7 @@
 import {useLoader} from "@react-three/fiber";
 import {FBXLoader} from "three/examples/jsm/loaders/FBXLoader";
 import React from "react";
-import {Debug, useBox} from "@react-three/cannon";
+import {useBox} from "@react-three/cannon";
 import {useFBX} from "@react-three/drei";
 
 const Cloud = (props) => {

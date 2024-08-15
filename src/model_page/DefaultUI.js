@@ -55,7 +55,7 @@ const ThemeToggle = ({darkMode, setDarkMode, mouseStatus, setMouseStatus}) => {
                             className={`absolute top-[2px] ${mouseStatus ? 'start-5' : 'start-[2px]'} w-4 h-4 bg-white rounded-full transition-transform duration-300`}
                         ></div>
                     </div>
-                    <span className="text-sm font-medium text-gray-900 dark:text-gray-300">Mouse</span>
+                    <span className="text-sm font-bold font-sans text-gray-600 dark:text-gray-300 ml-2.5">Mouse</span>
                 </div>
             </div>
         </div>

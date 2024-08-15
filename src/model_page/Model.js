@@ -8,8 +8,6 @@ import * as THREE from "three";
 import {Html, OrbitControls, Text, useGLTF} from "@react-three/drei";
 import {useFrame, useLoader, useThree} from "@react-three/fiber";
 import {FBXLoader} from "three/examples/jsm/loaders/FBXLoader";
-import DefaultInfoModal from "./DefaultInfoModal";
-import {useControls} from "leva";
 
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
