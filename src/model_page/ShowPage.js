@@ -25,7 +25,6 @@ let ShowPage = ({showHtml, setShowHtml}) => {
     };
 
     let ModalComponent = ({showHtml}) => {
-
         switch (showHtml) {
             case 'resume':
                 return <Resume/>;
@@ -37,16 +36,19 @@ let ShowPage = ({showHtml, setShowHtml}) => {
                 return <AboutMe/>;
             case 'career':
                 return <Career/>;
+            default:
+                return null;
         }
-
-    }
+    };
 
     return (
-        <div className={`showPage_container dark:bg-gray-800 text-black dark:text-white ${isVisible ? "" : "hide"}`}>
+        <div
+            className={`showPage_container flex flex-col justify-start items-start dark:bg-gray-800 text-black dark:text-white ${isVisible ? "" : "hide"}`}>
             {/* 슬라이드 애니메이션이 적용될 내용 */}
             <div
                 onClick={handleClose}
-                className="close-button p-2 dark:text-white text-gray-400 cursor-pointer inline-flex items-center justify-center"
+                className="close-button p-2 dark:text-white text-gray-400 cursor-pointer inline-flex items-start justify-start transition-transform transform hover:scale-110"
+                style={{transformOrigin: "center"}}  // 기준점을 왼쪽 상단으로 설정
                 role="button"
                 aria-label="Close menu"
             >
@@ -55,9 +57,7 @@ let ShowPage = ({showHtml, setShowHtml}) => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/>
                 </svg>
             </div>
-            <div>
-                <ModalComponent showHtml={showHtml}/>
-            </div>
+            <ModalComponent showHtml={showHtml}/>
         </div>
     );
 }

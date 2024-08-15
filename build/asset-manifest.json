@@ -1,10 +1,9 @@
 {
   "files": {
-    "main.css": "/portfolio-site/static/css/main.fb5bf063.css",
-    "main.js": "/portfolio-site/static/js/main.3f8dba11.js",
+    "main.css": "/portfolio-site/static/css/main.45090b3b.css",
+    "main.js": "/portfolio-site/static/js/main.a9cb1480.js",
     "static/media/mac_background.jpg": "/portfolio-site/static/media/mac_background.fecd815712428680df09.jpg",
     "static/media/mac_stting.png": "/portfolio-site/static/media/mac_stting.a1d01a81ba01c477ebc8.png",
-    "static/media/main_insta.png": "/portfolio-site/static/media/main_insta.4d8411716a3c1c06c6a3.png",
     "static/media/mac_photo.png": "/portfolio-site/static/media/mac_photo.5f41fd4a4f320d491e39.png",
     "static/media/mac_youtube.png": "/portfolio-site/static/media/mac_youtube.1646f3c48255b6156f51.png",
     "static/media/mac_spotify.png": "/portfolio-site/static/media/mac_spotify.a302090c122e886c79a4.png",
@@ -12,11 +11,11 @@
     "static/media/mac_map.png": "/portfolio-site/static/media/mac_map.3650713b4b4f99f6f892.png",
     "static/media/mac_terminal.png": "/portfolio-site/static/media/mac_terminal.fcd65ed88a6b1b81f276.png",
     "index.html": "/portfolio-site/index.html",
-    "main.fb5bf063.css.map": "/portfolio-site/static/css/main.fb5bf063.css.map",
-    "main.3f8dba11.js.map": "/portfolio-site/static/js/main.3f8dba11.js.map"
+    "main.45090b3b.css.map": "/portfolio-site/static/css/main.45090b3b.css.map",
+    "main.a9cb1480.js.map": "/portfolio-site/static/js/main.a9cb1480.js.map"
   },
   "entrypoints": [
-    "static/css/main.fb5bf063.css",
-    "static/js/main.3f8dba11.js"
+    "static/css/main.45090b3b.css",
+    "static/js/main.a9cb1480.js"
   ]
 }

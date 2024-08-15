@@ -48,3 +48,8 @@
     transform: rotate(90deg);
     color: red;
 }
+
+.modal_com_container {
+    width: 100%;
+    height: 100%;
+}
