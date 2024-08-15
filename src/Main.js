@@ -23,7 +23,8 @@ const Main = () => {
 
     return (
         <div className={"container_m"}>
-            <DefaultUI darkMode={darkMode} setDarkMode={setDarkMode}/>
+            <DefaultUI darkMode={darkMode} setDarkMode={setDarkMode} mouseStatus={mouseStatus}
+                       setMouseStatus={setMouseStatus}/>
             {showHtml !== "" ? (<ShowPage showHtml={showHtml} setShowHtml={setShowHtml}/>) : (<></>)}
             <Leva
                 titleBar={{

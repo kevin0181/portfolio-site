@@ -144,6 +144,7 @@ const Ball = ({
             if (position[1] < -2) {
                 api.position.set(...initialPosition);
                 api.velocity.set(0, 0, 0);
+                setTargetPosition(null);
             }
 
             if (position[1] <= 2.5) {
@@ -361,7 +362,6 @@ let Model = ({setShowHtml, mouseStatus}) => {
                         setLoadingProgress(progress);
                         if (progress >= 100) {
                             clearInterval(interval);
-                            //navigate("/resume");
                             setShowHtml("resume");
                             setShowLoadingBar(false);  // Hide the loading bar
                         }

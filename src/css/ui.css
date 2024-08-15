@@ -41,3 +41,7 @@
     height: 100%;
     z-index: 9;
 }
+
+.mouse_tog_button {
+    position: fixed;
+}
