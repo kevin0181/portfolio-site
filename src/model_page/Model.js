@@ -230,6 +230,22 @@ const Project_InvisibleBlock = (props) => {
     );
 };
 
+const Skill_InvisibleBlock = (props) => {
+    const [ref] = useBox(() => ({
+        userData: {type: 'skill_block'},
+        args: props.args,
+        position: props.position,
+        ...props,
+    }));
+
+    return (
+        <mesh ref={ref} visible={false}>
+            <boxGeometry args={props.args}/>
+            <meshBasicMaterial/>
+        </mesh>
+    );
+};
+
 const Resume_InvisibleBlock = (props) => {
     const [ref] = useBox(() => ({
         userData: {type: 'resume_block'},
@@ -246,29 +262,6 @@ const Resume_InvisibleBlock = (props) => {
     );
 };
 
-const LoadingBar = ({progress, position, color1, color2, border}) => {
-    return (
-        <Html position={position} transform>
-            <div style={{
-                width: '400px',
-                height: '40px',
-                backgroundColor: color1,
-                borderRadius: '20px',
-                border: border,
-                overflow: 'hidden',
-                //transform: 'rotate(45deg)', // 로딩 바를 45도 회전
-            }}>
-                <div style={{
-                    width: `${progress}%`,
-                    height: '100%',
-                    backgroundColor: color2,
-                    transition: 'width 0.1s ease'
-                }}/>
-            </div>
-        </Html>
-    );
-};
-
 let Model = ({setShowHtml, mouseStatus, darkMode}) => {
 
     const [move, setMove] = useState({
@@ -282,10 +275,6 @@ let Model = ({setShowHtml, mouseStatus, darkMode}) => {
     const [carPosition, setCarPosition] = useState({x: 0, y: 1, z: 0});
     const [isGrounded, setIsGrounded] = useState(true);
     const [targetPosition, setTargetPosition] = useState(null);
-    const [loadingProgress, setLoadingProgress] = useState(0);  // Loading progress state
-    const [loadingProgress_project, setLoadingProgress_project] = useState(0);  // Loading progress state
-    const [showLoadingBar, setShowLoadingBar] = useState(false); // Loading bar visibility
-    const [showLoadingBar_project, setShowLoadingBar_project] = useState(false); // Loading bar visibility
 
     const handleKeyDown = (event) => {
         switch (event.key) {
@@ -346,22 +335,19 @@ let Model = ({setShowHtml, mouseStatus, darkMode}) => {
     const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate hook
 
     const collisionTimeoutRef = useRef(null);
-    const collisionTimeoutRef2 = useRef(null);
 
     const handleCollision = (event) => {
         if (event.body) {
-            // Check if the collided object is the "resume_block"
-            if (event.body.userData && event.body.userData.type === 'resume_block') {
+            if (event.body.userData && event.body.userData.type) {
                 if (!collisionTimeoutRef.current) {
-                    setShowLoadingBar(true);  // Show the loading bar
-                    let progress = 0;
                     const interval = setInterval(() => {
-                        progress += 4;
-                        setLoadingProgress(progress);
-                        if (progress >= 100) {
-                            clearInterval(interval);
+                        clearInterval(interval);
+                        if (event.body.userData.type === 'resume_block') {
                             setShowHtml("resume");
-                            setShowLoadingBar(false);  // Hide the loading bar
+                        } else if (event.body.userData.type === 'project_block') {
+                            setShowHtml("project");
+                        } else if (event.body.userData.type === 'skill_block') {
+                            setShowHtml("skill")
                         }
                     }, 62.5); // 4 seconds total
 
@@ -372,41 +358,10 @@ let Model = ({setShowHtml, mouseStatus, darkMode}) => {
                 if (collisionTimeoutRef.current) {
                     clearInterval(collisionTimeoutRef.current);
                     collisionTimeoutRef.current = null;
-                    setShowLoadingBar(false);  // Hide the loading bar
-                    setLoadingProgress(0); // Reset progress
                     setShowHtml("cls");
                 }
             }
         }
-
-
-        if (event.body) {
-            if (event.body.userData && event.body.userData.type === 'project_block') {
-                if (!collisionTimeoutRef2.current) {
-                    setShowLoadingBar_project(true);  // Show the loading bar
-                    let progress = 0;
-                    const interval = setInterval(() => {
-                        progress += 4;
-                        setLoadingProgress_project(progress);
-                        if (progress >= 100) {
-                            clearInterval(interval);
-                            setShowLoadingBar(false);  // Hide the loading bar
-                        }
-                    }, 62.5); // 4 seconds total
-
-                    collisionTimeoutRef2.current = interval;
-                }
-            } else {
-                // Clear the timeout if the collision ends before 4 seconds
-                if (collisionTimeoutRef2.current) {
-                    clearInterval(collisionTimeoutRef2.current);
-                    collisionTimeoutRef2.current = null;
-                    setShowLoadingBar_project(false);  // Hide the loading bar
-                    setLoadingProgress_project(0); // Reset progress
-                }
-            }
-        }
-
     };
 
     return (
@@ -437,6 +392,8 @@ let Model = ({setShowHtml, mouseStatus, darkMode}) => {
                     carPosition={carPosition}
                     setTargetPosition={setTargetPosition}
                 />
+                <Skill_InvisibleBlock position={[16.8, 1, -12.2]} args={[4.3, 0.1, 5.6]}/>
+
                 <Resume_InvisibleBlock position={[0, 2.5, -46.3]} args={[12.5, 5, 0.1]}/>
                 <Resume_InvisibleBlock position={[6.3, 2.5, -43.8]} args={[0.1, 5, 5]}/>
                 <Resume_InvisibleBlock position={[-6.6, 2.5, -43.8]} args={[0.1, 5, 5]}/>
@@ -457,12 +414,6 @@ let Model = ({setShowHtml, mouseStatus, darkMode}) => {
 
             </Suspense>
 
-            {showLoadingBar &&
-                <LoadingBar progress={loadingProgress} position={[0, 1.4, -20]} color1={"greenyellow"}
-                            color2={"white"}/>}
-            {showLoadingBar_project &&
-                <LoadingBar progress={loadingProgress_project} position={[0, 1.4, 12]} color1={"white"}
-                            color2={"greenyellow"}/>}
             {mouseStatus ? (<MouseHandler setTargetPosition={setTargetPosition}/>) : (<></>)}
         </>
     )
