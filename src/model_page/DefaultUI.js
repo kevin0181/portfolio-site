@@ -18,12 +18,12 @@ const ThemeToggle = ({darkMode, setDarkMode, mouseStatus, setMouseStatus}) => {
 
     return (
         <div className="default_ui_container">
-            <div className="dark:bg-gray-800">
-                <div style={{position: "fixed"}}
-                     onClick={toggleDarkMode}
-                     className="h-12 w-12 rounded-lg p-2 cursor-pointer flex items-center justify-center"
-                     role="button"
-                     aria-label="Toggle Dark Mode"
+            <div className="flex">
+                <div
+                    onClick={toggleDarkMode}
+                    className="h-12 w-12 rounded-lg p-2 cursor-pointer flex items-center justify-center"
+                    role="button"
+                    aria-label="Toggle Dark Mode"
                 >
                     <svg
                         className={`fill-yellow-500 block ${darkMode ? 'hidden' : ''}`}
@@ -44,17 +44,19 @@ const ThemeToggle = ({darkMode, setDarkMode, mouseStatus, setMouseStatus}) => {
                         <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
                     </svg>
                 </div>
-            </div>
-            <div className={"mouse_tog_button justify-center flex"}>
-                <div
-                    onClick={toggleMouseStatus}
-                    className={`relative w-9 h-5 cursor-pointer rounded-full ${mouseStatus ? 'bg-blue-600' : 'bg-gray-200'} transition-colors duration-300`}
-                >
-                    <div
-                        className={`absolute top-[2px] ${mouseStatus ? 'start-5' : 'start-[2px]'} w-4 h-4 bg-white rounded-full transition-transform duration-300`}
-                    ></div>
+                <div className={"mouse_tog_button flex justify-center items-center"}>
+                    <div style={{
+                        width: "40px"
+                    }}
+                         onClick={toggleMouseStatus}
+                         className={`relative w-9 h-5 cursor-pointer rounded-full ${mouseStatus ? 'bg-blue-600' : 'bg-gray-300'} transition-colors duration-300`}
+                    >
+                        <div
+                            className={`absolute top-[2px] ${mouseStatus ? 'start-5' : 'start-[2px]'} w-4 h-4 bg-white rounded-full transition-transform duration-300`}
+                        ></div>
+                    </div>
+                    <span className="text-sm font-medium text-gray-900 dark:text-gray-300">Mouse</span>
                 </div>
-                <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Mouse</span>
             </div>
         </div>
     );
