@@ -1,6 +1,7 @@
 let Skill = () => {
     return (
-        <div className={"modal_com_container flex flex-wrap overflow-y-scroll scrollbar-hide font-Kanit"}>
+        <div
+            className={"modal_com_container flex flex-wrap overflow-y-scroll scrollbar-hide font-Kanit dark:text-gray-800"}>
             <div className={"part_d lg:basis-1/3 md:basis-1/2 sm:basis-full"}>
                 <div className={"part_d_w bg-white flex flex-col"}>
                     <div className={"part_d_top"}>
@@ -69,11 +70,29 @@ let Skill = () => {
                 </div>
                 <div className={"part_d_w bg-white mt-2"}>
                     <div className={"part_d_top"}>
-                        <p>Communication</p>
+                        <p>etc</p>
                         <hr/>
                     </div>
                     <div className={"part_d_bottom"}>
-
+                        <div className={"skill_icon"}>
+                            <img src={`${process.env.PUBLIC_URL}/img/skill/cpp_icon.png`}
+                                 alt={"cpp icon"}/>
+                        </div>
+                        <div className={"skill_icon"}>
+                            <img src={`${process.env.PUBLIC_URL}/img/skill/python.png`}
+                                 alt={"python icon"}/>
+                        </div>
+                        <div className={"skill_icon"}>
+                            <img src={`${process.env.PUBLIC_URL}/img/skill/naverCloud.png`}
+                                 style={{
+                                     borderRadius: "10px",
+                                 }}
+                                 alt={"naverCloud icon"}/>
+                        </div>
+                        <div className={"skill_icon"}>
+                            <img src={`${process.env.PUBLIC_URL}/img/skill/3dsmax_icon.png`}
+                                 alt={"3dsmax icon"}/>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -84,7 +103,14 @@ let Skill = () => {
                         <hr/>
                     </div>
                     <div className={"part_d_bottom"}>
-
+                        <div className={"skill_icon"}>
+                            <img src={`${process.env.PUBLIC_URL}/img/skill/git_icon.png`}
+                                 alt={"git icon"}/>
+                        </div>
+                        <div className={"skill_icon"}>
+                            <img src={`${process.env.PUBLIC_URL}/img/skill/github.png`}
+                                 alt={"github icon"}/>
+                        </div>
                     </div>
                 </div>
                 <div className={"part_d_w bg-white mt-2"}>
@@ -92,9 +118,36 @@ let Skill = () => {
                         <p>Tool</p>
                         <hr/>
                     </div>
+                    <div className={"part_d_bottom"}>
+                        <div className={"skill_icon"}>
+                            <img src={`${process.env.PUBLIC_URL}/img/skill/intellij_icon.png`}
+                                 alt={"intellij icon"}/>
+                        </div>
+                        <div className={"skill_icon"}>
+                            <img src={`${process.env.PUBLIC_URL}/img/skill/eclipse_icon.png`}
+                                 alt={"eclipse icon"}/>
+                        </div>
+                    </div>
                 </div>
-                <div className={"part_d_bottom"}>
-
+                <div className={"part_d_w bg-white mt-2"}>
+                    <div className={"part_d_top"}>
+                        <p>Communication</p>
+                        <hr/>
+                    </div>
+                    <div className={"part_d_bottom"}>
+                        <div className={"skill_icon"} style={{
+                            padding: "3%"
+                        }}>
+                            <img src={`${process.env.PUBLIC_URL}/img/skill/notion_icon.png`}
+                                 alt={"notion icon"}/>
+                        </div>
+                        <div className={"skill_icon"} style={{
+                            padding: "3%"
+                        }}>
+                            <img src={`${process.env.PUBLIC_URL}/img/skill/discord_icon.png`}
+                                 alt={"discord icon"}/>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
