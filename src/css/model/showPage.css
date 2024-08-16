@@ -50,8 +50,7 @@
     width: 80%;
     height: 80%;
     z-index: 10;
-    background-color: rgba(255, 255, 255);
-    /*left: 3%;*/
+    background-color: rgba(215, 215, 215);
     border-radius: 10px;
     border: 0.5px solid white;
 }
@@ -68,9 +67,44 @@
 .modal_com_container {
     width: 100%;
     height: 100%;
-    padding: 1%;
+    padding: 0 1% 1% 1%;
 }
 
 .part_d {
     height: auto;
+    padding: 1%;
+}
+
+.part_d .part_d_w {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    padding: 4%;
+}
+
+hr {
+    margin: 0 !important;
+}
+
+.part_d_top {
+    width: 100%;
+}
+
+.part_d_bottom {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 4% 0;
+}
+
+.skill_icon {
+    width: 100px;
+    height: 100px;
+}
+
+.skill_icon img {
+    width: 100%;
+    height: 100%;
 }

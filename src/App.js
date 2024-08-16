@@ -6,6 +6,8 @@ import Resume from "./resume/Resume";
 import React from "react";
 import Razer from "./model_page/Razer";
 
+import "./css/app.css";
+
 function App() {
     return (
         <BrowserRouter basename={process.env.PUBLIC_URL}>
