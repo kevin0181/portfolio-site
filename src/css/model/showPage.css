@@ -73,6 +73,7 @@
 .part_d {
     height: auto;
     padding: 1%;
+    width: 100%;
 }
 
 .part_d .part_d_w {
@@ -87,11 +88,13 @@ hr {
 }
 
 .part_d_top {
+    height: 3%;
     width: 100%;
 }
 
 .part_d_bottom {
     width: 100%;
+    height: 97%;
     display: flex;
     flex-direction: column;
     justify-content: center;

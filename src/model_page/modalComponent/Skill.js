@@ -2,10 +2,10 @@ let Skill = () => {
     return (
         <div
             className={"modal_com_container flex flex-wrap overflow-y-scroll scrollbar-hide font-Kanit dark:text-gray-800"}>
-            <div className={"part_d lg:basis-1/3 md:basis-1/2 sm:basis-full"}>
-                <div className={"part_d_w bg-white flex flex-col"}>
+            <div className={"part_d lg:basis-1/3 md:basis-full flex flex-col"}>
+                <div className={"part_d_w bg-white"}>
                     <div className={"part_d_top"}>
-                        <p>Front-End</p>
+                        Front-End
                         <hr/>
                     </div>
                     <div className={"part_d_bottom"}>
@@ -39,7 +39,7 @@ let Skill = () => {
             <div className={"part_d lg:basis-1/3 md:basis-1/2 sm:basis-full flex flex-col"}>
                 <div className={"part_d_w bg-white"}>
                     <div className={"part_d_top"}>
-                        <p>Back-End</p>
+                        Back-End
                         <hr/>
                     </div>
                     <div className={"part_d_bottom"}>
@@ -70,7 +70,7 @@ let Skill = () => {
                 </div>
                 <div className={"part_d_w bg-white mt-2"}>
                     <div className={"part_d_top"}>
-                        <p>etc</p>
+                        etc
                         <hr/>
                     </div>
                     <div className={"part_d_bottom"}>
@@ -97,9 +97,9 @@ let Skill = () => {
                 </div>
             </div>
             <div className={"part_d lg:basis-1/3 md:basis-1/2 sm:basis-full flex flex-col"}>
-                <div className={"part_d_w bg-white"}>
+                <div className={"part_d_w bg-white mt-2"}>
                     <div className={"part_d_top"}>
-                        <p>Version Control</p>
+                        Version Control
                         <hr/>
                     </div>
                     <div className={"part_d_bottom"}>
@@ -115,7 +115,7 @@ let Skill = () => {
                 </div>
                 <div className={"part_d_w bg-white mt-2"}>
                     <div className={"part_d_top"}>
-                        <p>Tool</p>
+                        Tool
                         <hr/>
                     </div>
                     <div className={"part_d_bottom"}>
@@ -131,7 +131,7 @@ let Skill = () => {
                 </div>
                 <div className={"part_d_w bg-white mt-2"}>
                     <div className={"part_d_top"}>
-                        <p>Communication</p>
+                        Communication
                         <hr/>
                     </div>
                     <div className={"part_d_bottom"}>
