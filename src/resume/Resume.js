@@ -12,7 +12,7 @@ import {
     SiSpringboot,
     SiReact,
     SiApachetomcat,
-    SiNginx, SiMysql, SiOracle, SiRedis, SiMongodb
+    SiNginx, SiMysql, SiOracle, SiRedis, SiMongodb, SiGit, SiGithub, SiIntellijidea, SiVisualstudiocode, SiWindows
 } from 'react-icons/si'; // Simple Icons에서 Tistory 아이콘 import
 
 let Resume = () => {
@@ -86,7 +86,7 @@ let Resume = () => {
                     </div>
                 </div>
                 <hr/>
-                <div className={"part_section mt-5 mb-5 flex flex-wrap justify-center "}>
+                <div className={"part_section mt-5 flex flex-wrap justify-center "}>
                     <div className={"sm:w-1/3 mt-5 max-w-72 min-w-52 w-full flex justify-center"}>
                         <span className={"text-4xl font-light"}>SKILL</span>
                     </div>
@@ -126,9 +126,13 @@ let Resume = () => {
                             <div className={"skill_part font-light flex"} style={{
                                 marginTop: "2rem"
                             }}>
-                                <div className={"flex w-full justify-center"}>
+                                <div className={"flex w-full mb-4 md:w-1/2 justify-center"}>
                                     <SiReact className="text-sky-400 h-6 w-6 mr-4"/>
                                     <span>React.js</span>
+                                </div>
+                                <div className={"flex w-full mb-4 md:w-1/2 justify-center"}>
+                                    <SiWindows className="text-blue-500 h-6 w-6 mr-4"/>
+                                    <span>Win32Api</span>
                                 </div>
                             </div>
                         </div>
@@ -176,8 +180,148 @@ let Resume = () => {
                                 </div>
                             </div>
                         </div>
+                        <div className={"flex flex-col mb-4 flex-wrap"}>
+                            <span className={"text-center text-2xl font-extralight"}>Version Control</span>
+                            <div className={"skill_part font-light flex flex-wrap"} style={{
+                                marginTop: "2rem"
+                            }}>
+                                <div className={"flex w-full mb-4 md:w-1/2 justify-center"}>
+                                    <SiGit className="text-orange-500 h-6 w-6 mr-4"/>
+                                    <span>Git</span>
+                                </div>
+                                <div className={"flex w-full mb-4 md:w-1/2 justify-center"}>
+                                    <SiGithub className="text-black h-6 w-6 mr-4"/>
+                                    <span>Github</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={"flex flex-col mb-4 flex-wrap"}>
+                            <span className={"text-center text-2xl font-extralight"}>Tools</span>
+                            <div className={"skill_part font-light flex flex-wrap"} style={{
+                                marginTop: "2rem"
+                            }}>
+                                <div className={"flex w-full mb-4 md:w-1/2 justify-center"}>
+                                    <SiIntellijidea className="text-black h-6 w-6 mr-4"/>
+                                    <span>Intellij</span>
+                                </div>
+                                <div className={"flex w-full mb-4 md:w-1/2 justify-center"}>
+                                    <SiVisualstudiocode className="text-blue-600 h-6 w-6 mr-4"/>
+                                    <span>VS code</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <hr/>
+                <div className={"part_section mt-5"}>
+                    <div className={"text-4xl font-light mb-8"}>EXPERIENCE</div>
+                    <div className={"w-full flex mb-4 mt-4"}>
+                        <div className={"w-1/4 flex justify-end mt-2"}>
+                            <span>2024.01~2024.01</span>
+                        </div>
+                        <div className={"w-3/4 pl-10 flex flex-col"}>
+                            <div className={"exp_title font-bold text-2xl mb-3"}>
+                                (주) 네스텍코리아
+                            </div>
+                            <div className={"exp_sm_title mb-3 text-gray-500 italic"}>
+                                2D CAD 기계 설계자 및 MCT 오퍼레이터
+                            </div>
+                            <div className={"exp_body mb-3 font-light"}>
+                                <ul className="list-disc pl-5">
+                                    <li>반도체에 검사 장비에 들어가는 소켓 개발</li>
+                                    <li>캐드를 사용하여 소켓 설계</li>
+                                    <li>설계된 도면을 통해 소켓 가공</li>
+                                </ul>
+                            </div>
+                            <div className={"exp_footer mb-3 mt-4 flex flex-wrap gap-2"}>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">CAD</span>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">SolidWorks</span>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">MCT</span>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div className={"w-full flex mb-4 mt-4"}>
+                        <div className={"w-1/4 flex justify-end mt-2"}>
+                            <span>2024.01~2024.01</span>
+                        </div>
+                        <div className={"w-3/4 pl-10 flex flex-col"}>
+                            <div className={"exp_title font-bold text-2xl mb-3"}>
+                                [NCS] JAVA 프로그래밍 백엔드개발 육성 과정평가형 수료
+                            </div>
+                            <div className={"exp_sm_title mb-3 text-gray-500 italic"}>
+                                처음으로 개발을 시작하게 된 계기
+                            </div>
+                            <div className={"exp_body mb-3 font-light"}>
+                                <ul className="list-disc pl-5">
+                                    <li>기초적인 프로그래밍 언어 학습</li>
+                                    <li>정보처리산업기사 자격증 취득</li>
+                                    <li>jsp를 사용한 SSR 개발 진행</li>
+                                    <li>Oracle을 사용한 다양한 쿼리문 작성</li>
+                                </ul>
+                            </div>
+                            <div className={"exp_footer mb-3 mt-4 flex flex-wrap gap-2"}>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">Java</span>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">JavaScript</span>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">SQL</span>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">HTML</span>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">CSS</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={"w-full flex mb-4 mt-4"}>
+                        <div className={"w-1/4 flex justify-end mt-2"}>
+                            <span>2024.01~2024.01</span>
+                        </div>
+                        <div className={"w-3/4 pl-10 flex flex-col"}>
+                            <div className={"exp_title font-bold text-2xl mb-3"}>
+                                공군 병장 만기 전역
+                            </div>
+                            <div className={"exp_sm_title mb-3 text-gray-500 italic"}>
+                                컴퓨터의 하드웨어와 소프트웨어의 다양한 지식을 얻게됨
+                            </div>
+                            <div className={"exp_body mb-3 font-light"}>
+                                <ul className="list-disc pl-5">
+                                    <li>정보체계관리병으로 인트라넷 관리 및 정보 보안</li>
+                                    <li>다양한 해킹 훈련을 통해 정보 보안 확립</li>
+                                    <li>부대 인트라넷 페이지 디자인 수정(전체 수정)</li>
+                                </ul>
+                            </div>
+                            <div className={"exp_footer mb-3 mt-4 flex flex-wrap gap-2"}>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">CS</span>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">정보 보안</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={"w-full flex mb-4 mt-4"}>
+                        <div className={"w-1/4 flex justify-end mt-2"}>
+                            <span>2024.01~2024.01</span>
+                        </div>
+                        <div className={"w-3/4 pl-10 flex flex-col"}>
+                            <div className={"exp_title font-bold text-2xl mb-3"}>
+                                (주) 엘리스
+                            </div>
+                            <div className={"exp_sm_title mb-3 text-gray-500 italic"}>
+                                개발 강의를 진행하게 되며 많은걸 배우게 된 계기
+                            </div>
+                            <div className={"exp_body mb-3 font-light"}>
+                                <ul className="list-disc pl-5">
+                                    <li>AI 웹개발 트랙 4개월 강의 진행</li>
+                                    <li>웹 개발 트랙 3개월 강의 진행</li>
+                                    <li>웹 프로젝트 1개월 멘토 진행</li>
+                                    <li>기업은행 신입사원 멘토링 진행중</li>
+                                </ul>
+                            </div>
+                            <div className={"exp_footer mb-3 mt-4 flex flex-wrap gap-2"}>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">React.js</span>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">Node.js</span>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">MongoDB</span>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">AI</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr/>
             </div>
         </div>
     )
