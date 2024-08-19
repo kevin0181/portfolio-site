@@ -9,6 +9,7 @@ module.exports = {
             fontFamily: {
                 jua: ['Jua', 'sans-serif'],
                 Kanit: ['Kanit', 'sans-serif'],
+                noto: ['Noto Sans KR', 'sans-serif'],
             },
         },
     },
