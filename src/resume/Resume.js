@@ -3,14 +3,23 @@ import {MailIcon} from '@heroicons/react/solid';
 import {PhoneIcon} from '@heroicons/react/solid';
 import {BookmarkIcon} from '@heroicons/react/solid';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faGithub} from '@fortawesome/free-brands-svg-icons';
-import {SiTistory} from 'react-icons/si'; // Simple Icons에서 Tistory 아이콘 import
+import {faGithub, faJava} from '@fortawesome/free-brands-svg-icons';
+import {
+    SiTistory,
+    SiNotion,
+    SiJavascript,
+    SiCplusplus,
+    SiSpringboot,
+    SiReact,
+    SiApachetomcat,
+    SiNginx, SiMysql, SiOracle, SiRedis, SiMongodb
+} from 'react-icons/si'; // Simple Icons에서 Tistory 아이콘 import
 
 let Resume = () => {
     return (
         <div className={"resume_container flex justify-center"}>
             <div className={"flex flex-col font-noto"}>
-                <div className={"part_section mt-5 flex flex-wrap justify-center "}>
+                <div className={"part_section mt-5 mb-5 flex flex-wrap justify-center "}>
                     <div className={"sm:w-1/3 max-w-72 min-w-52 w-full flex justify-center"}>
                         <img alt={"얼굴 이미지"} src={`${process.env.PUBLIC_URL}/img/face.png`}/>
                     </div>
@@ -41,7 +50,15 @@ let Resume = () => {
                             <SiTistory className="h-6 text-gray-800 w-auto mr-3"/>
                             <span>
                                 <a className={"text-blue-700 underline"} href={"https://code-nen.tistory.com/"}
-                                   target={"_blank"}>https://code-nen.tistory.com/</a>
+                                   target={"_blank"}>https://code-nen.tistory.com</a>
+                            </span>
+                        </div>
+                        <div className={"resume_notion flex"}>
+                            <SiNotion className="h-6 text-gray-800 w-auto mr-3"/>
+                            <span>
+                                <a className={"text-blue-700 underline"}
+                                   href={"https://neneee.notion.site/My-Life-a89c7f78cc7c4b1cb1a0874d1283a15d?pvs=74"}
+                                   target={"_blank"}>https://neneee.notion.site</a>
                             </span>
                         </div>
                         <div className={"resume_contact flex"}>
@@ -53,8 +70,113 @@ let Resume = () => {
                         </div>
                     </div>
                 </div>
-                <div className={"part_section mt-5"}>
-
+                <hr/>
+                <div className={"part_section mt-5 mb-5 flex flex-wrap justify-center "}>
+                    <div className={"sm:w-1/3 mt-5 max-w-72 min-w-52 w-full flex justify-center"}>
+                        <span className={"text-4xl font-light"}>INTRODUCE</span>
+                    </div>
+                    <div className={"part_section_list sm:w-2/3 w-full mt-3 flex flex-col p-3"}>
+                        <span className={"font-light"}>
+                            안녕하세요, 저는 웹 백엔드 개발자로서 시작해 현재는 게임 개발의 세계로 진로를 확장하고 있는 개발자입니다. 대학에서 게임 개발 전공을 이수하며, 게임 개발자로서의 커리어를 쌓아가고 있습니다. 이전에는 Node.js, Java, MySQL, Redis, AWS, Git, Linux 등을 활용하여 웹 서비스를 설계하고 개발하는 일을 주로 했으며, 프론트엔드 개발도 다룰 줄 알기에 전체적인 서비스 구조를 이해하고 효율적인 개발이 가능합니다.<br/><br/>
+웹 서비스 개발 경험 덕분에 안정적이고 확장성 있는 시스템을 구축하는 방법에 익숙하며, 서비스가 제공하는 가치를 극대화하기 위해 비즈니스와 기술의 접점을 항상 고민해 왔습니다. 이런 경험은 게임 개발에서도 중요한 자산이 될 것이라고 생각합니다. 게임 역시 결국 사용자 경험과 비즈니스 목표를 동시에 만족시켜야 하는 서비스이기 때문에, 양쪽의 요구를 균형 있게 반영하며 개발할 수 있는 역량을 계속해서 키워나가고 있습니다. <br/><br/>
+현재는 게임 개발을 중심으로 프로그래밍 역량을 강화하며, 게임 기획, 디자인, 프로그래밍 등 다양한 분야에서 기술을 익히고 있습니다. 게임 개발 과정에서 창의적 문제 해결과 몰입감 있는 경험을 제공하는 것에 흥미를 느끼며, 특히 서버 구조 설계와 네트워크 게임 플레이에 관심을 두고 있습니다. <br/><br/>
+개발자로서의 비전은 게임의 기술적 한계를 뛰어넘어 플레이어들에게 새로운 경험을 제공하는 것입니다. 이를 위해 적극적으로 학습하고, 게임 엔진을 다루며, 직접 게임을 개발해보는 프로젝트를 진행 중입니다. 장기적으로는 게임 개발 분야에서 기술 조직을 이끌며, 혁신적인 게임을 만드는 데 기여하고 싶습니다. <br/><br/>
+언제나 배움의 자세로 새로운 도전에 임하고 있으며, 더 나은 게임 개발자가 되기 위해 끊임없이 노력하고 있습니다.
+                        </span>
+                    </div>
+                </div>
+                <hr/>
+                <div className={"part_section mt-5 mb-5 flex flex-wrap justify-center "}>
+                    <div className={"sm:w-1/3 mt-5 max-w-72 min-w-52 w-full flex justify-center"}>
+                        <span className={"text-4xl font-light"}>SKILL</span>
+                    </div>
+                    <div className={"sm:w-2/3 w-full mt-3 flex flex-col p-3"}>
+                        <div className={"flex flex-col mb-4"}>
+                            <span className={"text-center text-2xl font-extralight"}>Languages</span>
+                            <div className={"skill_part font-light flex flex-wrap"} style={{
+                                marginTop: "2rem"
+                            }}>
+                                <div className={"flex w-full mb-4 md:w-1/3 justify-center"}>
+                                    <FontAwesomeIcon icon={faJava} className="text-red-500 h-6 w-6 mr-4"/>
+                                    <span>Java</span>
+                                </div>
+                                <div className={"flex w-full mb-4 md:w-1/3 justify-center"}>
+                                    <SiJavascript className="text-yellow-500 h-6 w-6 mr-4"/>
+                                    <span>Javascript</span>
+                                </div>
+                                <div className={"flex w-full mb-4 md:w-1/3 justify-center"}>
+                                    <SiCplusplus className="text-blue-500 h-6 w-6 mr-4"/>
+                                    <span>C++</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={"flex flex-col mb-8"}>
+                            <span className={"text-center text-2xl font-extralight"}>Fameworks</span>
+                            <div className={"skill_part font-light flex"} style={{
+                                marginTop: "2rem"
+                            }}>
+                                <div className={"flex w-full justify-center"}>
+                                    <SiSpringboot className="text-green-500 h-6 w-6 mr-4"/>
+                                    <span>Spring Boot</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={"flex flex-col mb-8"}>
+                            <span className={"text-center text-2xl font-extralight"}>Libraries</span>
+                            <div className={"skill_part font-light flex"} style={{
+                                marginTop: "2rem"
+                            }}>
+                                <div className={"flex w-full justify-center"}>
+                                    <SiReact className="text-sky-400 h-6 w-6 mr-4"/>
+                                    <span>React.js</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={"flex flex-col mb-4 flex-wrap"}>
+                            <span className={"text-center text-2xl font-extralight"}>IT Infrastructure</span>
+                            <div className={"skill_part font-light flex flex-wrap"} style={{
+                                marginTop: "2rem"
+                            }}>
+                                <div className={"flex w-full mb-4 md:w-1/3 justify-center"}>
+                                    <img src={`${process.env.PUBLIC_URL}/img/skill/naverCloud.png`}
+                                         className={"h-6 w-6 mr-4"}
+                                         alt={"naverCloud icon"}/>
+                                    <span>Naver Cloud Platform</span>
+                                </div>
+                                <div className={"flex w-full mb-4 md:w-1/3 justify-center"}>
+                                    <SiApachetomcat className="text-yellow-500 h-6 w-6 mr-4"/>
+                                    <span>Apache Tomcat</span>
+                                </div>
+                                <div className={"flex w-full mb-4 md:w-1/3 justify-center"}>
+                                    <SiNginx className="text-green-500 h-6 w-6 mr-4"/>
+                                    <span>Nginx</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={"flex flex-col mb-4 flex-wrap"}>
+                            <span className={"text-center text-2xl font-extralight"}>Databases</span>
+                            <div className={"skill_part font-light flex flex-wrap"} style={{
+                                marginTop: "2rem"
+                            }}>
+                                <div className={"flex w-full mb-4 md:w-1/4 justify-center"}>
+                                    <SiMysql className="text-blue-500 h-6 w-6 mr-4"/>
+                                    <span>Mysql</span>
+                                </div>
+                                <div className={"flex w-full mb-4 md:w-1/4 justify-center"}>
+                                    <SiOracle className="text-red-500 h-6 w-6 mr-4"/>
+                                    <span>Oracle</span>
+                                </div>
+                                <div className={"flex w-full mb-4 md:w-1/4 justify-center"}>
+                                    <SiRedis className="text-red-500 h-6 w-6 mr-4"/>
+                                    <span>Redis</span>
+                                </div>
+                                <div className={"flex w-full mb-4 md:w-1/4 justify-center"}>
+                                    <SiMongodb className="text-green-500 h-6 w-6 mr-4"/>
+                                    <span>MongoDB</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
