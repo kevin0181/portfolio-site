@@ -8,7 +8,7 @@ let Resume = () => {
                     src="/portfolio-site/resume"
                     title="resume Page"
                     width="100%"
-                    height="auto"
+                    height="100%"
                     style={{border: 'none'}}
                 />
             </div>

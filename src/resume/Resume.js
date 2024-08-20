@@ -258,6 +258,7 @@ let Resume = () => {
                                     <li>정보처리산업기사 자격증 취득</li>
                                     <li>jsp를 사용한 SSR 개발 진행</li>
                                     <li>Oracle을 사용한 다양한 쿼리문 작성</li>
+                                    <li><a className={"text-blue-500 underline"} href={"#"}>관련 프로젝트 링크</a></li>
                                 </ul>
                             </div>
                             <div className={"exp_footer mb-3 mt-4 flex flex-wrap gap-2"}>
@@ -310,6 +311,7 @@ let Resume = () => {
                                     <li>웹 개발 트랙 3개월 강의 진행</li>
                                     <li>웹 프로젝트 1개월 멘토 진행</li>
                                     <li>기업은행 신입사원 멘토링 진행중</li>
+                                    <li><a className={"text-blue-500 underline"} href={"#"}>관련 프로젝트 링크</a></li>
                                 </ul>
                             </div>
                             <div className={"exp_footer mb-3 mt-4 flex flex-wrap gap-2"}>
@@ -320,8 +322,58 @@ let Resume = () => {
                             </div>
                         </div>
                     </div>
+                    <div className={"w-full flex mb-4 mt-4"}>
+                        <div className={"w-1/4 flex justify-end mt-2"}>
+                            <span>2024.01~2024.01</span>
+                        </div>
+                        <div className={"w-3/4 pl-10 flex flex-col"}>
+                            <div className={"exp_title font-bold text-2xl mb-3"}>
+                                한국공학대학교(재학중)
+                            </div>
+                            <div className={"exp_sm_title mb-3 text-gray-500 italic"}>
+                                게임 개발을 시작하게 된 계기
+                            </div>
+                            <div className={"exp_body mb-3 font-light"}>
+                                <ul className="list-disc pl-5">
+                                    <li>C 언어 기초를 배움</li>
+                                    <li>C++의 기초를 배움</li>
+                                    <li>Win32Api를 사용하여 2D 게임을 제작</li>
+                                    <li><a className={"text-blue-500 underline"} href={"#"}>관련 프로젝트 링크</a></li>
+                                </ul>
+                            </div>
+                            <div className={"exp_footer mb-3 mt-4 flex flex-wrap gap-2"}>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">C언어</span>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">C++</span>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">Win32Api</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <hr/>
+                <div className={"part_section mt-5"}>
+                    <div className={"text-4xl font-light mb-8"}>PROJECT</div>
+                    <div className={"w-full flex mb-4 mt-4"}>
+                        <div className={"w-1/4 flex justify-end mt-2"}>
+                            <span>2024.01~2024.01</span>
+                        </div>
+                        <div className={"w-3/4 pl-10 flex flex-col"}>
+                            <div className={"exp_title font-bold text-2xl mb-3"}>
+                                프로젝트1
+                            </div>
+                            <div className={"exp_sm_title mb-3 text-gray-500 italic"}>
+                                짧은 설명1
+                            </div>
+                            <div className={"exp_body mb-3 font-light"}>
+                                <ul className="list-disc pl-5">
+                                    <li>C 언어 기초를 배움</li>
+                                </ul>
+                            </div>
+                            <div className={"exp_footer mb-3 mt-4 flex flex-wrap gap-2"}>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">C언어</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     )
