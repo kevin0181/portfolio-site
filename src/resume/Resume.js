@@ -215,9 +215,9 @@ let Resume = () => {
                 <hr/>
                 <div className={"part_section mt-5"}>
                     <div className={"text-4xl font-light mb-8"}>EXPERIENCE</div>
-                    <div className={"w-full flex mb-4 mt-4"}>
+                    <div className={"w-full flex mb-5 mt-5"}>
                         <div className={"w-1/4 flex justify-end mt-2"}>
-                            <span>2024.01~2024.01</span>
+                            <span>2018.09 ~ 2019.08</span>
                         </div>
                         <div className={"w-3/4 pl-10 flex flex-col"}>
                             <div className={"exp_title font-bold text-2xl mb-3"}>
@@ -241,9 +241,9 @@ let Resume = () => {
                             </div>
                         </div>
                     </div>
-                    <div className={"w-full flex mb-4 mt-4"}>
+                    <div className={"w-full flex mb-5 mt-5"}>
                         <div className={"w-1/4 flex justify-end mt-2"}>
-                            <span>2024.01~2024.01</span>
+                            <span>2019.10.14 ~ 2020.04.24</span>
                         </div>
                         <div className={"w-3/4 pl-10 flex flex-col"}>
                             <div className={"exp_title font-bold text-2xl mb-3"}>
@@ -270,9 +270,9 @@ let Resume = () => {
                             </div>
                         </div>
                     </div>
-                    <div className={"w-full flex mb-4 mt-4"}>
+                    <div className={"w-full flex mb-5 mt-5"}>
                         <div className={"w-1/4 flex justify-end mt-2"}>
-                            <span>2024.01~2024.01</span>
+                            <span>2020.12.07 ~ 2022.09.06</span>
                         </div>
                         <div className={"w-3/4 pl-10 flex flex-col"}>
                             <div className={"exp_title font-bold text-2xl mb-3"}>
@@ -294,13 +294,13 @@ let Resume = () => {
                             </div>
                         </div>
                     </div>
-                    <div className={"w-full flex mb-4 mt-4"}>
+                    <div className={"w-full flex mb-5 mt-5"}>
                         <div className={"w-1/4 flex justify-end mt-2"}>
-                            <span>2024.01~2024.01</span>
+                            <span>2022.10.05 ~ 2022.12.05</span>
                         </div>
                         <div className={"w-3/4 pl-10 flex flex-col"}>
                             <div className={"exp_title font-bold text-2xl mb-3"}>
-                                (주) 엘리스
+                                (주) 엘리스 (AI 웹 개발 강의)
                             </div>
                             <div className={"exp_sm_title mb-3 text-gray-500 italic"}>
                                 개발 강의를 진행하게 되며 많은걸 배우게 된 계기
@@ -322,9 +322,9 @@ let Resume = () => {
                             </div>
                         </div>
                     </div>
-                    <div className={"w-full flex mb-4 mt-4"}>
+                    <div className={"w-full flex mb-5 mt-5"}>
                         <div className={"w-1/4 flex justify-end mt-2"}>
-                            <span>2024.01~2024.01</span>
+                            <span>2023.03 ~ 진행중</span>
                         </div>
                         <div className={"w-3/4 pl-10 flex flex-col"}>
                             <div className={"exp_title font-bold text-2xl mb-3"}>
@@ -352,25 +352,149 @@ let Resume = () => {
                 <hr/>
                 <div className={"part_section mt-5"}>
                     <div className={"text-4xl font-light mb-8"}>PROJECT</div>
-                    <div className={"w-full flex mb-4 mt-4"}>
+                    <div className={"w-full flex mb-5 mt-5"}>
                         <div className={"w-1/4 flex justify-end mt-2"}>
-                            <span>2024.01~2024.01</span>
+                            <span>2020.05.05~2020.05.12</span>
                         </div>
-                        <div className={"w-3/4 pl-10 flex flex-col"}>
+                        <div className={"w-2/4 pl-10 flex flex-col"}>
                             <div className={"exp_title font-bold text-2xl mb-3"}>
-                                프로젝트1
+                                강의 평가 사이트
                             </div>
                             <div className={"exp_sm_title mb-3 text-gray-500 italic"}>
-                                짧은 설명1
+                                강의를 등록하고 평가할 수 있는 기본적인 CLUD 사이트
                             </div>
                             <div className={"exp_body mb-3 font-light"}>
                                 <ul className="list-disc pl-5">
-                                    <li>C 언어 기초를 배움</li>
+                                    <li>첫 웹 사이트 프로젝트</li>
+                                    <li>jsp와 Spring을 사용한 SSR 사이트</li>
+                                    <li><a className={"text-blue-500 underline"}
+                                           href={"https://github.com/kevin0181/dog_portfolio"}>https://github.com/kevin0181/dog_portfolio</a>
+                                    </li>
                                 </ul>
                             </div>
                             <div className={"exp_footer mb-3 mt-4 flex flex-wrap gap-2"}>
-                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">C언어</span>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">Java</span>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">Jsp</span>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">Spring</span>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">Mysql</span>
                             </div>
+                        </div>
+                        <div className={"w-1/4 pl-10 flex flex-col justify-center items-center"}>
+                            <img alt={"얼굴 이미지"} src={`${process.env.PUBLIC_URL}/img/face.png`}/>
+                        </div>
+                    </div>
+                    <div className={"w-full flex mb-5 mt-5"}>
+                        <div className={"w-1/4 flex justify-end mt-2"}>
+                            <span>2020.05.25~2020.06.12</span>
+                        </div>
+                        <div className={"w-2/4 pl-10 flex flex-col"}>
+                            <div className={"exp_title font-bold text-2xl mb-3"}>
+                                펫파인드
+                            </div>
+                            <div className={"exp_sm_title mb-3 text-gray-500 italic"}>
+                                공인 API를 사용하여 유기견 유기묘를 알려주는 사이트
+                            </div>
+                            <div className={"exp_body mb-3 font-light"}>
+                                <ul className="list-disc pl-5">
+                                    <li>첫번째 협업 프로젝트</li>
+                                    <li>공인 API를 사용하여 유기견, 유기묘 데이터를 가져옴</li>
+                                    <li>메인 화면 디자인</li>
+                                    <li>Thymeleaf와 Spring을 사용한 SSR 사이트</li>
+                                </ul>
+                            </div>
+                            <div className={"exp_footer mb-3 mt-4 flex flex-wrap gap-2"}>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">Java</span>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">Thymeleaf</span>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">Spring</span>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">Mysql</span>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">API</span>
+                            </div>
+                        </div>
+                        <div className={"w-1/4 pl-10 flex flex-col justify-center items-center"}>
+                            <img alt={"얼굴 이미지"} src={`${process.env.PUBLIC_URL}/img/face.png`}/>
+                        </div>
+                    </div>
+                    <div className={"w-full flex mb-5 mt-5"}>
+                        <div className={"w-1/4 flex justify-end mt-2"}>
+                            <span>2020.06.21~2020.06.27</span>
+                        </div>
+                        <div className={"w-2/4 pl-10 flex flex-col"}>
+                            <div className={"exp_title font-bold text-2xl mb-3"}>
+                                Dynamic-Beat
+                            </div>
+                            <div className={"exp_sm_title mb-3 text-gray-500 italic"}>
+                                Java의 GUI 프로그램을 사용한 비트 게임
+                            </div>
+                            <div className={"exp_body mb-3 font-light"}>
+                                <ul className="list-disc pl-5">
+                                    <li>첫번째 게임 프로젝트</li>
+                                    <li>Java를 사용하여 GUI 프로그래밍</li>
+                                    <li>노래의 BPM에 맞춰 비트를 내려보내는 동작</li>
+                                </ul>
+                            </div>
+                            <div className={"exp_footer mb-3 mt-4 flex flex-wrap gap-2"}>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">Java</span>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">GUI</span>
+                            </div>
+                        </div>
+                        <div className={"w-1/4 pl-10 flex flex-col justify-center items-center"}>
+                            <img alt={"얼굴 이미지"} src={`${process.env.PUBLIC_URL}/img/face.png`}/>
+                        </div>
+                    </div>
+                    <div className={"w-full flex mb-5 mt-5"}>
+                        <div className={"w-1/4 flex justify-end mt-2"}>
+                            <span>2020.06.21~2020.06.27</span>
+                        </div>
+                        <div className={"w-2/4 pl-10 flex flex-col"}>
+                            <div className={"exp_title font-bold text-2xl mb-3"}>
+                                Celebirty_Match ,LOL_Champ_Match
+                            </div>
+                            <div className={"exp_sm_title mb-3 text-gray-500 italic"}>
+                                나와 닮은 연예인을 알려주는 AI 웹
+                            </div>
+                            <div className={"exp_body mb-3 font-light"}>
+                                <ul className="list-disc pl-5">
+                                    <li>AI를 사용한 웹 프로젝트</li>
+                                    <li>구글에서 제공하는 AI을 사용</li>
+                                    <li>AI에게 연예인, 롤 캐릭터 사진을 학습</li>
+                                    <li>본인의 사진과 닮은 연예인, 롤 캐릭터의 일치율을 비교</li>
+                                </ul>
+                            </div>
+                            <div className={"exp_footer mb-3 mt-4 flex flex-wrap gap-2"}>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">Javascript</span>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">AI</span>
+                            </div>
+                        </div>
+                        <div className={"w-1/4 pl-10 flex flex-col justify-center items-center"}>
+                            <img alt={"얼굴 이미지"} src={`${process.env.PUBLIC_URL}/img/face.png`}/>
+                        </div>
+                    </div>
+                    <div className={"w-full flex mb-5 mt-5"}>
+                        <div className={"w-1/4 flex justify-end mt-2"}>
+                            <span>2020.9.3~2020.10.12</span>
+                        </div>
+                        <div className={"w-2/4 pl-10 flex flex-col"}>
+                            <div className={"exp_title font-bold text-2xl mb-3"}>
+                                넨이의 블로그
+                            </div>
+                            <div className={"exp_sm_title mb-3 text-gray-500 italic"}>
+                                CLUD 형태의 개인 블로그
+                            </div>
+                            <div className={"exp_body mb-3 font-light"}>
+                                <ul className="list-disc pl-5">
+                                    <li>Spring Boot를 </li>
+                                    <li>회원가입 및 로그인</li>
+                                    <li>이메일 인증</li>
+                                    <li>본인의 사진과 닮은 연예인, 롤 캐릭터의 일치율을 비교</li>
+                                </ul>
+                            </div>
+                            <div className={"exp_footer mb-3 mt-4 flex flex-wrap gap-2"}>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">Javascript</span>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">AI</span>
+                            </div>
+                        </div>
+                        <div className={"w-1/4 pl-10 flex flex-col justify-center items-center"}>
+                            <img alt={"얼굴 이미지"} src={`${process.env.PUBLIC_URL}/img/face.png`}/>
                         </div>
                     </div>
                 </div>
