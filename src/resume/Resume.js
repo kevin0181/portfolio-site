@@ -354,7 +354,7 @@ let Resume = () => {
                     <div className={"text-4xl font-light mb-8"}>PROJECT</div>
                     <div className={"w-full flex mb-5 mt-5"}>
                         <div className={"w-1/4 flex justify-end mt-2"}>
-                            <span>2020.05.05~2020.05.12</span>
+                            <span>2020.05.05 ~ 2020.05.12</span>
                         </div>
                         <div className={"w-2/4 pl-10 flex flex-col"}>
                             <div className={"exp_title font-bold text-2xl mb-3"}>
@@ -368,7 +368,7 @@ let Resume = () => {
                                     <li>첫 웹 사이트 프로젝트</li>
                                     <li>jsp와 Spring을 사용한 SSR 사이트</li>
                                     <li><a className={"text-blue-500 underline"}
-                                           href={"https://github.com/kevin0181/dog_portfolio"}>https://github.com/kevin0181/dog_portfolio</a>
+                                           href={"https://github.com/kevin0181/lecture_evaluation"}>https://github.com/kevin0181/lecture_evaluation</a>
                                     </li>
                                 </ul>
                             </div>
@@ -385,7 +385,7 @@ let Resume = () => {
                     </div>
                     <div className={"w-full flex mb-5 mt-5"}>
                         <div className={"w-1/4 flex justify-end mt-2"}>
-                            <span>2020.05.25~2020.06.12</span>
+                            <span>2020.05.25 ~ 2020.06.12</span>
                         </div>
                         <div className={"w-2/4 pl-10 flex flex-col"}>
                             <div className={"exp_title font-bold text-2xl mb-3"}>
@@ -400,6 +400,9 @@ let Resume = () => {
                                     <li>공인 API를 사용하여 유기견, 유기묘 데이터를 가져옴</li>
                                     <li>메인 화면 디자인</li>
                                     <li>Thymeleaf와 Spring을 사용한 SSR 사이트</li>
+                                    <li><a className={"text-blue-500 underline"}
+                                           href={"https://github.com/kevin0181/dog_portfolio"}>https://github.com/kevin0181/dog_portfolio</a>
+                                    </li>
                                 </ul>
                             </div>
                             <div className={"exp_footer mb-3 mt-4 flex flex-wrap gap-2"}>
@@ -416,7 +419,7 @@ let Resume = () => {
                     </div>
                     <div className={"w-full flex mb-5 mt-5"}>
                         <div className={"w-1/4 flex justify-end mt-2"}>
-                            <span>2020.06.21~2020.06.27</span>
+                            <span>2020.06.21 ~ 2020.06.27</span>
                         </div>
                         <div className={"w-2/4 pl-10 flex flex-col"}>
                             <div className={"exp_title font-bold text-2xl mb-3"}>
@@ -430,6 +433,9 @@ let Resume = () => {
                                     <li>첫번째 게임 프로젝트</li>
                                     <li>Java를 사용하여 GUI 프로그래밍</li>
                                     <li>노래의 BPM에 맞춰 비트를 내려보내는 동작</li>
+                                    <li><a className={"text-blue-500 underline"}
+                                           href={"https://github.com/kevin0181/Dynamic-Beat"}>https://github.com/kevin0181/Dynamic-Beat</a>
+                                    </li>
                                 </ul>
                             </div>
                             <div className={"exp_footer mb-3 mt-4 flex flex-wrap gap-2"}>
@@ -443,11 +449,11 @@ let Resume = () => {
                     </div>
                     <div className={"w-full flex mb-5 mt-5"}>
                         <div className={"w-1/4 flex justify-end mt-2"}>
-                            <span>2020.06.21~2020.06.27</span>
+                            <span>2020.06.21 ~ 2020.06.27</span>
                         </div>
                         <div className={"w-2/4 pl-10 flex flex-col"}>
                             <div className={"exp_title font-bold text-2xl mb-3"}>
-                                Celebirty_Match ,LOL_Champ_Match
+                                Celebirty_Match, LOL_Champ_Match
                             </div>
                             <div className={"exp_sm_title mb-3 text-gray-500 italic"}>
                                 나와 닮은 연예인을 알려주는 AI 웹
@@ -458,6 +464,12 @@ let Resume = () => {
                                     <li>구글에서 제공하는 AI을 사용</li>
                                     <li>AI에게 연예인, 롤 캐릭터 사진을 학습</li>
                                     <li>본인의 사진과 닮은 연예인, 롤 캐릭터의 일치율을 비교</li>
+                                    <li><a className={"text-blue-500 underline"}
+                                           href={"https://github.com/kevin0181/Celebirty_Match"}>https://github.com/kevin0181/Celebirty_Match</a>
+                                    </li>
+                                    <li><a className={"text-blue-500 underline"}
+                                           href={"https://github.com/kevin0181/LOL_Champ_Match"}>https://github.com/kevin0181/LOL_Champ_Match</a>
+                                    </li>
                                 </ul>
                             </div>
                             <div className={"exp_footer mb-3 mt-4 flex flex-wrap gap-2"}>
@@ -471,7 +483,7 @@ let Resume = () => {
                     </div>
                     <div className={"w-full flex mb-5 mt-5"}>
                         <div className={"w-1/4 flex justify-end mt-2"}>
-                            <span>2020.9.3~2020.10.12</span>
+                            <span>2020.9.3 ~ 2020.10.12</span>
                         </div>
                         <div className={"w-2/4 pl-10 flex flex-col"}>
                             <div className={"exp_title font-bold text-2xl mb-3"}>
@@ -482,15 +494,174 @@ let Resume = () => {
                             </div>
                             <div className={"exp_body mb-3 font-light"}>
                                 <ul className="list-disc pl-5">
-                                    <li>Spring Boot를 </li>
+                                    <li>Spring Boot를</li>
                                     <li>회원가입 및 로그인</li>
                                     <li>이메일 인증</li>
-                                    <li>본인의 사진과 닮은 연예인, 롤 캐릭터의 일치율을 비교</li>
+                                    <li>CLUD 형태의 게시판</li>
+                                    <li><a className={"text-blue-500 underline"}
+                                           href={"https://github.com/kevin0181/nenBlog"}>https://github.com/kevin0181/nenBlog</a>
+                                    </li>
                                 </ul>
                             </div>
                             <div className={"exp_footer mb-3 mt-4 flex flex-wrap gap-2"}>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">Spring</span>
                                 <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">Javascript</span>
-                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">AI</span>
+                            </div>
+                        </div>
+                        <div className={"w-1/4 pl-10 flex flex-col justify-center items-center"}>
+                            <img alt={"얼굴 이미지"} src={`${process.env.PUBLIC_URL}/img/face.png`}/>
+                        </div>
+                    </div>
+                    <div className={"w-full flex mb-5 mt-5"}>
+                        <div className={"w-1/4 flex justify-end mt-2"}>
+                            <span>2021.12.3 ~ 2022.9.9</span>
+                        </div>
+                        <div className={"w-2/4 pl-10 flex flex-col"}>
+                            <div className={"exp_title font-bold text-2xl mb-3"}>
+                                소소한 부엌
+                            </div>
+                            <div className={"exp_sm_title mb-3 text-gray-500 italic"}>
+                                WebSocket을 사용한 실시간 주문 페이지
+                            </div>
+                            <div className={"exp_body mb-3 font-light"}>
+                                <ul className="list-disc pl-5">
+                                    <li>실시간 주문 연동</li>
+                                    <li>관리자 페이지</li>
+                                    <li>가게를 대표하는 페이지</li>
+                                    <li>블로그 형태 시스템</li>
+                                    <li>실제 웹 배포</li>
+                                    <li><a className={"text-blue-500 underline"}
+                                           href={"https://github.com/kevin0181/sosoProject"}>https://github.com/kevin0181/sosoProject</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className={"exp_footer mb-3 mt-4 flex flex-wrap gap-2"}>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">Spring</span>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">Javascript</span>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">WebSocket</span>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">NaverCloud</span>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">Linux</span>
+                            </div>
+                        </div>
+                        <div className={"w-1/4 pl-10 flex flex-col justify-center items-center"}>
+                            <img alt={"얼굴 이미지"} src={`${process.env.PUBLIC_URL}/img/face.png`}/>
+                        </div>
+                    </div>
+                    <div className={"w-full flex mb-5 mt-5"}>
+                        <div className={"w-1/4 flex justify-end mt-2"}>
+                            <span>2023.1.25 ~ 2023.4.4</span>
+                        </div>
+                        <div className={"w-2/4 pl-10 flex flex-col"}>
+                            <div className={"exp_title font-bold text-2xl mb-3"}>
+                                소소한 부엌 키오스크 버전
+                            </div>
+                            <div className={"exp_sm_title mb-3 text-gray-500 italic"}>
+                                소소한 부엌의 디비와 연동하여 키오스크 개발
+                            </div>
+                            <div className={"exp_body mb-3 font-light"}>
+                                <ul className="list-disc pl-5">
+                                    <li>실시간 주문 연동</li>
+                                    <li>키오스크 페이지</li>
+                                    <li>시스템 구축</li>
+                                    <li><a className={"text-blue-500 underline"}
+                                           href={"https://github.com/kevin0181/sosoKioskElectron"}>https://github.com/kevin0181/sosoKioskElectron</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className={"exp_footer mb-3 mt-4 flex flex-wrap gap-2"}>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">Spring Boot</span>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">React.js</span>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">Electron.js</span>
+                            </div>
+                        </div>
+                        <div className={"w-1/4 pl-10 flex flex-col justify-center items-center"}>
+                            <img alt={"얼굴 이미지"} src={`${process.env.PUBLIC_URL}/img/face.png`}/>
+                        </div>
+                    </div>
+                    <div className={"w-full flex mb-5 mt-5"}>
+                        <div className={"w-1/4 flex justify-end mt-2"}>
+                            <span>2024.5.10 ~ 2024.5.19</span>
+                        </div>
+                        <div className={"w-2/4 pl-10 flex flex-col"}>
+                            <div className={"exp_title font-bold text-2xl mb-3"}>
+                                INVERSUS
+                            </div>
+                            <div className={"exp_sm_title mb-3 text-gray-500 italic"}>
+                                키보드를 사용한 2D 슈팅 게임
+                            </div>
+                            <div className={"exp_body mb-3 font-light"}>
+                                <ul className="list-disc pl-5">
+                                    <li>Win32Api를 사용한 2D 게임</li>
+                                    <li><a className={"text-blue-500 underline"}
+                                           href={"https://github.com/kevin0181/INVERSUS"}>https://github.com/kevin0181/INVERSUS</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className={"exp_footer mb-3 mt-4 flex flex-wrap gap-2"}>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">C++</span>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">Win32Api</span>
+                            </div>
+                        </div>
+                        <div className={"w-1/4 pl-10 flex flex-col justify-center items-center"}>
+                            <img alt={"얼굴 이미지"} src={`${process.env.PUBLIC_URL}/img/face.png`}/>
+                        </div>
+                    </div>
+                    <div className={"w-full flex mb-5 mt-5"}>
+                        <div className={"w-1/4 flex justify-end mt-2"}>
+                            <span>2024.5.1 ~ 2024.6.16</span>
+                        </div>
+                        <div className={"w-2/4 pl-10 flex flex-col"}>
+                            <div className={"exp_title font-bold text-2xl mb-3"}>
+                                Escape-Chronicles
+                            </div>
+                            <div className={"exp_sm_title mb-3 text-gray-500 italic"}>
+                                횡 스크롤 2D 액션 게임
+                            </div>
+                            <div className={"exp_body mb-3 font-light"}>
+                                <ul className="list-disc pl-5">
+                                    <li>Win32Api를 사용한 2D 게임</li>
+                                    <li>애니메이션을 추가</li>
+                                    <li>게임 기획</li>
+                                    <li><a className={"text-blue-500 underline"}
+                                           href={"https://github.com/kevin0181/Escape-Chronicles"}>https://github.com/kevin0181/Escape-Chronicles</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className={"exp_footer mb-3 mt-4 flex flex-wrap gap-2"}>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">C++</span>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">Win32Api</span>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">횡 스크롤</span>
+                            </div>
+                        </div>
+                        <div className={"w-1/4 pl-10 flex flex-col justify-center items-center"}>
+                            <img alt={"얼굴 이미지"} src={`${process.env.PUBLIC_URL}/img/face.png`}/>
+                        </div>
+                    </div>
+                    <div className={"w-full flex mb-5 mt-5"}>
+                        <div className={"w-1/4 flex justify-end mt-2"}>
+                            <span>2022.7.11 ~ 진행중</span>
+                        </div>
+                        <div className={"w-2/4 pl-10 flex flex-col"}>
+                            <div className={"exp_title font-bold text-2xl mb-3"}>
+                                OF-F
+                            </div>
+                            <div className={"exp_sm_title mb-3 text-gray-500 italic"}>
+                                QR 코드를 사용한 실시간 주문 웹
+                            </div>
+                            <div className={"exp_body mb-3 font-light"}>
+                                <ul className="list-disc pl-5">
+                                    <li>다양한 가맹점 연결</li>
+                                    <li>해당 가맹점의 메뉴 주문</li>
+                                    <li>실시간 주문 전송</li>
+                                    <li><a className={"text-blue-500 underline"}
+                                           href={"https://github.com/kevin0181/OF-f"}>https://github.com/kevin0181/OF-f</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className={"exp_footer mb-3 mt-4 flex flex-wrap gap-2"}>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">Spring Boot</span>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">React.js</span>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">WebSocket</span>
                             </div>
                         </div>
                         <div className={"w-1/4 pl-10 flex flex-col justify-center items-center"}>
