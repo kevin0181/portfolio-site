@@ -380,7 +380,7 @@ let Resume = () => {
                             </div>
                         </div>
                         <div className={"w-1/4 pl-10 flex flex-col justify-center items-center"}>
-                            <img alt={"얼굴 이미지"} src={`${process.env.PUBLIC_URL}/img/face.png`}/>
+                            <img alt={"강의평가"} src={`${process.env.PUBLIC_URL}/img/project/강의평가.png`}/>
                         </div>
                     </div>
                     <div className={"w-full flex mb-5 mt-5"}>
@@ -414,7 +414,7 @@ let Resume = () => {
                             </div>
                         </div>
                         <div className={"w-1/4 pl-10 flex flex-col justify-center items-center"}>
-                            <img alt={"얼굴 이미지"} src={`${process.env.PUBLIC_URL}/img/face.png`}/>
+                            <img alt={"펫파인드"} src={`${process.env.PUBLIC_URL}/img/project/펫파인드.png`}/>
                         </div>
                     </div>
                     <div className={"w-full flex mb-5 mt-5"}>
@@ -444,7 +444,7 @@ let Resume = () => {
                             </div>
                         </div>
                         <div className={"w-1/4 pl-10 flex flex-col justify-center items-center"}>
-                            <img alt={"얼굴 이미지"} src={`${process.env.PUBLIC_URL}/img/face.png`}/>
+                            <img alt={"다이나믹비트"} src={`${process.env.PUBLIC_URL}/img/project/다이나믹비트.png`}/>
                         </div>
                     </div>
                     <div className={"w-full flex mb-5 mt-5"}>
@@ -478,7 +478,7 @@ let Resume = () => {
                             </div>
                         </div>
                         <div className={"w-1/4 pl-10 flex flex-col justify-center items-center"}>
-                            <img alt={"얼굴 이미지"} src={`${process.env.PUBLIC_URL}/img/face.png`}/>
+                            <img alt={"연예인"} src={`${process.env.PUBLIC_URL}/img/project/연예인닮은꼴.png`}/>
                         </div>
                     </div>
                     <div className={"w-full flex mb-5 mt-5"}>
@@ -509,7 +509,7 @@ let Resume = () => {
                             </div>
                         </div>
                         <div className={"w-1/4 pl-10 flex flex-col justify-center items-center"}>
-                            <img alt={"얼굴 이미지"} src={`${process.env.PUBLIC_URL}/img/face.png`}/>
+                            <img alt={"블로그"} src={`${process.env.PUBLIC_URL}/img/project/블로그.png`}/>
                         </div>
                     </div>
                     <div className={"w-full flex mb-5 mt-5"}>
@@ -544,7 +544,7 @@ let Resume = () => {
                             </div>
                         </div>
                         <div className={"w-1/4 pl-10 flex flex-col justify-center items-center"}>
-                            <img alt={"얼굴 이미지"} src={`${process.env.PUBLIC_URL}/img/face.png`}/>
+                            <img alt={"소소한부엌"} src={`${process.env.PUBLIC_URL}/img/project/soso.png`}/>
                         </div>
                     </div>
                     <div className={"w-full flex mb-5 mt-5"}>
@@ -575,7 +575,7 @@ let Resume = () => {
                             </div>
                         </div>
                         <div className={"w-1/4 pl-10 flex flex-col justify-center items-center"}>
-                            <img alt={"얼굴 이미지"} src={`${process.env.PUBLIC_URL}/img/face.png`}/>
+                            <img alt={"soso kiosk"} src={`${process.env.PUBLIC_URL}/img/project/키오스크.png`}/>
                         </div>
                     </div>
                     <div className={"w-full flex mb-5 mt-5"}>
@@ -603,7 +603,7 @@ let Resume = () => {
                             </div>
                         </div>
                         <div className={"w-1/4 pl-10 flex flex-col justify-center items-center"}>
-                            <img alt={"얼굴 이미지"} src={`${process.env.PUBLIC_URL}/img/face.png`}/>
+                            <img alt={"인버서스"} src={`${process.env.PUBLIC_URL}/img/project/인버서스.png`}/>
                         </div>
                     </div>
                     <div className={"w-full flex mb-5 mt-5"}>
@@ -634,7 +634,7 @@ let Resume = () => {
                             </div>
                         </div>
                         <div className={"w-1/4 pl-10 flex flex-col justify-center items-center"}>
-                            <img alt={"얼굴 이미지"} src={`${process.env.PUBLIC_URL}/img/face.png`}/>
+                            <img alt={"크로니클"} src={`${process.env.PUBLIC_URL}/img/project/escape크로니클.png`}/>
                         </div>
                     </div>
                     <div className={"w-full flex mb-5 mt-5"}>
@@ -662,6 +662,33 @@ let Resume = () => {
                                 <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">Spring Boot</span>
                                 <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">React.js</span>
                                 <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">WebSocket</span>
+                            </div>
+                        </div>
+                        <div className={"w-1/4 pl-10 flex flex-col justify-center items-center"}>
+                            <img alt={"off"} src={`${process.env.PUBLIC_URL}/img/project/OF.png`}/>
+                        </div>
+                    </div>
+                </div>
+                <hr/>
+                <div className={"part_section mt-5"}>
+                    <div className={"text-4xl font-light mb-8"}>ETC</div>
+                    <div className={"w-full flex mb-5 mt-5"}>
+                        <div className={"w-1/4 flex justify-end mt-2"}>
+                            <span>2020.05.05 ~ 2020.05.12</span>
+                        </div>
+                        <div className={"w-2/4 pl-10 flex flex-col"}>
+                            <div className={"exp_title font-bold text-2xl mb-3"}>
+                                공군 창업 해커톤
+                            </div>
+                            <div className={"exp_sm_title mb-3 text-gray-500 italic"}>
+
+                            </div>
+                            <div className={"exp_body mb-3 font-light"}>
+                                <ul className="list-disc pl-5">
+                                    <li></li>
+                                </ul>
+                            </div>
+                            <div className={"exp_footer mb-3 mt-4 flex flex-wrap gap-2"}>
                             </div>
                         </div>
                         <div className={"w-1/4 pl-10 flex flex-col justify-center items-center"}>
