@@ -678,21 +678,22 @@ let Resume = () => {
                         </div>
                         <div className={"w-2/4 pl-10 flex flex-col"}>
                             <div className={"exp_title font-bold text-2xl mb-3"}>
-                                공군 창업 해커톤
+                                Stanty
                             </div>
                             <div className={"exp_sm_title mb-3 text-gray-500 italic"}>
-
+                                Iot 스마트 안전벨트
                             </div>
                             <div className={"exp_body mb-3 font-light"}>
                                 <ul className="list-disc pl-5">
-                                    <li></li>
+                                    <li>공군 해커톤</li>
+                                    <li>사업 계획서</li>
                                 </ul>
                             </div>
                             <div className={"exp_footer mb-3 mt-4 flex flex-wrap gap-2"}>
                             </div>
                         </div>
                         <div className={"w-1/4 pl-10 flex flex-col justify-center items-center"}>
-                            <img alt={"얼굴 이미지"} src={`${process.env.PUBLIC_URL}/img/face.png`}/>
+                            <img alt={"stanty"} src={`${process.env.PUBLIC_URL}/img/project/stanty.png`}/>
                         </div>
                     </div>
                 </div>
