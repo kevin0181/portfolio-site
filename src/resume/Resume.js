@@ -21,9 +21,14 @@ let Resume = () => {
             <div className={"flex flex-col font-noto"}>
                 <div className={"part_section mt-5 mb-5 flex flex-wrap justify-center "}>
                     <div className={"sm:w-1/3 max-w-72 min-w-52 w-full flex justify-center"}>
-                        <img alt={"얼굴 이미지"} src={`${process.env.PUBLIC_URL}/img/face.png`}/>
+                        <img alt={"얼굴 이미지"} style={{
+                            borderRadius: "30px",
+                            padding: "2% 1%"
+                        }} src={`${process.env.PUBLIC_URL}/img/m.jpg`}/>
                     </div>
-                    <div className={"part_section_list sm:w-2/3 w-full flex flex-col p-3"}>
+                    <div style={{
+                        padding: "2% 5%"
+                    }} className={"part_section_list sm:w-2/3 w-full flex flex-col p-3"}>
                         <div className={"resume_name"}>
                             <span className={"mr-3 text-4xl font-bold"}>유영빈</span>
                             <span>you young bin</span>
@@ -37,7 +42,7 @@ let Resume = () => {
                         </div>
                         <div className={"resume_contact flex"}>
                             <PhoneIcon className="h-6 text-gray-800 w-auto mr-3"/>
-                            <span>82+ 10-8650-9053</span>
+                            <span>82+ 10-3211-9952</span>
                         </div>
                         <div className={"resume_github flex"}>
                             <FontAwesomeIcon icon={faGithub} className="h-6 text-gray-800 w-auto mr-3"/>
@@ -426,7 +431,8 @@ let Resume = () => {
                         </div>
                         <div className={"w-2/4 pl-10 flex flex-col"}>
                             <div className={"exp_title font-bold text-2xl mb-3"}>
-                                Dynamic-Beat
+                                Dynamic-Beat<img
+                                src="https://img.shields.io/badge/game project-CCFF00?style=flat-square&logo=gamejolt&logoColor=white"/>
                             </div>
                             <div className={"exp_sm_title mb-3 text-gray-500 italic"}>
                                 Java의 GUI 프로그램을 사용한 비트 게임
@@ -588,6 +594,8 @@ let Resume = () => {
                         <div className={"w-2/4 pl-10 flex flex-col"}>
                             <div className={"exp_title font-bold text-2xl mb-3"}>
                                 INVERSUS
+                                <img
+                                    src="https://img.shields.io/badge/game project-CCFF00?style=flat-square&logo=gamejolt&logoColor=white"/>
                             </div>
                             <div className={"exp_sm_title mb-3 text-gray-500 italic"}>
                                 키보드를 사용한 2D 슈팅 게임
@@ -615,7 +623,8 @@ let Resume = () => {
                         </div>
                         <div className={"w-2/4 pl-10 flex flex-col"}>
                             <div className={"exp_title font-bold text-2xl mb-3"}>
-                                Escape-Chronicles
+                                Escape-Chronicles<img
+                                src="https://img.shields.io/badge/game project-CCFF00?style=flat-square&logo=gamejolt&logoColor=white"/>
                             </div>
                             <div className={"exp_sm_title mb-3 text-gray-500 italic"}>
                                 횡 스크롤 2D 액션 게임
@@ -638,6 +647,71 @@ let Resume = () => {
                         </div>
                         <div className={"w-1/4 pl-10 flex flex-col justify-center items-center"}>
                             <img alt={"크로니클"} src={`${process.env.PUBLIC_URL}/img/project/escape크로니클.png`}/>
+                        </div>
+                    </div>
+                    <div className={"w-full flex mb-5 mt-5"}>
+                        <div className={"w-1/4 flex justify-end mt-2"}>
+                            <span>2024.11.15 ~ 2024.11.19</span>
+                        </div>
+                        <div className={"w-2/4 pl-10 flex flex-col"}>
+                            <div className={"exp_title font-bold text-2xl mb-3"}>
+                                Obj-viewer (opengl)
+                            </div>
+                            <div className={"exp_sm_title mb-3 text-gray-500 italic"}>
+                                obj 파일을 불러와 3D로 보여주는 프로그램
+                            </div>
+                            <div className={"exp_body mb-3 font-light"}>
+                                <ul className="list-disc pl-5">
+                                    <li>OpenGl을 사용한 뷰어</li>
+                                    <li>모델과 텍스쳐 입혀서 불러오기</li>
+                                    <li><a className={"text-blue-500 underline"}
+                                           href={"https://github.com/neneee0181/obj-viewer"}>https://github.com/neneee0181/obj-viewer</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className={"exp_footer mb-3 mt-4 flex flex-wrap gap-2"}>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">C++</span>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">OpenGl</span>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">3D</span>
+                            </div>
+                        </div>
+                        <div className={"w-1/4 pl-10 flex flex-col justify-center items-center"}>
+                            <img alt={"obj뷰어"} src={`${process.env.PUBLIC_URL}/img/project/objview.png`}/>
+                        </div>
+                    </div>
+                    <div className={"w-full flex mb-5 mt-5"}>
+                        <div className={"w-1/4 flex justify-end mt-2"}>
+                            <span>2024.11.20 ~ 2024.12.15</span>
+                        </div>
+                        <div className={"w-2/4 pl-10 flex flex-col"}>
+                            <div className={"exp_title font-bold text-2xl mb-3"}>
+                                KarKartRider <img
+                                src="https://img.shields.io/badge/game project-CCFF00?style=flat-square&logo=gamejolt&logoColor=white"/>
+                            </div>
+                            <div className={"exp_sm_title mb-3 text-gray-500 italic"}>
+                                OpenGl 3D 레이싱 게임 (카트라이더 모작)
+                            </div>
+                            <div className={"exp_body mb-3 font-light"}>
+                                <ul className="list-disc pl-5">
+                                    <li>OpenGl을 사용한 3D 게임</li>
+                                    <li>물리 구현</li>
+                                    <li>첫 3D 게임 개발</li>
+                                    <li><a className={"text-blue-500 underline"}
+                                           href={"https://github.com/neneee0181/KartRider"}>https://github.com/neneee0181/KartRider</a>
+                                    </li>
+                                    <li><a className={"text-blue-500 underline"}
+                                           href={"https://youtu.be/FTfmZc3j5fU?si=Knz2sXl-UROgJgys"}>플레이 영상 (유튜브)</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className={"exp_footer mb-3 mt-4 flex flex-wrap gap-2"}>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">C++</span>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">OpenGl</span>
+                                <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">3D</span>
+                            </div>
+                        </div>
+                        <div className={"w-1/4 pl-10 flex flex-col justify-center items-center"}>
+                            <img alt={"카카트라이더"} src={`${process.env.PUBLIC_URL}/img/project/kartrider.png`}/>
                         </div>
                     </div>
                     <div className={"w-full flex mb-5 mt-5"}>
