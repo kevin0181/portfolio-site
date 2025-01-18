@@ -42,8 +42,11 @@ let Resume = () => {
                         <div className={"resume_github flex"}>
                             <FontAwesomeIcon icon={faGithub} className="h-6 text-gray-800 w-auto mr-3"/>
                             <span>
-                                <a className={"text-blue-700 underline"} href={"https://github.com/kevin0181"}
-                                   target={"_blank"}>https://github.com/kevin0181</a>
+                                Web : <a className={"text-blue-700 underline"} href={"https://github.com/kevin0181"}
+                                         target={"_blank"}>https://github.com/kevin0181</a>
+                                <br/>
+                                Game : <a className={"text-blue-700 underline"} href={"https://github.com/neneee0181"}
+                                          target={"_blank"}>https://github.com/neneee0181</a>
                             </span>
                         </div>
                         <div className={"resume_tistory flex"}>
