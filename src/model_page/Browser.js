@@ -10,6 +10,10 @@ let SelectIcon = ({icon, setProgram}) => {
             return <SpotifyComponent/>
         case "setting":
             return <SettingComponent/>
+        case "deepseek":
+            return <DeepSeek/>
+        case "doom":
+            return <Doom/>
         default:
             //setProgram("");
             break;
@@ -168,4 +172,25 @@ let Browser = ({program, setProgram}) => {
         </div>
     )
 }
+
+let DeepSeek = () => {
+    return (
+        <div className={"mac_youtube_cp"} style={{
+            fontSize: "100px",
+        }}>
+            딥 ㅎㅇ
+        </div>
+    )
+}
+
+let Doom = () => {
+    return (
+        <div className={"mac_youtube_cp"} style={{
+            fontSize: "100px",
+        }}>
+            둠 ㅎㅇ
+        </div>
+    )
+}
+
 export default Browser;

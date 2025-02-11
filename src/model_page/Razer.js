@@ -13,6 +13,8 @@ import macSetting from "../img/mac/mac_stting.png";
 import macFinder from "../img/mac/mac_finder.png";
 import macPhoto from "../img/mac/mac_photo.png";
 import macSpotify from "../img/mac/mac_spotify.png";
+import macDeepSeek from "../img/mac/mac_deepseek.png";
+import macDoom from "../img/mac/mac_doom.png";
 
 import Browser from "./Browser";
 import Terminal from "./Terminal";
@@ -117,6 +119,20 @@ let Window_ = ({navigate}) => {
                                 </div>
                                 <div className={"mac_icon"}>
                                     <img src={macSetting} alt={"icon"} name={"setting"} onClick={iconOnClick}/>
+                                </div>
+                                <div className={"mac_icon"}>
+                                    <div style={{
+                                        backgroundColor: "white",
+                                        padding: "7%",
+                                        borderRadius: "20%"
+                                    }}>
+                                        <img src={macDeepSeek} alt={"icon"} name={"deepseek"} onClick={iconOnClick}/>
+                                    </div>
+                                </div>
+                                <div className={"mac_icon"}>
+                                    <img src={macDoom} alt={"icon"} name={"doom"} onClick={iconOnClick} style={{
+                                        width: "80%"
+                                    }}/>
                                 </div>
                             </div>
                         </div>
