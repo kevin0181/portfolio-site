@@ -268,12 +268,25 @@ let DeepSeek = () => {
 
 let Doom = () => {
     return (
-        <div className={"mac_youtube_cp"} style={{
-            fontSize: "100px",
-        }}>
-            둠 ㅎㅇ
+        <div
+            style={{
+                width: "100%",          // 너비 100%로 설정
+                height: "100%",        // 높이를 원하는 값으로 설정 (여기서는 500px)
+                textAlign: "center",
+                position: "relative",   // 자식 요소를 정확히 배치하기 위한 설정
+            }}
+        >
+            <iframe
+                src="https://js-dos.com/games/doom.exe.html"
+                width="100%"
+                height="100%"
+                style={{
+                    border: "none",
+                }}
+                title="DOOM"
+            ></iframe>
         </div>
-    )
+    );
 }
 
 export default Browser;
