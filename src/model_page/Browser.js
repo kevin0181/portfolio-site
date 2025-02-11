@@ -1,4 +1,5 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
+import {HfInference} from "@huggingface/inference";
 
 let SelectIcon = ({icon, setProgram}) => {
     switch (icon) {
@@ -174,13 +175,95 @@ let Browser = ({program, setProgram}) => {
 }
 
 let DeepSeek = () => {
+    const client = new HfInference("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");
+    const [input, setInput] = useState(""); // 사용자 입력 저장
+    const [response, setResponse] = useState(""); // AI 응답 저장
+    const [loading, setLoading] = useState(false);
+
+    const fetchChatCompletion = async () => {
+        if (!input.trim()) return; // 빈 입력 방지
+        setLoading(true);
+        try {
+            const chatCompletion = await client.chatCompletion({
+                model: "deepseek-ai/DeepSeek-R1",
+                messages: [{role: "user", content: input}],
+                provider: "together",
+                max_tokens: 500,
+            });
+
+            setResponse(chatCompletion.choices[0].message.content);
+        } catch (error) {
+            console.error("Error fetching chat completion:", error);
+            setResponse("Error: 응답을 가져올 수 없습니다.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
-        <div className={"mac_youtube_cp"} style={{
-            fontSize: "100px",
+        <div style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100%",
+            backgroundColor: "#343541",
+            color: "white",
+            fontFamily: "Arial, sans-serif",
+            fontSize: "100px"
         }}>
-            딥 ㅎㅇ
+            <h2 style={{marginBottom: "20px"}}>DeepSeek Chat</h2>
+
+            <div style={{
+                width: "60%",
+                minHeight: "200px",
+                padding: "20px",
+                backgroundColor: "#444654",
+                borderRadius: "10px",
+                overflowY: "auto",
+                boxShadow: "0 0 10px rgba(0, 0, 0, 0.3)",
+                textAlign: "left"
+            }}>
+                {loading ? <p>⌛ 로딩 중...</p> : <p>{response || "질문을 입력하세요!"}</p>}
+            </div>
+
+            <div style={{
+                display: "flex",
+                width: "60%",
+                marginTop: "20px"
+            }}>
+                <input
+                    type="text"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    placeholder="질문을 입력하세요..."
+                    style={{
+                        flex: 1,
+                        padding: "10px",
+                        borderRadius: "5px",
+                        border: "none",
+                        outline: "none",
+                        color: "black",
+                    }}
+                />
+                <button
+                    onClick={fetchChatCompletion}
+                    style={{
+                        marginLeft: "10px",
+                        padding: "10px 20px",
+                        fontWeight: "bold",
+                        backgroundColor: "#10A37F",
+                        color: "white",
+                        border: "none",
+                        borderRadius: "5px",
+                        cursor: "pointer"
+                    }}
+                >
+                    보내기
+                </button>
+            </div>
         </div>
-    )
+    );
 }
 
 let Doom = () => {
