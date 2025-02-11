@@ -175,7 +175,7 @@ let Browser = ({program, setProgram}) => {
 }
 
 let DeepSeek = () => {
-    const client = new HfInference("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");
+    const client = new HfInference("1");
     const [input, setInput] = useState(""); // 사용자 입력 저장
     const [response, setResponse] = useState(""); // AI 응답 저장
     const [loading, setLoading] = useState(false);
