@@ -54,7 +54,7 @@ let Resume = () => {
                             </div>
                             <div className={"resume_contact flex"}>
                                 <PhoneIcon className="h-6 text-gray-800 w-auto mr-3"/>
-                                <span>82+ 10-3211-9952</span>
+                                <span>82+ 10-8650-9052</span>
                             </div>
                             <div className={"resume_github flex"}>
                                 <FontAwesomeIcon icon={faGithub} className="h-6 text-gray-800 w-auto mr-3"/>
@@ -81,17 +81,25 @@ let Resume = () => {
                                    target={"_blank"}>https://neneee.notion.site</a>
                             </span>
                             </div>
-                            <div className={"resume_contact flex"}>
-                                <button className="custom-btn btn-6" onClick={() => setIsModalOpen(true)}
-                                        style={{
-                                            marginRight: "1rem"
-                                        }}>자기소개서
-                                </button>
-                                <button className="custom-btn btn-6" onClick={() => {
-                                    navigate("/portfolio");
-                                }}>포트폴리오
-                                </button>
+                            <div className={"resume_notion flex"}>
+                                Portfolio : &nbsp;
+                                <span>
+                                <a className={"text-blue-700 underline"}
+                                   href={"https://neneee.notion.site/My-Life-a89c7f78cc7c4b1cb1a0874d1283a15d?pvs=74"}
+                                   target={"_blank"}> https://kevin0181.github.io/portfolio-site/main</a>
+                            </span>
                             </div>
+                            {/*<div className={"resume_contact flex"}>*/}
+                            {/*    <button className="custom-btn btn-6" onClick={() => setIsModalOpen(true)}*/}
+                            {/*            style={{*/}
+                            {/*                marginRight: "1rem"*/}
+                            {/*            }}>자기소개서*/}
+                            {/*    </button>*/}
+                            {/*    <button className="custom-btn btn-6" onClick={() => {*/}
+                            {/*        navigate("/portfolio");*/}
+                            {/*    }}>포트폴리오*/}
+                            {/*    </button>*/}
+                            {/*</div>*/}
                         </div>
                     </div>
                     <hr/>
@@ -788,6 +796,58 @@ let Resume = () => {
                             </div>
                             <div className={"w-1/4 pl-10 flex flex-col justify-center items-center"}>
                                 <img alt={"stanty"} src={`${process.env.PUBLIC_URL}/img/project/stanty.png`}/>
+                            </div>
+                        </div>
+                        <div className={"w-full flex mb-5 mt-5"}>
+                            <div className={"w-1/4 flex justify-end mt-2"}>
+                                <span>2025.03.012 ~ 2025.03.27</span>
+                            </div>
+                            <div className={"w-2/4 pl-10 flex flex-col"}>
+                                <div className={"exp_title font-bold text-2xl mb-3"}>
+                                    Spring Boot와 React로 배우는 초간단 REST API 게시판 만들기
+                                </div>
+                                <div className={"exp_sm_title mb-3 text-gray-500 italic"}>
+                                    인프런 강의 영상 제작
+                                </div>
+                                <div className={"exp_body mb-3 font-light"}>
+                                    <ul className="list-disc pl-5">
+                                        <li>첫 강의 영상</li>
+                                        <li><a className={"text-blue-500 underline"}
+                                               href={"https://www.inflearn.com/course/springboot-react-restapi-게시판만들기"}>https://www.inflearn.com/course/springboot-react-restapi-게시판만들기</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div className={"exp_footer mb-3 mt-4 flex flex-wrap gap-2"}>
+                                </div>
+                            </div>
+                            <div className={"w-1/4 pl-10 flex flex-col justify-center items-center"}>
+                                <img alt={"stanty"} src={`${process.env.PUBLIC_URL}/img/project/in1.png`}/>
+                            </div>
+                        </div>
+                        <div className={"w-full flex mb-5 mt-5"}>
+                            <div className={"w-1/4 flex justify-end mt-2"}>
+                                <span>2025.05.02 ~ 2020.05.16</span>
+                            </div>
+                            <div className={"w-2/4 pl-10 flex flex-col"}>
+                                <div className={"exp_title font-bold text-2xl mb-3"}>
+                                    React.js + Node.js 롤 전적 검색 사이트 만들기
+                                </div>
+                                <div className={"exp_sm_title mb-3 text-gray-500 italic"}>
+                                    생각보다 반응이 좋아, 두번째 강의 제작
+                                </div>
+                                <div className={"exp_body mb-3 font-light"}>
+                                    <ul className="list-disc pl-5">
+                                        <li>두번째 강의 영상</li>
+                                        <li><a className={"text-blue-500 underline"}
+                                               href={"-"}>허가 대기 중</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div className={"exp_footer mb-3 mt-4 flex flex-wrap gap-2"}>
+                                </div>
+                            </div>
+                            <div className={"w-1/4 pl-10 flex flex-col justify-center items-center"}>
+                                <img alt={"stanty"} src={`${process.env.PUBLIC_URL}/img/project/in2.png`}/>
                             </div>
                         </div>
                     </div>
