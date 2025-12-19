@@ -8,6 +8,7 @@ import Razer from "./model_page/Razer";
 
 import "./css/app.css";
 import Doom from "./model_page/Doom";
+import Demo from "./demo/Demo";
 
 function App() {
     return (
@@ -20,6 +21,7 @@ function App() {
                     <Route path={"/resume"} element={<Resume/>}/>
                     <Route path={"/project"}/>
                     <Route path={"/doom"} element={<Doom/>}/>
+                    <Route path={"/demo"} element={<Demo/>}/>
                 </Routes>
             </div>
         </BrowserRouter>
