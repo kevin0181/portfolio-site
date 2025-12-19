@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/portfolio-site/static/css/main.29c0f5de.css",
-    "main.js": "/portfolio-site/static/js/main.54d2822e.js",
+    "main.css": "/portfolio-site/static/css/main.78d57e18.css",
+    "main.js": "/portfolio-site/static/js/main.c7124b7f.js",
     "static/media/mac_background.jpg": "/portfolio-site/static/media/mac_background.fecd815712428680df09.jpg",
     "static/media/mac_doom.png": "/portfolio-site/static/media/mac_doom.00ca5a682dd737337e13.png",
     "static/media/mac_stting.png": "/portfolio-site/static/media/mac_stting.a1d01a81ba01c477ebc8.png",
@@ -12,11 +12,11 @@
     "static/media/mac_map.png": "/portfolio-site/static/media/mac_map.3650713b4b4f99f6f892.png",
     "static/media/mac_terminal.png": "/portfolio-site/static/media/mac_terminal.fcd65ed88a6b1b81f276.png",
     "index.html": "/portfolio-site/index.html",
-    "main.29c0f5de.css.map": "/portfolio-site/static/css/main.29c0f5de.css.map",
-    "main.54d2822e.js.map": "/portfolio-site/static/js/main.54d2822e.js.map"
+    "main.78d57e18.css.map": "/portfolio-site/static/css/main.78d57e18.css.map",
+    "main.c7124b7f.js.map": "/portfolio-site/static/js/main.c7124b7f.js.map"
   },
   "entrypoints": [
-    "static/css/main.29c0f5de.css",
-    "static/js/main.54d2822e.js"
+    "static/css/main.78d57e18.css",
+    "static/js/main.c7124b7f.js"
   ]
 }
