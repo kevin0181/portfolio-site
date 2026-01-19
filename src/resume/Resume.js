@@ -807,7 +807,7 @@ let Resume = () => {
                                     Spring Boot와 React로 배우는 초간단 REST API 게시판 만들기
                                 </div>
                                 <div className={"exp_sm_title mb-3 text-gray-500 italic"}>
-                                    인프런 강의 영상 제작
+                                    수강생 306명
                                 </div>
                                 <div className={"exp_body mb-3 font-light"}>
                                     <ul className="list-disc pl-5">
@@ -833,13 +833,13 @@ let Resume = () => {
                                     React.js + Node.js 롤 전적 검색 사이트 만들기
                                 </div>
                                 <div className={"exp_sm_title mb-3 text-gray-500 italic"}>
-                                    생각보다 반응이 좋아, 두번째 강의 제작
+                                    수강생 53명
                                 </div>
                                 <div className={"exp_body mb-3 font-light"}>
                                     <ul className="list-disc pl-5">
                                         <li>두번째 강의 영상</li>
                                         <li><a className={"text-blue-500 underline"}
-                                               href={"-"}>허가 대기 중</a>
+                                               href={"https://www.inflearn.com/course/reactjs-nodejs-%EB%A1%A4%EC%A0%84%EC%A0%81-%EA%B2%80%EC%83%89%EC%82%AC%EC%9D%B4%ED%8A%B8"}>https://www.inflearn.com/course/reactjs-nodejs-롤전적-검색사이트</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -848,6 +848,32 @@ let Resume = () => {
                             </div>
                             <div className={"w-1/4 pl-10 flex flex-col justify-center items-center"}>
                                 <img alt={"stanty"} src={`${process.env.PUBLIC_URL}/img/project/in2.png`}/>
+                            </div>
+                        </div>
+                        <div className={"w-full flex mb-5 mt-5"}>
+                            <div className={"w-1/4 flex justify-end mt-2"}>
+                                <span>2025.06.02 ~ 2020.07.16</span>
+                            </div>
+                            <div className={"w-2/4 pl-10 flex flex-col"}>
+                                <div className={"exp_title font-bold text-2xl mb-3"}>
+                                    Spring Boot + React.js 로그인 (+소셜) 서비스 이해하기
+                                </div>
+                                <div className={"exp_sm_title mb-3 text-gray-500 italic"}>
+                                    수강생 154명
+                                </div>
+                                <div className={"exp_body mb-3 font-light"}>
+                                    <ul className="list-disc pl-5">
+                                        <li>세번째 강의 영상</li>
+                                        <li><a className={"text-blue-500 underline"}
+                                               href={"https://www.inflearn.com/course/spring-boot-reactjs"}>https://www.inflearn.com/course/spring-boot-reactjs</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div className={"exp_footer mb-3 mt-4 flex flex-wrap gap-2"}>
+                                </div>
+                            </div>
+                            <div className={"w-1/4 pl-10 flex flex-col justify-center items-center"}>
+                                <img alt={"stanty"} src={`${process.env.PUBLIC_URL}/img/project/login.png`}/>
                             </div>
                         </div>
                     </div>

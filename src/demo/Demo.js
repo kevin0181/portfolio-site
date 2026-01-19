@@ -153,7 +153,7 @@ let Demo = () => {
                 <div className="brand">
                     <div className="logo">AI</div>
                     <div>
-                        <div className="title">인간 vs AI DashBoard</div>
+                        <div className="title">RE:ADAPT</div>
                         <div className="subtitle">Player Behavior • AI Adaptation • PCG Stats</div>
                     </div>
                 </div>
@@ -346,7 +346,7 @@ let Demo = () => {
             </main>
 
             <footer className="footer">
-                Demo only • React UI (no server) • {new Date().toLocaleDateString("ko-KR")}
+                한국공학대 졸업 작품 • 이소민, 유영빈, 양현서 • {new Date().toLocaleDateString("ko-KR")}
             </footer>
         </div>
     );

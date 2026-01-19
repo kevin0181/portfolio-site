@@ -9,6 +9,8 @@ import Razer from "./model_page/Razer";
 import "./css/app.css";
 import Doom from "./model_page/Doom";
 import Demo from "./demo/Demo";
+import DemoJson from "./demo/DemoJson";
+import DemoRL from "./demo/DemoRL";
 
 function App() {
     return (
@@ -22,6 +24,8 @@ function App() {
                     <Route path={"/project"}/>
                     <Route path={"/doom"} element={<Doom/>}/>
                     <Route path={"/demo"} element={<Demo/>}/>
+                    <Route path={"/demoJson"} element={<DemoJson/>}/>
+                    <Route path={"/demoRL"} element={<DemoRL/>}/>
                 </Routes>
             </div>
         </BrowserRouter>
