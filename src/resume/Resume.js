@@ -242,6 +242,25 @@ let Resume = () => {
                                     </div>
                                 </div>
                             </div>
+                            <div className={"flex flex-col mb-4 flex-wrap"}>
+                                <span className={"text-center text-2xl font-extralight"}>Game Development</span>
+                                <div className={"skill_part font-light flex flex-wrap"} style={{
+                                    marginTop: "2rem"
+                                }}>
+                                    <div className={"flex w-full mb-4 md:w-1/2 justify-center"}>
+                                        <img src={`${process.env.PUBLIC_URL}/img/skill/unreal_engine_icon.svg`}
+                                             className={"h-6 w-6 mr-4"}
+                                             alt={"unreal engine icon"}/>
+                                        <span>Unreal Engine</span>
+                                    </div>
+                                    <div className={"flex w-full mb-4 md:w-1/2 justify-center"}>
+                                        <img src={`${process.env.PUBLIC_URL}/img/skill/blender_icon.svg`}
+                                             className={"h-6 w-6 mr-4"}
+                                             alt={"blender icon"}/>
+                                        <span>Blender</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <hr/>

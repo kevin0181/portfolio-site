@@ -95,6 +95,22 @@ let Skill = () => {
                         </div>
                     </div>
                 </div>
+                <div className={"part_d_w bg-white mt-2"}>
+                    <div className={"part_d_top"}>
+                        Game
+                        <hr/>
+                    </div>
+                    <div className={"part_d_bottom"}>
+                        <div className={"skill_icon"}>
+                            <img src={`${process.env.PUBLIC_URL}/img/skill/unreal_engine_icon.svg`}
+                                 alt={"unreal engine icon"}/>
+                        </div>
+                        <div className={"skill_icon"}>
+                            <img src={`${process.env.PUBLIC_URL}/img/skill/blender_icon.svg`}
+                                 alt={"blender icon"}/>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div className={"part_d lg:basis-1/3 md:basis-1/2 sm:basis-full flex flex-col"}>
                 <div className={"part_d_w bg-white mt-2"}>
