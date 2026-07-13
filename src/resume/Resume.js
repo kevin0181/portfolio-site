@@ -1,6 +1,7 @@
 import "./../css/resume.css";
 import {MailIcon} from '@heroicons/react/solid';
 import {PhoneIcon} from '@heroicons/react/solid';
+import {AcademicCapIcon} from '@heroicons/react/solid';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faGithub, faJava} from '@fortawesome/free-brands-svg-icons';
 import {
@@ -77,6 +78,14 @@ let Resume = () => {
                                    target={"_blank"}>https://neneee.notion.site</a>
                             </span>
                             </div>
+                            <div className={"resume_inflearn flex"}>
+                                <AcademicCapIcon className="h-6 text-gray-800 w-auto mr-3"/>
+                                <span>
+                                <a className={"text-blue-700 underline"}
+                                   href={"https://www.inflearn.com/users/1466071/@neneee"}
+                                   target={"_blank"}>https://www.inflearn.com/users/1466071/@neneee</a>
+                            </span>
+                            </div>
                             {/*<div className={"resume_contact flex"}>*/}
                             {/*    <button className="custom-btn btn-6" onClick={() => setIsModalOpen(true)}*/}
                             {/*            style={{*/}
@@ -97,11 +106,9 @@ let Resume = () => {
                         </div>
                         <div className={"part_section_list sm:w-2/3 w-full mt-3 flex flex-col p-3"}>
                         <span className={"font-light"}>
-                            안녕하세요, 저는 웹 백엔드 개발자로서 시작해 현재는 게임 개발의 세계로 진로를 확장하고 있는 개발자입니다. 대학에서 게임 개발 전공을 이수하며, 게임 개발자로서의 커리어를 쌓아가고 있습니다. 이전에는 Node.js, Java, MySQL, Redis, AWS, Git, Linux 등을 활용하여 웹 서비스를 설계하고 개발하는 일을 주로 했으며, 프론트엔드 개발도 다룰 줄 알기에 전체적인 서비스 구조를 이해하고 효율적인 개발이 가능합니다.<br/><br/>
-웹 서비스 개발 경험 덕분에 안정적이고 확장성 있는 시스템을 구축하는 방법에 익숙하며, 서비스가 제공하는 가치를 극대화하기 위해 비즈니스와 기술의 접점을 항상 고민해 왔습니다. 이런 경험은 게임 개발에서도 중요한 자산이 될 것이라고 생각합니다. 게임 역시 결국 사용자 경험과 비즈니스 목표를 동시에 만족시켜야 하는 서비스이기 때문에, 양쪽의 요구를 균형 있게 반영하며 개발할 수 있는 역량을 계속해서 키워나가고 있습니다. <br/><br/>
-현재는 게임 개발을 중심으로 프로그래밍 역량을 강화하며, 게임 기획, 디자인, 프로그래밍 등 다양한 분야에서 기술을 익히고 있습니다. 게임 개발 과정에서 창의적 문제 해결과 몰입감 있는 경험을 제공하는 것에 흥미를 느끼며, 특히 서버 구조 설계와 네트워크 게임 플레이에 관심을 두고 있습니다. <br/><br/>
-개발자로서의 비전은 게임의 기술적 한계를 뛰어넘어 플레이어들에게 새로운 경험을 제공하는 것입니다. 이를 위해 적극적으로 학습하고, 게임 엔진을 다루며, 직접 게임을 개발해보는 프로젝트를 진행 중입니다. 장기적으로는 게임 개발 분야에서 기술 조직을 이끌며, 혁신적인 게임을 만드는 데 기여하고 싶습니다. <br/><br/>
-언제나 배움의 자세로 새로운 도전에 임하고 있으며, 더 나은 게임 개발자가 되기 위해 끊임없이 노력하고 있습니다.
+                            Java·Spring Boot 기반 웹 백엔드 개발과 React 웹 서비스 프로젝트를 시작으로, 현재는 게임 클라이언트 개발로 관심 분야를 확장하고 있습니다. 게임 기획·QA 등 제작의 다양한 과정을 함께 이해하고자 하며, C++ 기반 게임·컴퓨터 그래픽스 프로젝트와 Unreal Engine 학습을 이어오면서 기능 구현뿐 아니라 플레이 경험과 제작 흐름을 함께 고민해 왔습니다.<br/><br/>
+최근에는 Unreal Editor 안에서 코드·에셋·Blueprint 문맥을 다루는 AI 에이전트 플러그인과, 여러 모델 공급자·도구를 연결하는 AI 에이전트 데스크톱 앱을 개발하고 있습니다. Codex Desktop 연동 프록시와 에이전트의 세션 간 맥락을 유지하는 메모리 도구도 함께 만들며, AI 에이전트가 실제 개발 환경에서 안정적으로 작동하는 방법을 탐구하고 있습니다.<br/><br/>
+클라이언트 구현에만 머무르지 않고, 기능의 사용 흐름을 설계하며 변경 사항을 검토·승인하고 필요 시 되돌릴 수 있는 QA 관점까지 고려합니다. 게임과 AI 에이전트 기술을 연결해 제작 과정의 효율과 더 나은 사용자 경험에 기여하는 개발자로 성장하고 있습니다.
                         </span>
                         </div>
                     </div>
@@ -748,7 +755,7 @@ let Resume = () => {
                         </div>
                         <div className={"w-full flex mb-5 mt-5"}>
                             <div className={"w-1/4 flex justify-end mt-2"}>
-                                <span>2022.7.11 ~ 진행중</span>
+                                <span>2022.07.11 ~ 2023.05.24</span>
                             </div>
                             <div className={"w-2/4 pl-10 flex flex-col"}>
                                 <div className={"exp_title font-bold text-2xl mb-3"}>
@@ -775,6 +782,38 @@ let Resume = () => {
                             </div>
                             <div className={"w-1/4 pl-10 flex flex-col justify-center items-center"}>
                                 <img alt={"off"} src={`${process.env.PUBLIC_URL}/img/project/OF.png`}/>
+                            </div>
+                        </div>
+                        <div className={"w-full flex mb-5 mt-5"}>
+                            <div className={"w-1/4 flex justify-end mt-2"}>
+                                <span>2026.06.27 ~ 진행 중</span>
+                            </div>
+                            <div className={"w-2/4 pl-10 flex flex-col"}>
+                                <div className={"exp_title font-bold text-2xl mb-3"}>
+                                    Devil Codex
+                                </div>
+                                <div className={"exp_sm_title mb-3 text-gray-500 italic"}>
+                                    멀티 모델과 컴퓨터 제어를 연결한 AI 에이전트 데스크톱 앱
+                                </div>
+                                <div className={"exp_body mb-3 font-light"}>
+                                    <ul className="list-disc pl-5">
+                                        <li>Codex app-server와 외부 AI 모델 공급자를 하나의 프로젝트 경험으로 연결</li>
+                                        <li>인앱 브라우저·컴퓨터 제어를 포함한 MCP 도구와 원격 작업 환경 제공</li>
+                                        <li><a className={"text-blue-500 underline"}
+                                               href={"https://github.com/neneee0181/Devil-Codex"}>https://github.com/neneee0181/Devil-Codex</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div className={"exp_footer mb-3 mt-4 flex flex-wrap gap-2"}>
+                                    <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">Electron</span>
+                                    <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">React</span>
+                                    <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">TypeScript</span>
+                                    <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">MCP</span>
+                                </div>
+                            </div>
+                            <div className={"w-1/4 pl-10 flex flex-col justify-center items-center"}>
+                                <img alt={"Devil Codex 메인 화면"}
+                                     src={`${process.env.PUBLIC_URL}/img/project/devil-codex-main.png`}/>
                             </div>
                         </div>
                     </div>
