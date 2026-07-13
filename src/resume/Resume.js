@@ -77,14 +77,6 @@ let Resume = () => {
                                    target={"_blank"}>https://neneee.notion.site</a>
                             </span>
                             </div>
-                            <div className={"resume_notion flex"}>
-                                Portfolio : &nbsp;
-                                <span>
-                                <a className={"text-blue-700 underline"}
-                                   href={"https://neneee.notion.site/My-Life-a89c7f78cc7c4b1cb1a0874d1283a15d?pvs=74"}
-                                   target={"_blank"}> https://kevin0181.github.io/portfolio-site/main</a>
-                            </span>
-                            </div>
                             {/*<div className={"resume_contact flex"}>*/}
                             {/*    <button className="custom-btn btn-6" onClick={() => setIsModalOpen(true)}*/}
                             {/*            style={{*/}
