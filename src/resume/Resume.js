@@ -1,7 +1,6 @@
 import "./../css/resume.css";
 import {MailIcon} from '@heroicons/react/solid';
 import {PhoneIcon} from '@heroicons/react/solid';
-import {BookmarkIcon} from '@heroicons/react/solid';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faGithub, faJava} from '@fortawesome/free-brands-svg-icons';
 import {
@@ -17,12 +16,9 @@ import {
 
 import Modal from "./Modal";
 import {useState} from "react";
-import {useNavigate} from "react-router-dom";
 
 
 let Resume = () => {
-
-    const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate hook
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 

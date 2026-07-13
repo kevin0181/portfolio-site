@@ -1,23 +1,13 @@
 {
   "files": {
-    "main.css": "/portfolio-site/static/css/main.31a7404a.css",
-    "main.js": "/portfolio-site/static/js/main.f3668a09.js",
-    "static/media/vilhelm_draft.glb": "/portfolio-site/static/media/vilhelm_draft.98e6742bb59ba52f123a.glb",
-    "static/media/mac_background.jpg": "/portfolio-site/static/media/mac_background.fecd815712428680df09.jpg",
-    "static/media/mac_doom.png": "/portfolio-site/static/media/mac_doom.00ca5a682dd737337e13.png",
-    "static/media/mac_stting.png": "/portfolio-site/static/media/mac_stting.a1d01a81ba01c477ebc8.png",
-    "static/media/mac_photo.png": "/portfolio-site/static/media/mac_photo.5f41fd4a4f320d491e39.png",
-    "static/media/mac_youtube.png": "/portfolio-site/static/media/mac_youtube.1646f3c48255b6156f51.png",
-    "static/media/mac_spotify.png": "/portfolio-site/static/media/mac_spotify.a302090c122e886c79a4.png",
-    "static/media/mac_finder.png": "/portfolio-site/static/media/mac_finder.5d5e70737a74962bb4a9.png",
-    "static/media/mac_map.png": "/portfolio-site/static/media/mac_map.3650713b4b4f99f6f892.png",
-    "static/media/mac_terminal.png": "/portfolio-site/static/media/mac_terminal.fcd65ed88a6b1b81f276.png",
+    "main.css": "/portfolio-site/static/css/main.c1bee9fc.css",
+    "main.js": "/portfolio-site/static/js/main.f5ab506d.js",
     "index.html": "/portfolio-site/index.html",
-    "main.31a7404a.css.map": "/portfolio-site/static/css/main.31a7404a.css.map",
-    "main.f3668a09.js.map": "/portfolio-site/static/js/main.f3668a09.js.map"
+    "main.c1bee9fc.css.map": "/portfolio-site/static/css/main.c1bee9fc.css.map",
+    "main.f5ab506d.js.map": "/portfolio-site/static/js/main.f5ab506d.js.map"
   },
   "entrypoints": [
-    "static/css/main.31a7404a.css",
-    "static/js/main.f3668a09.js"
+    "static/css/main.c1bee9fc.css",
+    "static/js/main.f5ab506d.js"
   ]
 }
