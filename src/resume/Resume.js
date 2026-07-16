@@ -79,7 +79,7 @@ let Resume = () => {
                             </span>
                             </div>
                             <div className={"resume_inflearn flex"}>
-                                <AcademicCapIcon className="h-6 text-gray-800 w-auto mr-3"/>
+                                <AcademicCapIcon className="h-6 w-6 flex-shrink-0 text-gray-800 mr-3"/>
                                 <span>
                                 <a className={"text-blue-700 underline"}
                                    href={"https://www.inflearn.com/users/1466071/@neneee"}
@@ -814,6 +814,40 @@ let Resume = () => {
                             <div className={"w-1/4 pl-10 flex flex-col justify-center items-center"}>
                                 <img alt={"Devil Codex 메인 화면"}
                                      src={`${process.env.PUBLIC_URL}/img/project/devil-codex-main.png`}/>
+                            </div>
+                        </div>
+                        <div className={"w-full flex mb-5 mt-5"}>
+                            <div className={"w-1/4 flex justify-end mt-2"}>
+                                <span>2025.09.01 ~ 진행 중</span>
+                            </div>
+                            <div className={"w-2/4 pl-10 flex flex-col"}>
+                                <div className={"exp_title font-bold text-2xl mb-3"}>
+                                    Re:adapt <img
+                                    src="https://img.shields.io/badge/game%20project-CCFF00?style=flat-square&logo=gamejolt&logoColor=white"/>
+                                </div>
+                                <div className={"exp_sm_title mb-3 text-gray-500 italic"}>
+                                    1~4인 TPS 로그라이트 졸업작품
+                                </div>
+                                <div className={"exp_body mb-3 font-light"}>
+                                    <ul className="list-disc pl-5">
+                                        <li>플레이어와 적응형 AI 몬스터가 대결하는 TPS 로그라이트 게임</li>
+                                        <li>강화학습을 사용한 드론 몬스터 적용</li>
+                                        <li>Unreal Engine 5 기반 멀티플레이어 전투와 포탈·보스·증강 시스템 구현</li>
+                                        <li><a className={"text-blue-500 underline"}
+                                               href={"https://github.com/zhaominn/Readapt_Project"}>https://github.com/zhaominn/Readapt_Project</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div className={"exp_footer mb-3 mt-4 flex flex-wrap gap-2"}>
+                                    <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">Unreal Engine 5</span>
+                                    <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">C++</span>
+                                    <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">GAS</span>
+                                    <span className="bg-gray-400 text-white py-0.5 px-2 rounded-lg">RL</span>
+                                </div>
+                            </div>
+                            <div className={"w-1/4 pl-10 flex flex-col justify-center items-center"}>
+                                <img alt={"AI vs 인간 Readapt 게임 화면"}
+                                     src={`${process.env.PUBLIC_URL}/img/project/readapt-project.png`}/>
                             </div>
                         </div>
                     </div>
