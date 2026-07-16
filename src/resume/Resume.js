@@ -853,7 +853,7 @@ let Resume = () => {
                                     Spring Boot와 React로 배우는 초간단 REST API 게시판 만들기
                                 </div>
                                 <div className={"exp_sm_title mb-3 text-gray-500 italic"}>
-                                    수강생 306명
+                                    수강생 342명
                                 </div>
                                 <div className={"exp_body mb-3 font-light"}>
                                     <ul className="list-disc pl-5">
@@ -879,7 +879,7 @@ let Resume = () => {
                                     React.js + Node.js 롤 전적 검색 사이트 만들기
                                 </div>
                                 <div className={"exp_sm_title mb-3 text-gray-500 italic"}>
-                                    수강생 53명
+                                    수강생 55명
                                 </div>
                                 <div className={"exp_body mb-3 font-light"}>
                                     <ul className="list-disc pl-5">
@@ -905,7 +905,7 @@ let Resume = () => {
                                     Spring Boot + React.js 로그인 (+소셜) 서비스 이해하기
                                 </div>
                                 <div className={"exp_sm_title mb-3 text-gray-500 italic"}>
-                                    수강생 154명
+                                    수강생 181명
                                 </div>
                                 <div className={"exp_body mb-3 font-light"}>
                                     <ul className="list-disc pl-5">
