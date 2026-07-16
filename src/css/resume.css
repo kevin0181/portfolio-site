@@ -19,6 +19,352 @@
     margin-top: 1rem;
 }
 
+.resume_container {
+    min-height: 100%;
+    padding: 3.5rem 0 5rem;
+    color: #172033;
+    background: #f4f6f8;
+    font-family: Inter, Pretendard, "Noto Sans KR", Arial, sans-serif;
+}
+
+.resume_container > div {
+    width: min(1080px, calc(100% - 3rem));
+    margin-top: 0;
+}
+
+.resume_container > div > .part_section:first-child {
+    position: relative;
+    overflow: hidden;
+    align-items: center;
+    padding: 2rem 1.5rem;
+    border: 1px solid #e4e8ef;
+    border-radius: 1.5rem;
+    background: #ffffff;
+    box-shadow: 0 1.5rem 3rem rgba(29, 43, 76, .08);
+}
+
+.resume_container > div > .part_section:first-child::after {
+    content: "";
+    position: absolute;
+    top: -8rem;
+    right: -5rem;
+    width: 18rem;
+    height: 18rem;
+    border-radius: 50%;
+    background: rgba(99, 102, 241, .08);
+    pointer-events: none;
+}
+
+.resume_container > div > .part_section:first-child > div {
+    position: relative;
+    z-index: 1;
+}
+
+.resume_container > div > .part_section:first-child > div:first-child img {
+    width: min(100%, 270px);
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border: 6px solid #f1f3f8;
+    border-radius: 1.25rem !important;
+    box-shadow: 0 .75rem 1.5rem rgba(29, 43, 76, .14);
+}
+
+.resume_container .resume_name {
+    display: flex;
+    align-items: baseline;
+    gap: .25rem;
+    margin-bottom: 1.25rem;
+}
+
+.resume_container .resume_name .text-4xl {
+    color: #111827;
+    letter-spacing: -.04em;
+}
+
+.resume_container .resume_name > span:last-child {
+    color: #64748b;
+    font-size: 1.05rem;
+    letter-spacing: .02em;
+}
+
+.resume_container .part_section_list > div {
+    display: flex;
+    align-items: flex-start;
+    min-height: 1.75rem;
+    margin-top: .65rem;
+    line-height: 1.55;
+}
+
+.resume_container .part_section_list > div svg {
+    flex: 0 0 1.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: .75rem;
+    color: #64748b;
+}
+
+.resume_container .part_section_list > div a {
+    color: #4f46e5;
+    text-underline-offset: 3px;
+    transition: color 160ms ease;
+}
+
+.resume_container .part_section_list > div a:hover,
+.resume_container .part_section_list > div a:focus-visible {
+    color: #312e81;
+}
+
+.resume_container > div > .part_section:not(:first-child) {
+    padding: 2.75rem 0 .5rem;
+}
+
+.resume_container > div > .part_section:not(:first-child) > .text-4xl {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    color: #172033;
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-weight: 700;
+    letter-spacing: -.045em;
+}
+
+.resume_container > div > .part_section:not(:first-child) > .text-4xl::after {
+    content: "";
+    width: 3rem;
+    height: .2rem;
+    border-radius: 999px;
+    background: #6366f1;
+}
+
+.resume_container hr {
+    margin: 2.5rem 0 0;
+    border-top: 1px solid #e2e8f0;
+}
+
+.resume_container .w-full.flex.mb-5.mt-5 {
+    display: grid;
+    grid-template-columns: minmax(18%, 22%) minmax(0, 1fr) 22%;
+    gap: 1.5rem;
+    align-items: start;
+    margin: 0;
+    padding: 1.25rem 1rem;
+    border: 1px solid transparent;
+    border-radius: .9rem;
+    transition: background-color 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.resume_container .w-full.flex.mb-5.mt-5:hover {
+    border-color: #e4e8ef;
+    background: #ffffff;
+    transform: translateY(-2px);
+}
+
+.resume_container .w-full.flex.mb-5.mt-5 > [class~="w-1/4"] {
+    width: auto;
+    justify-content: flex-start;
+    padding: .25rem 0 0;
+    color: #64748b;
+    font-size: .88rem;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.5;
+}
+
+.resume_container .w-full.flex.mb-5.mt-5 > [class~="w-2/4"],
+.resume_container .w-full.flex.mb-5.mt-5 > [class~="w-3/4"] {
+    width: auto;
+    padding-left: 0;
+}
+
+.resume_container .exp_title {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: .6rem;
+    color: #111827;
+    font-size: 1.35rem;
+    line-height: 1.3;
+}
+
+.resume_container .exp_title img {
+    width: auto;
+    height: 1.15rem;
+}
+
+.resume_container .exp_sm_title {
+    color: #64748b;
+    font-size: .98rem;
+    line-height: 1.6;
+}
+
+.resume_container .exp_body {
+    color: #334155;
+    line-height: 1.75;
+}
+
+.resume_container .exp_body a {
+    color: #4f46e5;
+    text-underline-offset: 3px;
+}
+
+.resume_container .exp_footer {
+    gap: .45rem;
+}
+
+.resume_container .exp_footer span {
+    background: #eef2ff;
+    color: #4338ca;
+    font-size: .78rem;
+    font-weight: 600;
+}
+
+.resume_container .w-full.flex.mb-5.mt-5 > [class~="w-1/4"] img {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    border: 1px solid #e4e8ef;
+    border-radius: .75rem;
+    box-shadow: 0 .5rem 1rem rgba(29, 43, 76, .08);
+}
+
+.resume_container .w-full.flex.mb-5.mt-5 > [class~="w-1/4"]:has(img) {
+    align-self: center;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.resume_container .skill_part > div {
+    min-height: 2.75rem;
+    align-items: center;
+    margin-bottom: .75rem;
+    padding: .65rem .8rem;
+    border: 1px solid #e7ebf2;
+    border-radius: .75rem;
+    background: #ffffff;
+    color: #334155;
+    transition: border-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+}
+
+.resume_container .skill_part > div {
+    width: calc(100% - .9rem);
+    margin-right: .45rem;
+    margin-left: .45rem;
+}
+
+@media (min-width: 768px) {
+    .resume_container .skill_part > div {
+        width: calc(50% - .9rem);
+    }
+}
+
+.resume_container .skill_part > div:hover {
+    border-color: #c7d2fe;
+    box-shadow: 0 .5rem 1rem rgba(79, 70, 229, .08);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 900px) {
+    .resume_container {
+        padding-top: 1.5rem;
+    }
+
+    .resume_container > div {
+        width: calc(100% - 2rem);
+    }
+
+    .resume_container .w-full.flex.mb-5.mt-5 {
+        grid-template-columns: 22% minmax(0, 1fr) 22%;
+        gap: 1rem;
+    }
+
+    .resume_container .w-full.flex.mb-5.mt-5 > [class~="w-1/4"]:has(img) {
+        align-self: center;
+        height: auto;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@media (max-width: 640px) {
+    .resume_container {
+        padding: .75rem 0 2.5rem;
+    }
+
+    .resume_container > div {
+        width: calc(100% - 1rem);
+    }
+
+    .resume_container > div > .part_section:first-child {
+        padding: 1rem .75rem 1.5rem;
+        border-radius: 1rem;
+    }
+
+    .resume_container > div > .part_section:first-child > div:first-child img {
+        width: min(72vw, 220px);
+    }
+
+    .resume_container .part_section_list {
+        padding: 1rem .5rem !important;
+    }
+
+    .resume_container .resume_name {
+        justify-content: center;
+        margin-bottom: 1rem;
+    }
+
+    .resume_container .resume_name .text-4xl {
+        font-size: 2rem;
+    }
+
+    .resume_container .part_section_list > div {
+        font-size: .86rem;
+        overflow-wrap: anywhere;
+    }
+
+    .resume_container > div > .part_section:not(:first-child) {
+        padding-top: 2rem;
+    }
+
+    .resume_container > div > .part_section:not(:first-child) > .text-4xl {
+        margin-bottom: 1rem;
+        font-size: 1.7rem;
+    }
+
+    .resume_container .w-full.flex.mb-5.mt-5 {
+        display: flex;
+        flex-direction: column;
+        gap: .65rem;
+        padding: 1rem .75rem;
+    }
+
+    .resume_container .w-full.flex.mb-5.mt-5 > [class~="w-1/4"],
+    .resume_container .w-full.flex.mb-5.mt-5 > [class~="w-2/4"],
+    .resume_container .w-full.flex.mb-5.mt-5 > [class~="w-3/4"] {
+        width: 100%;
+        padding: 0;
+    }
+
+    .resume_container .w-full.flex.mb-5.mt-5 > [class~="w-1/4"] {
+        margin: 0;
+        font-size: .8rem;
+    }
+
+    .resume_container .w-full.flex.mb-5.mt-5 > [class~="w-1/4"] img {
+        max-width: 100%;
+        margin-top: .5rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .resume_container .w-full.flex.mb-5.mt-5,
+    .resume_container .skill_part > div,
+    .resume_container .part_section_list > div,
+    .resume_container .part_section_list > div a {
+        transition: none;
+    }
+}
+
 .custom-btn {
     width: 130px;
     height: 40px;

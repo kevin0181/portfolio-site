@@ -8,11 +8,13 @@ import {
     SiTistory,
     SiNotion,
     SiJavascript,
+    SiPython,
     SiCplusplus,
     SiSpringboot,
     SiReact,
     SiApachetomcat,
-    SiNginx, SiMysql, SiOracle, SiRedis, SiMongodb, SiGit, SiGithub, SiIntellijidea, SiVisualstudiocode, SiWindows
+    SiNginx, SiMysql, SiOracle, SiRedis, SiMongodb, SiGit, SiGithub, SiIntellijidea, SiVisualstudiocode, SiWindows,
+    SiBlender, SiOpenai
 } from 'react-icons/si'; // Simple Icons에서 Tistory 아이콘 import
 
 import Modal from "./Modal";
@@ -132,39 +134,36 @@ let Resume = () => {
                                         <span>Javascript</span>
                                     </div>
                                     <div className={"flex w-full mb-4 md:w-1/3 justify-center"}>
+                                        <SiPython className="text-blue-500 h-6 w-6 mr-4"/>
+                                        <span>Python</span>
+                                    </div>
+                                    <div className={"flex w-full mb-4 md:w-1/3 justify-center"}>
                                         <SiCplusplus className="text-blue-500 h-6 w-6 mr-4"/>
                                         <span>C++</span>
                                     </div>
                                 </div>
                             </div>
                             <div className={"flex flex-col mb-8"}>
-                                <span className={"text-center text-2xl font-extralight"}>Fameworks</span>
+                                <span className={"text-center text-2xl font-extralight"}>Frameworks · Libraries · APIs</span>
                                 <div className={"skill_part font-light flex"} style={{
                                     marginTop: "2rem"
                                 }}>
-                                    <div className={"flex w-full justify-center"}>
+                                    <div className={"flex w-full mb-4 md:w-1/3 justify-center"}>
                                         <SiSpringboot className="text-green-500 h-6 w-6 mr-4"/>
                                         <span>Spring Boot</span>
                                     </div>
-                                </div>
-                            </div>
-                            <div className={"flex flex-col mb-8"}>
-                                <span className={"text-center text-2xl font-extralight"}>Libraries</span>
-                                <div className={"skill_part font-light flex"} style={{
-                                    marginTop: "2rem"
-                                }}>
-                                    <div className={"flex w-full mb-4 md:w-1/2 justify-center"}>
+                                    <div className={"flex w-full mb-4 md:w-1/3 justify-center"}>
                                         <SiReact className="text-sky-400 h-6 w-6 mr-4"/>
                                         <span>React.js</span>
                                     </div>
-                                    <div className={"flex w-full mb-4 md:w-1/2 justify-center"}>
+                                    <div className={"flex w-full mb-4 md:w-1/3 justify-center"}>
                                         <SiWindows className="text-blue-500 h-6 w-6 mr-4"/>
-                                        <span>Win32Api</span>
+                                        <span>Win32 API</span>
                                     </div>
                                 </div>
                             </div>
                             <div className={"flex flex-col mb-4 flex-wrap"}>
-                                <span className={"text-center text-2xl font-extralight"}>IT Infrastructure</span>
+                                <span className={"text-center text-2xl font-extralight"}>Infrastructure &amp; Servers</span>
                                 <div className={"skill_part font-light flex flex-wrap"} style={{
                                     marginTop: "2rem"
                                 }}>
@@ -249,10 +248,25 @@ let Resume = () => {
                                         <span>Unreal Engine</span>
                                     </div>
                                     <div className={"flex w-full mb-4 md:w-1/2 justify-center"}>
-                                        <img src={`${process.env.PUBLIC_URL}/img/skill/blender_icon.svg`}
-                                             className={"h-6 w-6 mr-4"}
-                                             alt={"blender icon"}/>
+                                        <SiBlender className="text-orange-500 h-6 w-6 mr-4"/>
                                         <span>Blender</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={"flex flex-col mb-4 flex-wrap"}>
+                                <span className={"text-center text-2xl font-extralight"}>AI Agents</span>
+                                <div className={"skill_part font-light flex flex-wrap"} style={{
+                                    marginTop: "2rem"
+                                }}>
+                                    <div className={"flex w-full mb-4 md:w-1/2 justify-center"}>
+                                        <SiOpenai className="text-black h-6 w-6 mr-4"/>
+                                        <span>Codex</span>
+                                    </div>
+                                    <div className={"flex w-full mb-4 md:w-1/2 justify-center"}>
+                                        <img src={`${process.env.PUBLIC_URL}/img/skill/claude-code.png`}
+                                             className={"h-6 w-6 mr-4"}
+                                             alt={"Claude Code icon"}/>
+                                        <span>Claude Code</span>
                                     </div>
                                 </div>
                             </div>
@@ -304,7 +318,6 @@ let Resume = () => {
                                         <li>정보처리산업기사 자격증 취득</li>
                                         <li>jsp를 사용한 SSR 개발 진행</li>
                                         <li>Oracle을 사용한 다양한 쿼리문 작성</li>
-                                        <li><a className={"text-blue-500 underline"} href={"#"}>관련 프로젝트 링크</a></li>
                                     </ul>
                                 </div>
                                 <div className={"exp_footer mb-3 mt-4 flex flex-wrap gap-2"}>
@@ -357,7 +370,6 @@ let Resume = () => {
                                         <li>웹 개발 트랙 3개월 강의 진행</li>
                                         <li>웹 프로젝트 1개월 멘토 진행</li>
                                         <li>기업은행 신입사원 멘토링 진행중</li>
-                                        <li><a className={"text-blue-500 underline"} href={"#"}>관련 프로젝트 링크</a></li>
                                     </ul>
                                 </div>
                                 <div className={"exp_footer mb-3 mt-4 flex flex-wrap gap-2"}>
@@ -384,7 +396,6 @@ let Resume = () => {
                                         <li>C 언어 기초를 배움</li>
                                         <li>C++의 기초를 배움</li>
                                         <li>Win32Api를 사용하여 2D 게임을 제작</li>
-                                        <li><a className={"text-blue-500 underline"} href={"#"}>관련 프로젝트 링크</a></li>
                                     </ul>
                                 </div>
                                 <div className={"exp_footer mb-3 mt-4 flex flex-wrap gap-2"}>
