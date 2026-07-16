@@ -235,6 +235,7 @@
 }
 
 .resume_container .skill_part > div {
+    height: 2.75rem;
     min-height: 2.75rem;
     align-items: center;
     margin-bottom: .75rem;
