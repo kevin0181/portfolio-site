@@ -284,13 +284,14 @@ let Resume = () => {
                                     (주) 네스텍코리아
                                 </div>
                                 <div className={"exp_sm_title mb-3 text-gray-500 italic"}>
-                                    2D CAD 기계 설계자 및 MCT 오퍼레이터
+                                    2D CAD 설계 및 QA 담당
                                 </div>
                                 <div className={"exp_body mb-3 font-light"}>
                                     <ul className="list-disc pl-5">
-                                        <li>반도체에 검사 장비에 들어가는 소켓 개발</li>
-                                        <li>캐드를 사용하여 소켓 설계</li>
-                                        <li>설계된 도면을 통해 소켓 가공</li>
+                                        <li>반도체 검사 장비용 소켓 개발</li>
+                                        <li>CAD와 SolidWorks를 활용한 2D 도면 설계 및 검토</li>
+                                        <li>설계 도면 기준 가공 결과물 품질 점검</li>
+                                        <li>MCT 가공 공정의 문제 사항 확인 및 개선</li>
                                     </ul>
                                 </div>
                                 <div className={"exp_footer mb-3 mt-4 flex flex-wrap gap-2"}>
