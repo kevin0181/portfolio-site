@@ -1,48 +1,42 @@
 import * as CANNON from "cannon-es";
+import { TRACK_BARRIERS, ZONES, sampleTrack, projectTrack, isOnRoad } from "./Circuit";
 
-const box = (id, position, size, color, rotation = [0, 0, 0]) => ({ id, shape: "box", position, size, rotation, color });
-const cylinder = (id, position, radius, height, color) => ({ id, shape: "cylinder", position, size: [radius, height, radius], rotation: [0, 0, 0], color });
-
-export const ZONES = [
-    { id: "readapt", position: [-15, 0, -12], radius: 4 },
-    { id: "karkartrider", position: [14, 0, -12], radius: 4 },
-    { id: "inversus", position: [15, 0, 12], radius: 4 },
-    { id: "workshop", position: [-15, 0, 12], radius: 4 },
-];
-
-// Full box dimensions; cylinders use [radius, height, radius] with their axis along Y.
-// These same descriptors drive the visible geometry and the rigid collision shapes.
+export { ZONES } from "./Circuit";
+const box = (id, position, size, color) => ({ id, shape: "box", position, size, rotation: [0, 0, 0], color });
 export const PARK = [
-    box("floor", [0, -0.25, 0], [48, 0.5, 44], "#dddccf"),
-    box("rail-west", [-23.85, 0.4, 0], [0.3, 0.8, 44], "#b5b6aa"),
-    box("rail-east", [23.85, 0.4, 0], [0.3, 0.8, 44], "#b5b6aa"),
-    box("rail-north", [0, 0.4, -21.85], [48, 0.8, 0.3], "#b5b6aa"),
-    box("rail-south", [0, 0.4, 21.85], [48, 0.8, 0.3], "#b5b6aa"),
-    box("main-ramp", [0, 0.65, -3], [6, 0.5, 7], "#e2c796", [0.24, 0, 0]),
-    box("landing-pad", [0, 0.55, -11], [6, 1.1, 5], "#d2b580"),
-    box("west-ramp", [-10, 0.48, 1], [5, 0.4, 5], "#d6b5a4", [0, 0, -0.2]),
-    box("east-ramp", [10, 0.48, 0], [5, 0.4, 5], "#aabec7", [0, 0, 0.2]),
-    box("south-funbox", [7, 0.3, 15], [4.8, 0.6, 3.2], "#d6bb96"),
-    box("funbox-entry", [3.7, 0.19, 15], [2.2, 0.3, 3.2], "#d6bb96", [0, 0, 0.18]),
-    cylinder("bollard-west-a", [-6.5, 0.4, -14.8], 0.38, 0.8, "#daa35f"),
-    cylinder("bollard-west-b", [-6.5, 0.4, -12.8], 0.38, 0.8, "#daa35f"),
-    cylinder("bollard-east-a", [6.5, 0.4, -14.8], 0.38, 0.8, "#daa35f"),
-    cylinder("bollard-east-b", [6.5, 0.4, -12.8], 0.38, 0.8, "#daa35f"),
+    box("floor", [0, -.3, 0], [130, .6, 120], "#a8bb93"),
+    ...TRACK_BARRIERS,
     ...ZONES.flatMap((zone) => [
-        box(`${zone.id}-sign-board`, [zone.position[0], 2.15, zone.position[2] - 4.1], [3.4, 1.14, 0.16], "#f4e8cf"),
-        ...[-1.25, 1.25].map((offset, index) => cylinder(`${zone.id}-sign-post-${index}`, [zone.position[0] + offset, 1.05, zone.position[2] - 4.1], 0.055, 2.1, "#7b887a")),
+        box(`${zone.id}-garage-back`, [42.3, 1.4, zone.position[2]], [.35, 2.8, 7.8], "#c8c6b8"),
+        box(`${zone.id}-garage-side-north`, [39.2, 1.4, zone.position[2] - 3.85], [6.3, 2.8, .25], "#dfddcf"),
+        box(`${zone.id}-garage-side-south`, [39.2, 1.4, zone.position[2] + 3.85], [6.3, 2.8, .25], "#dfddcf"),
     ]),
 ];
-
-const SPAWN = [0, 1.2, 14];
+export const COMPETITORS = [
+    { id: "player", name: "YOU", color: "#e67754", number: "01", lane: -.9, pace: 1 },
+    { id: "ai-1", name: "MINT", color: "#69aa9c", number: "02", lane: 1.25, pace: .94 },
+    { id: "ai-2", name: "SKY", color: "#719dc7", number: "03", lane: -.95, pace: 1 },
+    { id: "ai-3", name: "BERRY", color: "#bd8fac", number: "04", lane: .4, pace: .91 },
+];
 const FIXED_STEP = 1 / 60;
-const WHEEL_RADIUS = 0.36;
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+const normalizeAngle = (value) => Math.atan2(Math.sin(value), Math.cos(value));
+const forwardAxis = new CANNON.Vec3(0, 0, -1);
+const upAxis = new CANNON.Vec3(0, 1, 0);
 
-function makeShape(shape, size) {
-    if (shape === "barrel" || shape === "cylinder") return new CANNON.Cylinder(size[0], size[0], size[1], 16);
-    if (shape === "ball") return new CANNON.Sphere(size[0]);
-    return new CANNON.Box(new CANNON.Vec3(size[0] / 2, size[1] / 2, size[2] / 2));
+function shapeFor(item) {
+    return item.shape === "cylinder" ? new CANNON.Cylinder(item.size[0], item.size[0], item.size[1], 12) : new CANNON.Box(new CANNON.Vec3(item.size[0] / 2, item.size[1] / 2, item.size[2] / 2));
+}
+function restore(body, x, z, yaw = 0) {
+    body.position.set(x, .83, z);
+    body.previousPosition.copy(body.position);
+    body.interpolatedPosition.copy(body.position);
+    body.quaternion.setFromEuler(0, yaw, 0);
+    body.previousQuaternion.copy(body.quaternion);
+    body.interpolatedQuaternion.copy(body.quaternion);
+    body.velocity.setZero(); body.angularVelocity.setZero(); body.force.setZero(); body.torque.setZero();
+    body.aabbNeedsUpdate = true;
+    body.wakeUp();
 }
 
 export class CarPhysics {
@@ -50,181 +44,163 @@ export class CarPhysics {
         this.world = new CANNON.World({ gravity: new CANNON.Vec3(0, -9.82, 0), allowSleep: true });
         this.world.broadphase = new CANNON.SAPBroadphase(this.world);
         this.world.solver.iterations = 12;
-        this.world.defaultContactMaterial.friction = 0.55;
-        this.world.defaultContactMaterial.restitution = 0.12;
+        this.world.defaultContactMaterial.friction = .45;
+        this.world.defaultContactMaterial.restitution = .08;
         this.world.defaultContactMaterial.contactEquationStiffness = 1e7;
         this.world.defaultContactMaterial.contactEquationRelaxation = 4;
-
         this.staticObjects = PARK;
         this.staticBodies = PARK.map((item) => {
-            const body = new CANNON.Body({ mass: 0, shape: makeShape(item.shape, item.size) });
-            body.position.set(...item.position);
-            body.quaternion.setFromEuler(...item.rotation, "XYZ");
-            body.aabbNeedsUpdate = true;
-            body.parkId = item.id;
-            this.world.addBody(body);
-            return body;
+            const body = new CANNON.Body({ mass: 0, shape: shapeFor(item) });
+            body.position.set(...item.position); body.quaternion.setFromEuler(...item.rotation, "XYZ");
+            body.aabbNeedsUpdate = true; body.parkId = item.id; this.world.addBody(body); return body;
         });
-
-        this.chassis = new CANNON.Body({ mass: 340, allowSleep: false, linearDamping: 0.045, angularDamping: 0.38 });
-        // The shape sits above the body origin, lowering the centre of mass without fake stabilization.
-        this.chassis.addShape(new CANNON.Box(new CANNON.Vec3(0.8, 0.28, 1.4)), new CANNON.Vec3(0, 0.12, 0));
-        this.chassis.position.set(...SPAWN);
-        this.vehicle = new CANNON.RaycastVehicle({ chassisBody: this.chassis, indexRightAxis: 0, indexUpAxis: 1, indexForwardAxis: 2 });
-        const wheelOptions = {
-            radius: WHEEL_RADIUS,
-            directionLocal: new CANNON.Vec3(0, -1, 0),
-            axleLocal: new CANNON.Vec3(-1, 0, 0),
-            suspensionRestLength: 0.38,
-            suspensionStiffness: 34,
-            dampingRelaxation: 2.8,
-            dampingCompression: 4.4,
-            maxSuspensionForce: 80000,
-            maxSuspensionTravel: 0.28,
-            frictionSlip: 2.7,
-            rollInfluence: 0.025,
-            customSlidingRotationalSpeed: -28,
-            useCustomSlidingRotationalSpeed: true,
-        };
-        [[-0.84, 0.12, -0.98], [0.84, 0.12, -0.98], [-0.84, 0.12, 0.98], [0.84, 0.12, 0.98]].forEach((point, index) => {
-            this.vehicle.addWheel({ ...wheelOptions, chassisConnectionPointLocal: new CANNON.Vec3(...point), isFrontWheel: index < 2 });
+        this.vehicles = COMPETITORS.map((config) => {
+            const chassis = new CANNON.Body({ mass: 310, allowSleep: false, linearDamping: .045, angularDamping: .42 });
+            chassis.addShape(new CANNON.Box(new CANNON.Vec3(.67, .21, 1.55)), new CANNON.Vec3(0, .14, 0));
+            chassis.parkId = config.id;
+            const vehicle = new CANNON.RaycastVehicle({ chassisBody: chassis, indexRightAxis: 0, indexUpAxis: 1, indexForwardAxis: 2 });
+            [[-.9, .08, -1.12], [.9, .08, -1.12], [-.9, .08, 1.12], [.9, .08, 1.12]].forEach((point, index) => vehicle.addWheel({
+                radius: .36, directionLocal: new CANNON.Vec3(0, -1, 0), axleLocal: new CANNON.Vec3(-1, 0, 0),
+                chassisConnectionPointLocal: new CANNON.Vec3(...point), isFrontWheel: index < 2,
+                suspensionRestLength: .28, suspensionStiffness: 44, dampingRelaxation: 3.2, dampingCompression: 4.6,
+                maxSuspensionForce: 80000, maxSuspensionTravel: .2, frictionSlip: 4.1, rollInfluence: .012,
+                customSlidingRotationalSpeed: -32, useCustomSlidingRotationalSpeed: true,
+            }));
+            vehicle.addToWorld(this.world);
+            return { ...config, chassis, vehicle, forward: new CANNON.Vec3(), up: new CANNON.Vec3(), force: new CANNON.Vec3(), throttle: 0, steering: 0, grounded: false, stuck: 0, safeDistance: 0, collisions: 0, collisionTimes: new Map() };
         });
-        this.vehicle.addToWorld(this.world);
-
-        const pushables = [
-            ...[-2.1, 0, 2.1].map((x, index) => ({ id: `crate-bottom-${index}`, shape: "box", position: [x, x === 0 ? 0.26 : 0.43, 7], size: x === 0 ? [0.5, 0.5, 0.5] : [0.86, 0.86, 0.86], color: "#e3a65e", mass: x === 0 ? 3 : 9 })),
-            ...[-2.1, 2.1].map((x, index) => ({ id: `crate-top-${index}`, shape: "box", position: [x, 1.29, 7], size: [0.86, 0.86, 0.86], color: "#dc9652", mass: 7 })),
-            { id: "barrel-west-a", shape: "barrel", position: [-5, 0.55, 6], size: [0.43, 1.1, 0.43], color: "#668e9a", mass: 12 },
-            { id: "barrel-west-b", shape: "barrel", position: [-5.9, 0.55, 6.3], size: [0.43, 1.1, 0.43], color: "#749eaa", mass: 12 },
-            { id: "barrel-east-a", shape: "barrel", position: [6.3, 0.55, 5.3], size: [0.43, 1.1, 0.43], color: "#d68569", mass: 12 },
-            { id: "barrel-east-b", shape: "barrel", position: [7.4, 0.55, 5.6], size: [0.43, 1.1, 0.43], color: "#d99b70", mass: 12 },
-            { id: "ball-west", shape: "ball", position: [-4, 0.67, -7], size: [0.65, 0.65, 0.65], color: "#d9ad54", mass: 8 },
-            { id: "ball-east", shape: "ball", position: [5.5, 0.77, -7], size: [0.75, 0.75, 0.75], color: "#dc927f", mass: 10 },
-            { id: "ball-south", shape: "ball", position: [-6.5, 0.57, 15], size: [0.55, 0.55, 0.55], color: "#a9a0cb", mass: 7 },
-            ...[-1, 1].map((x, index) => ({ id: `marker-${index}`, shape: "box", position: [x * 4.5, 0.3, 10], size: [0.4, 0.6, 0.4], color: "#f18d4e", mass: 3 })),
-        ];
-        this.dynamicObjects = pushables.map((item) => {
-            const body = new CANNON.Body({ mass: item.mass, shape: makeShape(item.shape, item.size), linearDamping: 0.14, angularDamping: 0.16, sleepSpeedLimit: 0.2, sleepTimeLimit: 1 });
-            body.position.set(...item.position);
-            body.aabbNeedsUpdate = true;
-            body.parkId = item.id;
-            this.world.addBody(body);
-            return { id: item.id, body, shape: item.shape, size: item.size, color: item.color, initialPosition: item.position };
-        });
-
-        this._forward = new CANNON.Vec3();
-        this._up = new CANNON.Vec3();
-        this._throttle = 0;
-        this._steering = 0;
-        this._grounded = false;
-        this._collisions = 0;
-        this._maxJump = 0;
-        this._collisionTimes = new Map();
-        this._disposed = false;
+        this.player = this.vehicles[0]; this.chassis = this.player.chassis; this.vehicle = this.player.vehicle;
         this._onCollide = (event) => {
             if (event.body.parkId === "floor") return;
             const impact = Math.abs(event.contact.getImpactVelocityAlongNormal());
-            const previous = this._collisionTimes.get(event.body.id) ?? -Infinity;
-            if (impact > 1.2 && this.world.time - previous > 0.4) {
-                this._collisions += 1;
-                this._collisionTimes.set(event.body.id, this.world.time);
-            }
+            const previous = this.player.collisionTimes.get(event.body.id) ?? -Infinity;
+            if (impact > 1.2 && this.world.time - previous > .4) { this.player.collisions += 1; this.player.collisionTimes.set(event.body.id, this.world.time); }
         };
         this.chassis.addEventListener("collide", this._onCollide);
-        this.reset();
+        this.mode = "free"; this.disposed = false; this.reset("free");
     }
 
-    step(delta, input = {}) {
-        if (this._disposed) return;
-        const elapsed = clamp(Number.isFinite(delta) ? delta : FIXED_STEP, 0, 0.1);
-        const throttle = clamp(input.throttle || 0, -1, 1);
-        const steer = clamp(input.steer || 0, -1, 1);
-        this.chassis.quaternion.vmult(new CANNON.Vec3(0, 0, -1), this._forward);
-        const signedVelocity = this.chassis.velocity.dot(this._forward);
-        const speed = Math.abs(signedVelocity);
-        this._throttle += (throttle - this._throttle) * (1 - Math.exp(-elapsed * 7));
-        const steeringTarget = steer * (0.46 / (1 + speed * 0.065));
-        this._steering += (steeringTarget - this._steering) * (1 - Math.exp(-elapsed * 9));
-        this.vehicle.setSteeringValue(this._steering, 0);
-        this.vehicle.setSteeringValue(this._steering, 1);
-
-        // Positive engine force propels this explicit axis layout toward local -Z.
-        const changingDirection = throttle * signedVelocity < -0.7;
-        const limit = throttle < 0 ? 7 : input.boost ? 19 : 14;
-        const taper = clamp((limit - speed) / 3, 0, 1);
-        const engine = changingDirection || input.brake ? 0 : this._throttle * 710 * (input.boost ? 1.65 : 1) * taper;
-        const braking = changingDirection ? 18 : Math.abs(throttle) < 0.01 ? 0.45 : 0;
-        for (let index = 0; index < 4; index += 1) {
-            this.vehicle.applyEngineForce(index >= 2 ? engine : 0, index);
-            this.vehicle.setBrake(input.brake ? (index >= 2 ? 12 : 0) : braking, index);
-            this.vehicle.wheelInfos[index].frictionSlip = input.brake && index >= 2 ? 0.8 : 2.7;
-        }
-        this.world.step(FIXED_STEP, elapsed, 6);
-        this._grounded = this.vehicle.wheelInfos.some((wheel) => wheel.raycastResult.hasHit);
-        // updateWheelTransform clears isInContact internally; capture grounded state first.
-        for (let index = 0; index < 4; index += 1) this.vehicle.updateWheelTransform(index);
-        this._maxJump = Math.max(this._maxJump, this.chassis.position.y - 0.56);
-        if (this.chassis.position.y < -8 || Math.abs(this.chassis.position.x) > 32 || Math.abs(this.chassis.position.z) > 30) this.reset();
-    }
-
-    status() {
-        this.chassis.quaternion.vmult(new CANNON.Vec3(0, 0, -1), this._forward);
-        this.chassis.quaternion.vmult(new CANNON.Vec3(0, 1, 0), this._up);
-        const signedSpeed = this.chassis.velocity.dot(this._forward) * 3.6;
-        const speed = Math.hypot(this.chassis.velocity.x, this.chassis.velocity.z) * 3.6;
-        const { x, z } = this.chassis.position;
-        const zone = ZONES.find((item) => Math.hypot(x - item.position[0], z - item.position[2]) < item.radius);
-        return { x, z, speed, signedSpeed, nearby: speed < 7 ? zone?.id || null : null, grounded: this._grounded, flipped: this._up.y < 0.25, collisions: this._collisions, maxJump: this._maxJump };
-    }
-
-    reset() {
-        if (this._disposed) return;
-        this._restoreBody(this.chassis, SPAWN);
-        this._throttle = 0;
-        this._steering = 0;
-        this._grounded = false;
-        this._maxJump = 0;
-        this._collisions = 0;
-        this._collisionTimes?.clear();
-        this.vehicle.wheelInfos.forEach((wheel, index) => {
-            wheel.rotation = 0;
-            wheel.deltaRotation = 0;
-            wheel.suspensionLength = wheel.suspensionRestLength;
-            wheel.raycastResult.reset();
-            this.vehicle.setSteeringValue(0, index);
-            this.vehicle.applyEngineForce(0, index);
-            this.vehicle.setBrake(0, index);
-            this.vehicle.updateWheelTransform(index);
+    placeCar(car, distance, lane = car.lane) {
+        const point = sampleTrack(distance, lane);
+        restore(car.chassis, point.x, point.z, Math.atan2(-point.tangent.x, -point.tangent.z));
+        car.safeDistance = distance; car.throttle = 0; car.steering = 0; car.stuck = 0; car.grounded = false;
+        car.avoidUntil = 0; car.avoidLane = lane; car.reverseUntil = 0; car.flippedTime = 0;
+        car.vehicle.wheelInfos.forEach((wheel, index) => {
+            wheel.rotation = 0; wheel.deltaRotation = 0; wheel.suspensionLength = wheel.suspensionRestLength; wheel.raycastResult.reset();
+            car.vehicle.setSteeringValue(0, index); car.vehicle.applyEngineForce(0, index); car.vehicle.setBrake(0, index); car.vehicle.updateWheelTransform(index);
         });
     }
+    reset(mode = "free") {
+        this.mode = mode;
+        this.vehicles.forEach((car, index) => {
+            this.placeCar(car, mode === "race" ? -index * 4.3 : 35 + index * 47, mode === "race" ? (index % 2 ? 1.25 : -1.25) : car.lane);
+            car.collisions = 0; car.collisionTimes.clear();
+        });
+        if (mode === "free") restore(this.chassis, 30, 18, 0);
+    }
+    recover() { this.placeCar(this.player, projectTrack(this.chassis.position.x, this.chassis.position.z).distance, 0); }
+    returnToPits() { this.reset("free"); }
 
-    resetObjects() {
-        this.dynamicObjects.forEach((item) => this._restoreBody(item.body, item.initialPosition));
+    aiInput(car) {
+        const projection = projectTrack(car.chassis.position.x, car.chassis.position.z);
+        const speed = Math.hypot(car.chassis.velocity.x, car.chassis.velocity.z);
+        car.chassis.quaternion.vmult(forwardAxis, car.forward);
+        const heading = Math.atan2(-car.forward.x, -car.forward.z);
+        const lookAhead = 4.2 + speed * .43;
+        let lane = this.world.time < car.avoidUntil ? car.avoidLane : car.lane;
+        let targetSpeed = (this.mode === "race" ? 17 : 12) * car.pace;
+        let curvature = 0;
+        for (let distance = 2; distance <= 17; distance += 3) curvature = Math.max(curvature, Math.abs(sampleTrack(projection.distance + distance).curvature));
+        targetSpeed = Math.min(targetSpeed, Math.sqrt(6.8 / Math.max(curvature, .018)));
+        let blocker = null;
+        let nearest = Infinity;
+        this.vehicles.forEach((other) => {
+            if (other === car) return;
+            const dx = other.chassis.position.x - car.chassis.position.x;
+            const dz = other.chassis.position.z - car.chassis.position.z;
+            const ahead = dx * car.forward.x + dz * car.forward.z;
+            if (ahead > -1 && ahead < 10 && Math.abs(dx * -car.forward.z + dz * car.forward.x) < 2.2 && ahead < nearest) {
+                blocker = other; nearest = ahead;
+            }
+        });
+        if (blocker) {
+            const otherLane = projectTrack(blocker.chassis.position.x, blocker.chassis.position.z).offset;
+            lane = otherLane > 0 ? -2.55 : 2.55;
+            car.avoidLane = lane; car.avoidUntil = this.world.time + 1.5;
+            if (nearest < 3.7) targetSpeed = Math.min(targetSpeed, 4);
+        }
+        const target = sampleTrack(projection.distance + lookAhead, lane);
+        const desiredHeading = Math.atan2(-(target.x - car.chassis.position.x), -(target.z - car.chassis.position.z));
+        const error = normalizeAngle(desiredHeading - heading);
+        if (car.stuck > 1.6 && this.world.time >= car.reverseUntil) {
+            car.reverseUntil = this.world.time + 1.25; car.stuck = 0;
+        }
+        if (this.world.time < car.reverseUntil) return { throttle: -1, steer: -clamp(error * 2.1, -1, 1), brake: false, boost: false };
+        if (Math.abs(error) > .8) targetSpeed = Math.min(targetSpeed, 6);
+        const throttle = speed > targetSpeed + .65 ? -Math.min(1, (speed - targetSpeed) / 3) : clamp((targetSpeed - speed) / 4, .12, 1);
+        return { throttle, steer: clamp(error * 2.1, -1, 1), brake: false, boost: false };
     }
 
-    _restoreBody(body, position) {
-        body.position.set(...position);
-        body.previousPosition.copy(body.position);
-        body.interpolatedPosition.copy(body.position);
-        body.quaternion.set(0, 0, 0, 1);
-        body.previousQuaternion.copy(body.quaternion);
-        body.interpolatedQuaternion.copy(body.quaternion);
-        body.velocity.setZero();
-        body.angularVelocity.setZero();
-        body.force.setZero();
-        body.torque.setZero();
-        body.aabbNeedsUpdate = true;
-        body.wakeUp();
+    applyControl(car, input, dt, locked) {
+        const body = car.chassis;
+        body.quaternion.vmult(forwardAxis, car.forward);
+        const velocity = body.velocity.dot(car.forward);
+        const speed = Math.abs(velocity);
+        const throttle = clamp(input.throttle || 0, -1, 1);
+        car.throttle += (throttle - car.throttle) * (1 - Math.exp(-dt * 8));
+        const maxSteer = .52 / (1 + speed * .023);
+        car.steering += (clamp(input.steer || 0, -1, 1) * maxSteer - car.steering) * (1 - Math.exp(-dt * 11));
+        car.vehicle.setSteeringValue(car.steering, 0); car.vehicle.setSteeringValue(car.steering, 1);
+        const onRoad = isOnRoad(body.position.x, body.position.z);
+        const inPit = body.position.x > 25 && body.position.z > -27 && body.position.z < 22;
+        const limit = throttle < 0 ? 5 : inPit ? 8 : onRoad ? (input.boost ? 33 : 26) : 11;
+        const changingDirection = throttle * velocity < -.6;
+        const engine = locked || changingDirection || input.brake ? 0 : car.throttle * 1050 * (input.boost ? 1.45 : 1) * clamp((limit - speed) / 4, 0, 1);
+        const brake = locked ? 80 : changingDirection ? 26 : input.brake ? 30 : Math.abs(throttle) < .01 ? .3 : 0;
+        for (let index = 0; index < 4; index += 1) {
+            car.vehicle.applyEngineForce(index >= 2 ? engine : 0, index);
+            car.vehicle.setBrake(brake, index);
+            car.vehicle.wheelInfos[index].frictionSlip = onRoad ? 4.1 : 2.5;
+        }
+        if (car.grounded && !locked) { car.force.set(-body.velocity.x * (onRoad ? .9 : 9), -speed * speed * 2.2, -body.velocity.z * (onRoad ? .9 : 9)); body.applyForce(car.force); }
     }
-
+    step(delta, input = {}, { locked = false, playerFinished = false } = {}) {
+        if (this.disposed) return;
+        const dt = clamp(Number.isFinite(delta) ? delta : FIXED_STEP, 0, .1);
+        this.vehicles.forEach((car, index) => this.applyControl(car, index === 0 ? input : this.aiInput(car), dt, locked || (index === 0 && playerFinished)));
+        this.world.step(FIXED_STEP, dt, 6);
+        this.vehicles.forEach((car, index) => {
+            car.grounded = car.vehicle.wheelInfos.some((wheel) => wheel.raycastResult.hasHit);
+            car.vehicle.wheelInfos.forEach((_, wheelIndex) => car.vehicle.updateWheelTransform(wheelIndex));
+            const projection = projectTrack(car.chassis.position.x, car.chassis.position.z);
+            if (projection.distanceToTrack < 4.7 && car.grounded) car.safeDistance = projection.distance;
+            car.chassis.quaternion.vmult(upAxis, car.up);
+            const speed = car.chassis.velocity.length();
+            car.stuck = !locked && speed < 1.1 ? car.stuck + dt : 0;
+            car.flippedTime = !locked && car.up.y < .25 ? car.flippedTime + dt : 0;
+            if (car.chassis.position.y < -4 || Math.abs(car.chassis.position.x) > 65 || Math.abs(car.chassis.position.z) > 60) this.placeCar(car, car.safeDistance);
+            else if (index > 0 && car.flippedTime > 5) this.placeCar(car, car.safeDistance, car.lane);
+        });
+    }
+    status() {
+        this.chassis.quaternion.vmult(forwardAxis, this.player.forward); this.chassis.quaternion.vmult(upAxis, this.player.up);
+        const { x, z } = this.chassis.position;
+        const speed = Math.hypot(this.chassis.velocity.x, this.chassis.velocity.z) * 3.6;
+        const zone = ZONES.find((item) => Math.hypot(x - item.position[0], z - item.position[2]) < item.radius);
+        return { x, z, speed, signedSpeed: this.chassis.velocity.dot(this.player.forward) * 3.6, nearby: speed < 7 ? zone?.id || null : null, grounded: this.player.grounded, flipped: this.player.up.y < .25, collisions: this.player.collisions, onTrack: isOnRoad(x, z) };
+    }
+    samples() {
+        return this.vehicles.map((car) => {
+            const { x, z } = car.chassis.position;
+            const point = projectTrack(x, z);
+            return { id: car.id, distance: point.distance, speed: Math.hypot(car.chassis.velocity.x, car.chassis.velocity.z) * 3.6, onTrack: point.distanceToTrack < 7.5 || isOnRoad(x, z) };
+        });
+    }
     dispose() {
-        if (this._disposed) return;
+        if (this.disposed) return;
         this.chassis.removeEventListener("collide", this._onCollide);
-        this.vehicle.removeFromWorld(this.world);
-        [...this.staticBodies, ...this.dynamicObjects.map((item) => item.body)].forEach((body) => this.world.removeBody(body));
-        this._collisionTimes.clear();
-        this._disposed = true;
+        this.vehicles.forEach((car) => car.vehicle.removeFromWorld(this.world));
+        this.staticBodies.forEach((body) => this.world.removeBody(body)); this.disposed = true;
     }
 }
-
 export default CarPhysics;

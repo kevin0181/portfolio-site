@@ -32,7 +32,7 @@ function ProjectLinks({ links }) {
 function PanelFooter({ onClose }) {
     return (
         <div className="panel-project-nav">
-            <button type="button" onClick={onClose}>드라이브 계속하기</button>
+            <button type="button" onClick={onClose}>서킷으로 돌아가기</button>
         </div>
     );
 }
@@ -107,6 +107,7 @@ function ProjectPanel({ selected, onClose }) {
                 <article className="game-panel game-panel--project">
                     <div className="panel-eyebrow">
                         <span>{station.label}</span>
+                        <span>PIT {String(stations.indexOf(station) + 1).padStart(2, "0")}</span>
                     </div>
                     <figure className="panel-screenshot">
                         <img src={`${process.env.PUBLIC_URL}/img/project/${project.image}`} alt={`${project.title} 프로젝트 화면`} />

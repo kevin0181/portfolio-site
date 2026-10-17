@@ -1,33 +1,44 @@
-# Drive around
+# Formula portfolio circuit
 
-A full-screen driving playground for Young Bin You's portfolio. Drive between four project areas; stop nearby and press E to open a project. The document resume remains available separately.
+A low-poly Formula-style circuit with a player-controlled car, three AI competitors, and four portfolio garages in the pit lane. The document resume remains a separate route.
 
-- Game: `/portfolio-site/play`
+- Circuit: `/portfolio-site/play`
 - Resume: `/portfolio-site/resume`
 - Local server: `npm ci`, then `npm start`
-- Production check: `npm run build`
-- Physics regressions: `npm test -- --watchAll=false --runInBand src/game/CarPhysics.test.js`
+- Production build: `npm run build`
+- Physics, circuit and race checks: `npm test -- --watchAll=false --runInBand src/game/CarPhysics.test.js src/game/Circuit.test.js src/game/RaceSession.test.js`
 
-## Controls
+## Driving and projects
 
-WASD or arrows accelerate, brake/reverse and steer. Space is the handbrake; Shift boosts. R restores the car to its starting position. E opens a nearby project while the car is moving slower than 7 km/h. Escape closes the project. Touch devices have steering, pedal and handbrake buttons.
+W / Up accelerates. S / Down brakes, then reverses. A / D or Left / Right steer; Space brakes; Shift boosts. R recovers the player car onto the circuit near its current track position. The on-screen controls provide touch steering, pedals and braking.
 
-The map contains rigid ramps, barriers, signs, pushable crates, barrels and balls. Car suspension and collisions use a fixed-step Cannon RaycastVehicle simulation. Opening a project pauses the simulation. There is no click-to-teleport or automatic project opening.
+Free driving begins in the pit lane. The four garages contain Re:adapt, KarKartRider, INVERSUS and Dev workshop. Enter a garage's marked project bay and slow below 7 km/h; E, or the nearby project button, opens its details. Project panels pause the simulation. Escape closes the panel. Entering a bay alone never opens it automatically.
+
+Starting a race resets all four cars to the grid. A four-second countdown holds the vehicles before a three-lap race. The race session tracks forward circuit progress, lap times and running order. Reverse travel removes progress; leaving the accepted course or making a discontinuous position jump invalidates the current lap's progress. Returning to the pits exits the race and restores free driving.
+
+## Physics and rendering
+
+`cannon-es` runs four rigid chassis with `RaycastVehicle` suspension in a fixed 1/60-second simulation step. Player and AI cars share the same world, vehicle controls, tire contact, rigid barriers and vehicle-to-vehicle collisions. AI drivers follow look-ahead points on the shared circuit, reduce target speed for corners, and choose lateral offsets around other cars. They are rule-based drivers, rather than trained machine-learning agents.
+
+Acceleration, steering, braking and road-dependent grip act through the physics simulation. Grass reduces grip and adds drag; the pit lane has a lower speed limit. Simplified box chassis provide car collision shapes; the visible Formula bodywork, tires, painted kerbs and scenery are visual detail rather than a full mesh collision model. Barrier and garage wall meshes use the same descriptors as their rigid bodies.
+
+The track is an original closed spline sampled into shared centerline points. Rendering uses those points for the asphalt ribbon, kerbs and pit entry/exit; physics and lap tracking use the same samples for projection and progress. Cars copy real chassis quaternions and wheel suspension transforms every frame.
 
 ## Source
 
-- `GamePortfolio.js`: minimal overlay, touch input, nearby project prompt.
-- `GameWorld.js`: Three.js rendering, camera, input, physics synchronization and fallback.
-- `CarPhysics.js`: vehicle and world simulation; shared descriptors keep visible ramps and collision geometry aligned.
-- `ProjectPanel.js`: readable project files using the original resume data.
-- `game.css`: minimal driving overlay and project reader.
+- `GamePortfolio.js`: minimal interface, race commands, touch input and nearby project prompt.
+- `GameWorld.js`: Three.js runtime, input, following camera, vehicle synchronization, telemetry and WebGL fallback.
+- `Circuit.js`: shared circuit samples, track projection, pit lane, project zones and barrier descriptors.
+- `CircuitVisuals.js`: Formula car models, track meshes, start lights, project garages, spectators and scenery.
+- `CarPhysics.js`: shared rigid world, four vehicles, AI driving and recovery.
+- `RaceSession.js`: countdown, lap validation, order, timing and finish state.
+- `ProjectPanel.js`: project reader using existing resume data.
+- `game.css`: driving overlay and project reader layout.
 
-Three.js and Cannon are lazy-loaded on the game route. The scene is generated in code; screenshots are existing portfolio assets. The site has no account or backend. If WebGL fails, ordinary project buttons remain available.
+The game route lazy-loads the Three.js and Cannon dependency graph. Scene geometry is generated in code; garage posters use existing local project screenshots. Static scenery meshes sharing an untextured material are merged to reduce draw calls, while cars, flags and start lamps remain separate. There is no account or backend. Hidden tabs pause the render loop; reduced-motion settings stop decorative flag animation. WebGL failure leaves ordinary project buttons available.
 
 ## Dependencies and references
 
 - [Three.js](https://github.com/mrdoob/three.js), `0.186.1`, MIT.
 - [cannon-es](https://github.com/pmndrs/cannon-es), `0.20.0`, MIT.
-- [Official RaycastVehicle example](https://github.com/pmndrs/cannon-es/blob/v0.20.0/examples/raycast_vehicle.html) and [vehicle source](https://github.com/pmndrs/cannon-es/blob/v0.20.0/src/objects/RaycastVehicle.ts).
-
-The map and visual assets are original procedural implementations.
+- [Official RaycastVehicle example](https://github.com/pmndrs/cannon-es/blob/v0.20.0/examples/raycast_vehicle.html) and [vehicle implementation](https://github.com/pmndrs/cannon-es/blob/v0.20.0/src/objects/RaycastVehicle.ts).

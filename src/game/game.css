@@ -111,3 +111,66 @@ body.drive-mode { overflow:hidden; }
     .driving-help dt kbd { font-size:8px; }
 }
 @media (prefers-reduced-motion:reduce) { .drive-hint { transition:none; } }
+
+/* The race interface appears only after a race is started. */
+.drive-site { --drive-forest:#365247; --drive-coral:#bf705e; --drive-cream:#f9f6ed; }
+.drive-header .drive-race-toggle { display:flex; align-items:center; gap:7px; width:auto; min-height:31px; padding:6px 11px; border:1px solid #bfc9bd; border-radius:5px; background:#faf7edbd; color:var(--drive-forest); font-size:10px; white-space:nowrap; }
+.drive-header .drive-race-toggle svg { width:12px; height:12px; stroke-width:1.5; }
+.drive-header .drive-race-toggle:hover { border-color:var(--drive-coral); color:var(--drive-coral); background:#fcf9f1; }
+.drive-header .drive-race-toggle.is-active { border-color:transparent; background:#f8f5ed91; color:#748075; }
+.drive-header .drive-race-toggle:disabled { opacity:.45; cursor:wait; }
+.race-status { position:absolute; z-index:4; top:27px; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:0; padding:10px 0; border:1px solid #d8ddcf; border-radius:6px; background:#fcf9efde; box-shadow:0 3px 17px #344b3a08; pointer-events:none; }
+.race-status > div { display:flex; align-items:baseline; gap:8px; padding:0 16px; border-left:1px solid #dce1d2; white-space:nowrap; }
+.race-status > div:first-child { border-left:0; }
+.race-status > div > span { color:#919b8c; font-family:"SFMono-Regular",Consolas,monospace; font-size:8px; letter-spacing:.5px; }
+.race-status strong { color:var(--drive-forest); font-size:14px; font-weight:500; font-variant-numeric:tabular-nums; line-height:1; }
+.race-status small { color:#929c8b; font-size:9px; font-weight:400; }
+.race-status .race-status-time strong { min-width:66px; font-family:"SFMono-Regular",Consolas,monospace; font-size:12px; }
+.race-countdown { position:absolute; z-index:4; top:44%; left:50%; transform:translate(-50%,-50%); display:flex; flex-direction:column; align-items:center; gap:10px; min-width:170px; pointer-events:none; color:var(--drive-forest); text-align:center; }
+.race-countdown > span { font-family:"SFMono-Regular",Consolas,monospace; font-size:9px; letter-spacing:2px; }
+.race-countdown > strong { display:grid; place-items:center; width:105px; height:105px; border:1px solid #d6dccd; border-radius:50%; background:#fbf8eee8; box-shadow:0 9px 45px #35524012; color:var(--drive-coral); font-size:64px; font-weight:400; line-height:1; font-variant-numeric:tabular-nums; animation:race-tick .25s ease-out; }
+.race-countdown > p { padding:4px 8px; border-radius:3px; background:#f9f6ecd9; color:#7c8975; font-size:10px; }
+.race-results { position:absolute; z-index:7; top:50%; left:50%; transform:translate(-50%,-50%); width:min(360px,calc(100% - 40px)); max-height:calc(100svh - 165px); overflow:auto; padding:25px; border:1px solid #dce1d2; border-radius:9px; background:#fcf9f1f5; box-shadow:0 15px 65px #314d3c24; color:var(--drive-forest); outline:none; }
+.race-results-heading { display:flex; align-items:center; gap:8px; color:var(--drive-coral); font-family:"SFMono-Regular",Consolas,monospace; font-size:8px; letter-spacing:1px; }
+.race-results-heading svg { width:13px; height:13px; }
+.race-results h2 { margin:12px 0 20px; font-size:21px; font-weight:500; letter-spacing:-.8px; }
+.race-results-time { display:flex; align-items:baseline; justify-content:space-between; margin-bottom:17px; color:#86917f; font-size:10px; }
+.race-results-time strong { color:var(--drive-forest); font-family:"SFMono-Regular",Consolas,monospace; font-size:19px; font-weight:400; font-variant-numeric:tabular-nums; }
+.race-results ol { display:grid; gap:0; margin:0; padding:0; list-style:none; }
+.race-results li { display:flex; align-items:center; gap:12px; padding:11px 9px; border-top:1px solid #e1e5d9; color:#85927b; font-size:10px; }
+.race-results li.is-player { border-radius:4px; background:#e8eee2; color:var(--drive-forest); }
+.race-result-position { width:12px; font-family:"SFMono-Regular",Consolas,monospace; font-size:11px; }
+.race-result-name { display:flex; align-items:center; flex:1; gap:8px; font-weight:500; letter-spacing:.4px; }
+.race-result-name small { font-size:7px; font-weight:400; color:#9aa48f; letter-spacing:0; }
+.race-result-time { font-family:"SFMono-Regular",Consolas,monospace; font-size:10px; font-variant-numeric:tabular-nums; }
+.race-best-lap { display:flex; justify-content:space-between; gap:12px; margin:16px 0 0; color:#909b86; font-family:"SFMono-Regular",Consolas,monospace; font-size:8px; }
+.race-best-lap strong { color:#738566; font-size:10px; font-weight:400; font-variant-numeric:tabular-nums; }
+.race-results-actions { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:23px; }
+.race-results-actions button { display:flex; align-items:center; gap:9px; min-height:36px; padding:7px 0; color:#8e9a84; font-size:10px; }
+.race-results-actions button:last-child { padding:7px 12px; border:1px solid #bdcbb5; border-radius:4px; background:#eaf0e3; color:var(--drive-forest); }
+.race-results-actions button:hover { color:var(--drive-coral); }
+.race-results-actions button svg { width:13px; height:13px; }
+.driving-help .driving-help-note { margin:20px 0 0; color:#9aa58f; font-size:11px; line-height:1.9; }
+@keyframes race-tick { from { opacity:.5; transform:scale(.94); } to { opacity:1; transform:scale(1); } }
+@media (max-width:1000px) { .race-status { top:80px; } }
+@media (max-width:600px) {
+    .drive-header nav { gap:11px; }
+    .drive-header .drive-race-toggle { gap:5px; min-height:28px; padding:5px 8px; font-size:9px; }
+    .drive-header .drive-race-toggle svg { width:10px; height:10px; }
+    .race-status { top:70px; padding:9px 0; }
+    .race-status > div { gap:6px; padding:0 11px; }
+    .race-status > div > span { font-size:7px; }
+    .race-status strong { font-size:12px; }
+    .race-status .race-status-time strong { min-width:60px; font-size:11px; }
+    .race-countdown { top:43%; }
+    .race-countdown > strong { width:87px; height:87px; font-size:53px; }
+    .race-results { max-height:calc(100svh - 160px); padding:21px; }
+    .race-results h2 { font-size:19px; }
+}
+@media (prefers-reduced-motion:reduce) { .race-countdown > strong { animation:none; } }
+.drive-hint .drive-project-hint { color:#74846b; }
+@media (pointer:coarse),(max-width:760px) {
+    .drive-hint { display:flex; left:24px; bottom:151px; gap:0; font-size:9px; }
+    .drive-hint > span { display:none; }
+    .drive-hint > .drive-project-hint { display:flex; }
+}
