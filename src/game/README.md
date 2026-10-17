@@ -1,29 +1,33 @@
-# Playable portfolio
+# Drive around
 
-A small isometric game world for Young Bin You's portfolio. The 3D island and its objects are generated in code; project screenshots come from the existing portfolio.
+A full-screen driving playground for Young Bin You's portfolio. Drive between four project areas; stop nearby and press E to open a project. The document resume remains available separately.
 
-- Game route: `/portfolio-site/play`
-- Document resume: `/portfolio-site/resume`
-- Start locally: `npm ci` then `npm start`
+- Game: `/portfolio-site/play`
+- Resume: `/portfolio-site/resume`
+- Local server: `npm ci`, then `npm start`
 - Production check: `npm run build`
+- Physics regressions: `npm test -- --watchAll=false --runInBand src/game/CarPhysics.test.js`
 
 ## Controls
 
-WASD or arrow keys move the explorer; Shift runs, E opens the nearest project, and R returns to spawn. Click or tap terrain to walk there. Selecting a landmark or destination card walks to it and opens its project file. Touch devices also have directional buttons. Escape closes a file. Sound is opt-in; the sun button reduces decorative motion. The operating system's reduced-motion preference is respected.
+WASD or arrows accelerate, brake/reverse and steer. Space is the handbrake; Shift boosts. R restores the car to its starting position. E opens a nearby project while the car is moving slower than 7 km/h. Escape closes the project. Touch devices have steering, pedal and handbrake buttons.
 
-Project discovery is stored only in this browser under the `youngbin-world-explored-v1` localStorage key. There is no account, tracking service, or backend. If WebGL cannot start or its context is lost, standard project buttons remain available.
+The map contains rigid ramps, barriers, signs, pushable crates, barrels and balls. Car suspension and collisions use a fixed-step Cannon RaycastVehicle simulation. Opening a project pauses the simulation. There is no click-to-teleport or automatic project opening.
 
-## Source organization
+## Source
 
-- `GamePortfolio.js`: shell, controls, exploration progress, optional interaction sound.
-- `GameWorld.js`: Three.js scene, movement, picking, camera, cleanup, fallback.
-- `ProjectPanel.js`: accessible project/profile files using the existing resume data.
-- `game.css`: responsive world UI and project files.
+- `GamePortfolio.js`: minimal overlay, touch input, nearby project prompt.
+- `GameWorld.js`: Three.js rendering, camera, input, physics synchronization and fallback.
+- `CarPhysics.js`: vehicle and world simulation; shared descriptors keep visible ramps and collision geometry aligned.
+- `ProjectPanel.js`: readable project files using the original resume data.
+- `game.css`: minimal driving overlay and project reader.
 
-Three.js is lazy-loaded on the game route; the document resume remains available separately.
+Three.js and Cannon are lazy-loaded on the game route. The scene is generated in code; screenshots are existing portfolio assets. The site has no account or backend. If WebGL fails, ordinary project buttons remain available.
 
-## References
+## Dependencies and references
 
-Runtime: [Three.js](https://github.com/mrdoob/three.js), pinned to `0.186.1`, MIT licensed.
+- [Three.js](https://github.com/mrdoob/three.js), `0.186.1`, MIT.
+- [cannon-es](https://github.com/pmndrs/cannon-es), `0.20.0`, MIT.
+- [Official RaycastVehicle example](https://github.com/pmndrs/cannon-es/blob/v0.20.0/examples/raycast_vehicle.html) and [vehicle source](https://github.com/pmndrs/cannon-es/blob/v0.20.0/src/objects/RaycastVehicle.ts).
 
-Implementation references: [official Three.js game example](https://github.com/mrdoob/three.js/blob/r186/examples/games_fps.html), [official resource cleanup guide](https://threejs.org/manual/pages/cleanup.html). [Bruno Simon's portfolio](https://github.com/brunosimon/folio-2019) was a reference for exploratory portfolio navigation. This scene and interface are original implementations; no source or assets were copied from that portfolio.
+The map and visual assets are original procedural implementations.

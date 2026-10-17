@@ -1,12 +1,12 @@
-import { FiArrowRight, FiArrowUpRight, FiCompass, FiMail } from "react-icons/fi";
+import { FiArrowUpRight, FiMail } from "react-icons/fi";
 import Modal from "../resume/Modal";
 import { projects, skillGroups, experiences } from "../resume/resumeData";
 
 const stations = [
-    { id: "readapt", projectId: "readapt", label: "COMBAT FIELD", number: "01", next: "karkartrider" },
-    { id: "karkartrider", projectId: "karkartrider", label: "RACING CIRCUIT", number: "02", next: "inversus" },
-    { id: "inversus", projectId: "inversus", label: "PIXEL ARENA", number: "03", next: "workshop" },
-    { id: "workshop", projectId: "devil-codex", label: "DEVELOPER WORKSHOP", number: "04", next: "readapt" },
+    { id: "readapt", projectId: "readapt", label: "Unreal Engine · TPS" },
+    { id: "karkartrider", projectId: "karkartrider", label: "C++ · OpenGL" },
+    { id: "inversus", projectId: "inversus", label: "C++ · Win32 API" },
+    { id: "workshop", projectId: "devil-codex", label: "AI 개발 도구" },
 ];
 
 const profileExperiences = ["tech-university", "elice", "ncs-java"]
@@ -29,25 +29,26 @@ function ProjectLinks({ links }) {
     );
 }
 
-function ProjectPanel({ selected, onClose, onTravel }) {
+function PanelFooter({ onClose }) {
+    return (
+        <div className="panel-project-nav">
+            <button type="button" onClick={onClose}>드라이브 계속하기</button>
+        </div>
+    );
+}
+
+function ProjectPanel({ selected, onClose }) {
     const station = stations.find((item) => item.id === selected);
     const project = station ? projects.find((item) => item.id === station.projectId) : null;
     const isProfile = selected === "profile";
     const isOpen = isProfile || Boolean(project);
-    const nextStation = stations.find((item) => item.id === (station?.next || "readapt"));
-
-    const travel = () => {
-        onClose();
-        onTravel(nextStation.id);
-    };
 
     return (
-        <Modal isOpen={isOpen} onClose={onClose} title={isProfile ? "유영빈 · PLAYER PROFILE" : project?.title}>
+        <Modal isOpen={isOpen} onClose={onClose} title={isProfile ? "유영빈 · 프로필" : project?.title}>
             {isProfile ? (
                 <article className="game-panel game-panel--profile">
                     <div className="panel-eyebrow">
-                        <span>PLAYER FILE / 00</span>
-                        <span>GAME CLIENT DEVELOPER</span>
+                        <span>게임 클라이언트 개발자</span>
                     </div>
                     <div className="panel-profile-heading">
                         <div className="panel-profile-avatar" aria-hidden="true">YB</div>
@@ -75,11 +76,11 @@ function ProjectPanel({ selected, onClose, onTravel }) {
                     </div>
                     <dl className="panel-meta panel-profile-skills">
                         <div>
-                            <dt>LANGUAGE</dt>
+                            <dt>개발 언어</dt>
                             <dd>{languageSkills.filter((skill) => skill === "C++").join(" · ")}</dd>
                         </div>
                         <div>
-                            <dt>GAME TOOLS</dt>
+                            <dt>게임 개발</dt>
                             <dd>{gameSkills.join(" · ")}</dd>
                         </div>
                     </dl>
@@ -100,15 +101,11 @@ function ProjectPanel({ selected, onClose, onTravel }) {
                         <a href="https://github.com/neneee0181" target="_blank" rel="noopener noreferrer">GitHub <FiArrowUpRight aria-hidden="true" /></a>
                         <a href="https://code-nen.tistory.com/" target="_blank" rel="noopener noreferrer">개발 블로그 <FiArrowUpRight aria-hidden="true" /></a>
                     </div>
-                    <div className="panel-project-nav">
-                        <span><FiCompass aria-hidden="true" /> 첫 번째 지역 · Re:adapt</span>
-                        <button type="button" onClick={travel}>다음 지역으로 이동 <FiArrowRight aria-hidden="true" /></button>
-                    </div>
+                    <PanelFooter onClose={onClose} />
                 </article>
             ) : project && (
                 <article className="game-panel game-panel--project">
                     <div className="panel-eyebrow">
-                        <span>PROJECT FILE / {station.number}</span>
                         <span>{station.label}</span>
                     </div>
                     <figure className="panel-screenshot">
@@ -116,8 +113,7 @@ function ProjectPanel({ selected, onClose, onTravel }) {
                         <figcaption>{project.title}</figcaption>
                     </figure>
                     <dl className="panel-meta">
-                        <div><dt>PERIOD</dt><dd>{project.period}</dd></div>
-                        <div><dt>FIELD</dt><dd>{station.id === "workshop" ? "AI AGENT · DEVELOPER TOOLS" : "GAME DEVELOPMENT"}</dd></div>
+                        <div><dt>개발 기간</dt><dd>{project.period}</dd></div>
                     </dl>
                     <p className="panel-summary">{project.subtitle}</p>
                     <div className="panel-details">
@@ -128,10 +124,7 @@ function ProjectPanel({ selected, onClose, onTravel }) {
                         {project.tags.map((tag) => <span key={tag}>{tag}</span>)}
                     </div>
                     <ProjectLinks links={project.links} />
-                    <div className="panel-project-nav">
-                        <span><FiCompass aria-hidden="true" /> NEXT / {nextStation.label}</span>
-                        <button type="button" onClick={travel}>다음 지역으로 이동 <FiArrowRight aria-hidden="true" /></button>
-                    </div>
+                    <PanelFooter onClose={onClose} />
                 </article>
             )}
         </Modal>
