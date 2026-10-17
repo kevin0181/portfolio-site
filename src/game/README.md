@@ -1,6 +1,6 @@
 # Formula portfolio circuit
 
-A low-poly Formula-style circuit with a player-controlled car, three AI competitors, and four portfolio garages in the pit lane. The document resume remains a separate route.
+A low-poly Formula-style circuit built with downloaded Kenney Racing Kit GLB models, a player-controlled car, three AI competitors, and four portfolio garages in the pit lane. The document resume remains a separate route.
 
 - Circuit: `/portfolio-site/play`
 - Resume: `/portfolio-site/resume`
@@ -22,7 +22,13 @@ Starting a race resets all four cars to the grid. A four-second countdown holds 
 
 Acceleration, steering, braking and road-dependent grip act through the physics simulation. Grass reduces grip and adds drag; the pit lane has a lower speed limit. Simplified box chassis provide car collision shapes; the visible Formula bodywork, tires, painted kerbs and scenery are visual detail rather than a full mesh collision model. Barrier and garage wall meshes use the same descriptors as their rigid bodies.
 
-The track is an original closed spline sampled into shared centerline points. Rendering uses those points for the asphalt ribbon, kerbs and pit entry/exit; physics and lap tracking use the same samples for projection and progress. Cars copy real chassis quaternions and wheel suspension transforms every frame.
+The track is an original closed spline sampled into shared centerline points. Kenney's actual road panels are fitted to those points, including their asphalt and beveled curb geometry. Road grip, barriers, AI and lap tracking use the same samples for projection and progress. Imported Formula car bodies copy real chassis quaternions, and their four detached wheels copy the suspension transforms every frame.
+
+## Imported models
+
+The 15 unmodified GLBs in `public/models/kenney-racing/` come from the official [Kenney Racing Kit](https://kenney.nl/assets/racing-kit), licensed under [CC0](https://creativecommons.org/publicdomain/zero/1.0/). They total 288,384 bytes and contain their resources internally. The original license, official download URL and ZIP checksum are recorded alongside the models. No Sketchfab or paid models are bundled.
+
+The scene uses the imported road panels, garages and offices, covered and rounded stands, barriers, fence, floodlights, tents, trees, start gantry and Formula car. Project names replace the original sponsor banner using remapped UVs. Colors, helmets, race numbers and portfolio details are added at runtime. `RacingAssets.js` loads a runtime-owned library; delayed loads and embedded image bitmaps are disposed on exit. If model loading fails, the generated circuit provides a playable fallback.
 
 ## Source
 
@@ -30,12 +36,13 @@ The track is an original closed spline sampled into shared centerline points. Re
 - `GameWorld.js`: Three.js runtime, input, following camera, vehicle synchronization, telemetry and WebGL fallback.
 - `Circuit.js`: shared circuit samples, track projection, pit lane, project zones and barrier descriptors.
 - `CircuitVisuals.js`: Formula car models, track meshes, start lights, project garages, spectators and scenery.
+- `RacingAssets.js`: downloaded GLB loading, model ownership and imported body/wheel separation.
 - `CarPhysics.js`: shared rigid world, four vehicles, AI driving and recovery.
 - `RaceSession.js`: countdown, lap validation, order, timing and finish state.
 - `ProjectPanel.js`: project reader using existing resume data.
 - `game.css`: driving overlay and project reader layout.
 
-The game route lazy-loads the Three.js and Cannon dependency graph. Scene geometry is generated in code; garage posters use existing local project screenshots. Static scenery meshes sharing an untextured material are merged to reduce draw calls, while cars, flags and start lamps remain separate. There is no account or backend. Hidden tabs pause the render loop; reduced-motion settings stop decorative flag animation. WebGL failure leaves ordinary project buttons available.
+The game route lazy-loads the Three.js and Cannon dependency graph. Garage posters use existing local project screenshots. Static scenery meshes sharing an untextured material are merged to reduce draw calls, while cars and start lamps remain separate. There is no account or backend. Hidden tabs pause the render loop. WebGL failure leaves ordinary project buttons available.
 
 ## Dependencies and references
 

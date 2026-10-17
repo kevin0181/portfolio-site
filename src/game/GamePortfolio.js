@@ -132,6 +132,7 @@ export default function GamePortfolio() {
                 <p>서킷을 자유롭게 달리거나 AI 차량 3대와 3랩 레이스를 즐겨 보세요. 피트레인의 네 개 프로젝트 차고 앞에 정차하면 포트폴리오를 열 수 있습니다.</p>
                 <dl><div><dt><Key>W / ↑</Key></dt><dd>가속</dd></div><div><dt><Key>S / ↓</Key></dt><dd>제동 · 후진</dd></div><div><dt><Key>A D / ← →</Key></dt><dd>조향</dd></div><div><dt><Key>SPACE</Key></dt><dd>브레이크</dd></div><div><dt><Key>SHIFT</Key></dt><dd>부스트</dd></div><div><dt><Key>E</Key></dt><dd>정차한 차고의 포트폴리오 열기</dd></div><div><dt><Key>R</Key></dt><dd>가까운 트랙으로 차량 복귀</dd></div></dl>
                 <p className="driving-help-note">커브에 진입하기 전에 속도를 줄여 보세요. 프로젝트를 읽거나 이 창을 여는 동안에는 주행과 레이스 시간이 잠시 멈춥니다.</p>
+                <p className="driving-help-note">3D 모델: <a href="https://kenney.nl/assets/racing-kit" target="_blank" rel="noopener noreferrer">Kenney Racing Kit · CC0<FiArrowUpRight aria-hidden="true" /></a></p>
                 <div className="driving-help-actions"><button type="button" onClick={resetCar}>차량 복귀</button><button type="button" onClick={onClose}>운전 계속하기<FiArrowRight aria-hidden="true" /></button></div>
             </article>
         </Modal>

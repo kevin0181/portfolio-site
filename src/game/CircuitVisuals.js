@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { ROAD_WIDTH, TRACK_POINTS, PIT_POINTS, ZONES, sampleTrack, TRACK_LENGTH } from "./Circuit";
+import { createAssetCar } from "./RacingAssets";
 
 const PROJECTS = {
     readapt: { name: "RE:ADAPT", subtitle: "UNREAL ENGINE 5 / TPS", color: "#d16f4d", image: "readapt-project.png" },
@@ -149,7 +150,8 @@ function batchStaticCircuit(scene,animatedObjects) {
     replacedGeometries.forEach((geometry)=> { if(!retainedGeometries.has(geometry)) geometry.dispose(); });
 }
 
-export function createFormulaCar(scene,color="#d66f4e",number=1) {
+export function createFormulaCar(scene,color="#d66f4e",number=1,assets=null) {
+    if(assets) return createAssetCar(scene,assets,color,number);
     const { material,mesh,box,cylinder,group,polygon }=primitives(scene);
     const body=group([0,0,0]);
     const paint=material(color,{ roughness: .55 });
@@ -227,7 +229,8 @@ export function createFormulaCar(scene,color="#d66f4e",number=1) {
     return { body,wheels,brakeMaterial };
 }
 
-export function buildCircuit(scene,physics={}) {
+export function buildCircuit(scene,physics={},assets=null) {
+    if(assets) return buildImportedCircuit(scene,physics,assets);
     const { material,mesh,box,cylinder,group,polygon }=primitives(scene);
     const roadMaterial=material("#606b68",{ side: THREE.DoubleSide });
     const paintMaterial=material("#eee9d5",{ side: THREE.DoubleSide });
@@ -435,4 +438,184 @@ export function buildCircuit(scene,physics={}) {
             flags.forEach((flag,index)=> { flag.rotation.y=Math.sin(elapsed*1.4+index)*.1; });
         },
     };
+}
+
+// Actual Kenney GLB models form this circuit; the road panels are bent to the
+// same centreline that drives tire grip, AI, recovery, collision and lap timing.
+function buildImportedCircuit(scene,physics,assets) {
+    const { mesh,box,group,polygon }=primitives(scene);
+    const palette={ grass:"#b8c4a5",road:"#586460",grey:"#e8e2d1",red:"#cb7458",glass:"#5c7778",_defaultMat:"#c7c4b5",carTire:"#35433c",pylon:"#e6c47f" };
+    const materialCache=new Map();
+    const recolor=(source,color)=> {
+        const key=`${source.uuid}:${color || ""}`;
+        if(!materialCache.has(key)) {
+            const result=source.clone();
+            if(color) result.color.set(color);
+            result.roughness=.84; result.flatShading=true;
+            materialCache.set(key,result);
+        }
+        return materialCache.get(key);
+    };
+    const prepare=(object,accent)=> {
+        object.traverse((part)=> {
+            if(!part.isMesh) return;
+            const apply=(material)=>recolor(material,material.name==="red" && accent ? accent : palette[material.name]);
+            part.material=Array.isArray(part.material) ? part.material.map(apply) : apply(part.material);
+            part.castShadow=true; part.receiveShadow=true;
+        });
+        return object;
+    };
+    const model=(name,position,size,rotation=0,accent)=> {
+        const object=prepare(assets.clone(name),accent);
+        const bounds=new THREE.Box3().setFromObject(object);
+        const dimensions=bounds.getSize(new THREE.Vector3());
+        const center=bounds.getCenter(new THREE.Vector3());
+        object.position.sub(new THREE.Vector3(center.x,bounds.min.y,center.z));
+        const wrapper=group(position);
+        wrapper.add(object);
+        wrapper.scale.set(size[0]/dimensions.x,size[1]/dimensions.y,size[2]/dimensions.z);
+        wrapper.rotation.y=rotation;
+        return wrapper;
+    };
+    const ground=mesh(new THREE.PlaneGeometry(220,220),"#b8c4a5");
+    ground.rotation.x=-Math.PI/2; ground.position.y=-.08; ground.castShadow=false;
+
+    const roadPanels=(name,length,width,sample,curbs=true)=> {
+        const template=assets.clone(name);
+        template.updateMatrixWorld(true);
+        const bounds=new THREE.Box3().setFromObject(template);
+        const dimensions=bounds.getSize(new THREE.Vector3());
+        const center=bounds.getCenter(new THREE.Vector3());
+        const parts=[];
+        template.traverse((part)=> { if(part.isMesh && part.material.name!=="grass") parts.push(part); });
+        const count=Math.ceil(length/1.65);
+        for(let index=0;index<count;index+=1) {
+            const from=index*length/count;
+            const span=length/count;
+            parts.forEach((part)=> {
+                if(!curbs && part.material.name==="grey") return;
+                const geometry=part.geometry.clone().applyMatrix4(part.matrixWorld);
+                const positions=geometry.getAttribute("position");
+                for(let vertex=0;vertex<positions.count;vertex+=1) {
+                    const amount=(bounds.max.z-positions.getZ(vertex))/dimensions.z;
+                    const point=sample(Math.min(length,from+amount*span));
+                    // Kenney's drivable asphalt occupies 0.6902 of the panel width.
+                    const lateral=-(positions.getX(vertex)-center.x)*width/.6902;
+                    const height=(positions.getY(vertex)-bounds.min.y)*.9+.012;
+                    positions.setXYZ(vertex,point.x+point.normal.x*lateral,height,point.z+point.normal.z*lateral);
+                }
+                geometry.computeVertexNormals();
+                const tint=part.material.name==="grey" ? curbs && index%2===0 ? "#cb7458" : "#eee5d0" : "#586460";
+                const panel=mesh(geometry,recolor(part.material,tint));
+                panel.castShadow=false;
+            });
+        }
+    };
+    roadPanels("roadStraightLong",TRACK_LENGTH,ROAD_WIDTH,(distance)=>sampleTrack(distance));
+    const pitLength=PIT_POINTS[PIT_POINTS.length-1].distance;
+    const pitSample=(distance)=> {
+        const nextIndex=PIT_POINTS.findIndex((point)=>point.distance>=distance);
+        const index=nextIndex<1 ? nextIndex<0 ? PIT_POINTS.length-1 : 1 : nextIndex;
+        const before=PIT_POINTS[index-1],after=PIT_POINTS[index];
+        const amount=Math.min(1,Math.max(0,(distance-before.distance)/(after.distance-before.distance)));
+        const tangent=new THREE.Vector2().lerpVectors(new THREE.Vector2(before.tangent.x,before.tangent.z),new THREE.Vector2(after.tangent.x,after.tangent.z),amount).normalize();
+        return { x:THREE.MathUtils.lerp(before.x,after.x,amount),z:THREE.MathUtils.lerp(before.z,after.z,amount),normal:{x:tangent.y,z:-tangent.x} };
+    };
+    roadPanels("roadPitStraightLong",pitLength,6.3,pitSample,false);
+
+    // Each model follows the dimensions of its existing simplified collision body.
+    physics.staticObjects.forEach((item,index)=> {
+        if(!/guardrail/.test(item.id)) return;
+        const length=item.size[2],segments=Math.ceil(length/1.1);
+        for(let segment=0;segment<segments;segment+=1) {
+            const offset=(segment+.5)*length/segments-length/2;
+            model(index%3===0 ? "barrierRed" : "barrierWhite",[item.position[0]+Math.sin(item.rotation[1])*offset,0,item.position[2]+Math.cos(item.rotation[1])*offset],[length/segments,item.size[1],item.size[0]],item.rotation[1]+Math.PI/2);
+        }
+    });
+    ZONES.forEach((zone,index)=> {
+        const {name,subtitle,color,image}=PROJECTS[zone.id];
+        const z=zone.position[2];
+        const garage=model("pitsGarage",[39.2,0,z],[7.8,2.8,6.3],-Math.PI/2,color);
+        model("pitsOffice",[39.2,2.8,z],[7.8,1.7,6.3],-Math.PI/2);
+        const signMap=canvasTexture(1024,160,(context,width,height)=> {
+            context.fillStyle="#f1ead7";context.fillRect(0,0,width,height);
+            context.fillStyle=color;context.fillRect(0,0,135,height);
+            context.fillStyle="#fff8e7";context.font="700 73px Arial";context.fillText(String(index+1).padStart(2,"0"),20,106);
+            context.fillStyle="#394c43";context.font="700 61px Arial";context.fillText(name,173,85,817);
+            context.fillStyle="#818a77";context.font="23px Arial";context.fillText(subtitle,176,129,810);
+        });
+        garage.traverse((part)=> {
+            if(!part.isMesh || part.material.name!=="tankco") return;
+            // The original sponsor UVs repeat outside 0..1. Give each project
+            // a single legible sign instead of clamping it to the texture edge.
+            const geometry=part.geometry.clone();
+            const positions=geometry.getAttribute("position");
+            const bounds=new THREE.Box3();
+            const indices=geometry.index?.array || Array.from({length:positions.count},(_,vertex)=>vertex);
+            for(const vertex of indices)bounds.expandByPoint(new THREE.Vector3().fromBufferAttribute(positions,vertex));
+            const uv=geometry.getAttribute("uv").clone();
+            for(let vertex=0;vertex<positions.count;vertex+=1)uv.setXY(vertex,(positions.getX(vertex)-bounds.min.x)/(bounds.max.x-bounds.min.x),(positions.getY(vertex)-bounds.min.y)/(bounds.max.y-bounds.min.y));
+            geometry.setAttribute("uv",uv);part.geometry=geometry;
+            part.material=part.material.clone();part.material.map=signMap;part.material.color.set("#ffffff");
+        });
+        box(scene,[35,.022,z],[4.9,.035,7.8],"#dfd6bd").castShadow=false;
+        [-1,1].forEach((side)=>box(scene,[35+side*2.45,.048,z],[.08,.02,7.8],color).castShadow=false);
+        box(scene,[35,.049,z-3.85],[4.9,.02,.08],color).castShadow=false;
+        const bay=mesh(new THREE.PlaneGeometry(1.35,1.35),new THREE.MeshStandardMaterial({map:numberTexture(index+1),transparent:true,roughness:.9}));
+        bay.rotation.x=-Math.PI/2;bay.position.set(35,.067,z);
+        const posterMap=new THREE.TextureLoader().load(`${process.env.PUBLIC_URL}/img/project/${image}`);
+        posterMap.colorSpace=THREE.SRGBColorSpace;
+        const poster=mesh(new THREE.PlaneGeometry(3.1,1.7),new THREE.MeshStandardMaterial({map:posterMap,roughness:.9}));
+        poster.rotation.y=-Math.PI/2;poster.position.set(42.1,1.45,z);
+        [-1,1].forEach((side)=> {
+            const crew=group([37.4,0,z+side*3]);
+            box(crew,[0,.51,0],[.33,.45,.25],color);
+            [-1,1].forEach((leg)=>box(crew,[leg*.1,.17,0],[.12,.33,.16],"#4c6053"));
+            polygon(crew,[0,.94,0],.23,"#eee1be",1);
+        });
+    });
+
+    [[-43,-16,Math.PI/2],[-11,45,Math.PI],[47,-28,-Math.PI/2]].forEach(([x,z,rotation])=> {
+        for(let stand=0;stand<3;stand+=1) {
+            const offset=(stand-1)*5.4;
+            model("grandStandCovered",[x+Math.cos(rotation)*offset,0,z-Math.sin(rotation)*offset],[5.4,5.4,4.7],rotation);
+        }
+    });
+    model("grandStandRound",[-40,0,13],[10,4.5,10],Math.PI/2);
+    const lights=[];
+    [[25,28],[25,-35],[-36,-27],[-36,17],[-8,43],[42,-33]].forEach(([x,z])=>model("lightPostLarge",[x,0,z],[3,7.2,.8],Math.atan2(-x,-z)));
+    [[46,9],[46,-1],[46,-11]].forEach(([x,z],index)=>model("tent",[x,0,z],[5,3.8,6],Math.PI/2,index%2 ? "#91a89a" : "#cfb47e"));
+    const tree=(x,z,size)=>model(size>1.1 ? "treeLarge" : "treeSmall",[x,0,z],[1.9*size,4.5*size,1.9*size]);
+    for(let index=0;index<15;index+=1) { tree(-48+index*7,-47,1+(index%3)*.16);if(index%2===0)tree(-48+index*7,49,.9+(index%4)*.1); }
+    for(let index=0;index<10;index+=1) { tree(-49,-35+index*7.5,.9+(index%3)*.1);if(index%2===0)tree(55,-36+index*8,1.1); }
+    [[-11,6],[-8,-4],[-4,6],[3,9],[-18,-8],[-3,-19],[4,-24]].forEach(([x,z],index)=>tree(x,z,.68+(index%3)*.12));
+    // Fence models sit beyond rigid barriers; their bottom rails remain outside the racing line.
+    for(let index=0;index<10;index+=1)model("fenceStraight",[-42,0,-32+index*5.5],[5.5,2.8,.2],Math.PI/2);
+
+    model("overhead",[18,0,24],[11.3,5.4,1.7]);
+    const logo=canvasTexture(1024,128,(context,width,height)=> {
+        context.fillStyle="#eee7d2";context.fillRect(0,0,width,height);context.fillStyle="#435448";context.font="700 59px Arial";context.textAlign="center";context.fillText("YB  /  FORMULA PORTFOLIO",width/2,86);
+    });
+    const banner=mesh(new THREE.PlaneGeometry(6.4,.8),new THREE.MeshStandardMaterial({map:logo,roughness:.9}));
+    banner.position.set(18,5.15,24.87);
+    box(scene,[18,4.45,24.7],[3.9,.65,.25],"#354640");
+    for(let index=0;index<5;index+=1) {
+        const light=mesh(new THREE.SphereGeometry(.2,12,8),new THREE.MeshStandardMaterial({color:"#623d32",emissive:"#e75e3e",emissiveIntensity:0,roughness:.4}));
+        light.scale.z=.35;light.position.set(18+(index-2)*.67,4.45,24.87);lights.push(light);
+    }
+    for(let row=0;row<2;row+=1)for(let col=0;col<12;col+=1)box(scene,[18-ROAD_WIDTH/2+(col+.5)*ROAD_WIDTH/12,.052,24+(row-.5)*.48],[ROAD_WIDTH/12,.025,.48],(row+col)%2 ? "#f0ead8" : "#384844").castShadow=false;
+    for(let row=0;row<5;row+=1)[-1,1].forEach((side)=> {
+        const point=sampleTrack(TRACK_LENGTH-3-row*3.3-(side===1 ? 1.3 : 0),side*1.9);
+        const grid=group([point.x,0,point.z]);grid.rotation.y=Math.atan2(-point.tangent.x,-point.tangent.z);
+        box(grid,[0,.045,0],[1.5,.025,.055],"#eee5d0").castShadow=false;
+        [-.73,.73].forEach((offset)=>box(grid,[offset,.045,.52],[.055,.025,1.1],"#eee5d0").castShadow=false);
+    });
+    batchStaticCircuit(scene,lights);
+    return { startLights:lights,update() {},setStartLights(phase) {
+        lights.forEach((light,index)=> {
+            const lit=phase==="go" || (typeof phase==="number" && index<phase);
+            light.material.color.set(lit ? phase==="go" ? "#88be75" : "#d94f35" : "#61473b");
+            light.material.emissive.set(phase==="go" ? "#8cce68" : "#ef6240");light.material.emissiveIntensity=lit ? 1.35 : 0;
+        });
+    } };
 }

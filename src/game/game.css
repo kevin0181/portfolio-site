@@ -3,6 +3,7 @@ body.drive-mode { overflow:hidden; }
 .driving-world,.driving-canvas { position:absolute; inset:0; width:100%; height:100%; }
 .driving-canvas { outline:none; touch-action:none; }
 .driving-canvas canvas { display:block; width:100%; height:100%; outline:none; }
+.drive-loading { position:absolute; inset:0; display:grid; place-items:center; background:#c6cdb4; color:#64705b; font-size:12px; letter-spacing:.1px; }
 .drive-header { position:absolute; z-index:5; top:30px; left:35px; right:35px; display:flex; align-items:center; justify-content:space-between; pointer-events:none; }
 .drive-signature { display:flex; align-items:baseline; gap:12px; color:#414c45; font-size:14px; font-weight:650; letter-spacing:-.4px; }
 .drive-signature > span { font-family:"SFMono-Regular",Consolas,monospace; font-size:8px; font-weight:400; letter-spacing:1.2px; color:#828c7f; }
@@ -151,6 +152,8 @@ body.drive-mode { overflow:hidden; }
 .race-results-actions button:hover { color:var(--drive-coral); }
 .race-results-actions button svg { width:13px; height:13px; }
 .driving-help .driving-help-note { margin:20px 0 0; color:#9aa58f; font-size:11px; line-height:1.9; }
+.driving-help-note a { display:inline-flex; align-items:center; gap:4px; color:#697e58; text-decoration:underline; text-underline-offset:3px; }
+.driving-help-note a svg { width:11px; height:11px; }
 @keyframes race-tick { from { opacity:.5; transform:scale(.94); } to { opacity:1; transform:scale(1); } }
 @media (max-width:1000px) { .race-status { top:80px; } }
 @media (max-width:600px) {

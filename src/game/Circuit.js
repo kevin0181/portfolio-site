@@ -1,5 +1,5 @@
 // Shared circuit geometry: all distances and widths use world metres.
-// This original layout is generated from control points, without external track assets.
+// Imported road models are fitted to this original shared route.
 export const ROAD_WIDTH = 9;
 export const START = { position: [18, 0.8, 22], yaw: 0 };
 
