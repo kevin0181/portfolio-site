@@ -2,66 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Reset CSS */
-* {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
-
-html, body {
-    height: 100%;
-}
-
-body {
-    line-height: 1.5;
-    font-family: Arial, sans-serif;
-}
-
-img, picture, video, canvas, svg {
-    display: block;
-    max-width: 100%;
-}
-
-input, button, textarea, select {
-    font: inherit;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-ul, ol {
-    list-style: none;
-}
-
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
-}
-
-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-
-blockquote, q {
-    quotes: none;
-}
-
-blockquote::before, blockquote::after,
-q::before, q::after {
-    content: '';
-}
-
-hr {
-    border: none;
-    border-top: 1px solid #ccc;
-    margin: 1em 0;
-}
-
-address {
-    font-style: normal;
-}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 32px; }
+body { margin: 0; color: #252a34; background: #f2f3f5; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; -webkit-font-smoothing: antialiased; }
+button, input, textarea, select { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+a { color: inherit; text-decoration: none; }
+button { cursor: pointer; color: inherit; border: 0; background: none; padding: 0; }
+img, svg { display: block; max-width: 100%; }
+h1, h2, h3, p, dl, dd, ul { margin: 0; }
+ul { padding: 0; list-style: none; }
+::selection { background: #dce6ff; color: #172a50; }
+:focus-visible { outline: 2px solid #315fbd; outline-offset: 5px; border-radius: 2px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
