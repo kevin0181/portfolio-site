@@ -86,7 +86,7 @@ const Modal = ({ isOpen, onClose, title, children }) => {
                         className="preview-close"
                         type="button"
                         onClick={onClose}
-                        aria-label="이미지 닫기"
+                        aria-label="닫기"
                     >
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                             <path d="m6 6 12 12M18 6 6 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
