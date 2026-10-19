@@ -90,7 +90,7 @@ export default function Resume() {
                         <div><dt>GITHUB · GAME</dt><dd><ExternalLink href="https://github.com/neneee0181">neneee0181</ExternalLink></dd></div>
                         <div><dt>GITHUB · WEB</dt><dd><ExternalLink href="https://github.com/kevin0181">kevin0181</ExternalLink></dd></div>
                     </dl>
-                    <div className="profile-more"><span>LINKS</span><ExternalLink href="https://code-nen.tistory.com/">개발 블로그</ExternalLink><ExternalLink href="https://neneee.notion.site/My-Life-a89c7f78cc7c4b1cb1a0874d1283a15d?pvs=74">Notion</ExternalLink><ExternalLink href="https://www.inflearn.com/users/1466071/@neneee">Inflearn</ExternalLink></div>
+                    <div className="profile-more"><span>LINKS</span><ExternalLink href="https://code-nen.tistory.com/">개발 블로그</ExternalLink><ExternalLink href="https://www.inflearn.com/users/1466071/@neneee">Inflearn</ExternalLink></div>
                 </header>
                 <section className="resume-section about-section" id="about" aria-labelledby="about-heading"><SectionHeading id="about" /><div className="intro-copy">{introParagraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div></section>
                 <section className="resume-section" id="projects" aria-labelledby="projects-heading">
