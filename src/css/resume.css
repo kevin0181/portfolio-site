@@ -101,7 +101,8 @@
 .timeline-row + .timeline-row { padding-top: 25px; border-top: 1px solid var(--line); }
 .timeline-row:last-child { padding-bottom: 0; }
 .timeline-period { padding-top: 3px; color: #66717f; font-size: 10px; font-variant-numeric: tabular-nums; }
-.timeline-content h3 { color: #343d4b; font-size: 15px; font-weight: 650; line-height: 1.6; letter-spacing: -.25px; }
+.achievement-type { display: block; margin-top: 4px; font-size: 9px; }
+.timeline-content h3 { color: #343d4b; font-size: 15px; font-weight: 650; line-height: 1.6; letter-spacing: -.25px; word-break: keep-all; overflow-wrap: anywhere; }
 .timeline-subtitle { margin: 5px 0 10px; color: #66717f; font-size: 11px; }
 .activity-row { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 22px; padding: 21px 0; border-bottom: 1px solid var(--line); }
 .activity-row:first-child { padding-top: 0; }
@@ -142,15 +143,15 @@
 @media (max-width: 850px) {
     .resume-site { padding: 0 24px; } .site-bar { height: 85px; } .resume-layout { display: block; }
     .resume-sidebar { position: sticky; z-index: 10; top: 0; padding: 0; margin: 0 -24px; background: #f2f3f5f5; backdrop-filter: blur(12px); border-bottom: 1px solid #dce1e8; }
-    .sidebar-identity, .sidebar-github, .sidebar-note { display: none; } .resume-sidebar nav { flex-direction: row; justify-content: center; padding: 8px 18px; gap: 18px; }
-    .resume-sidebar nav a { padding: 5px 0; gap: 6px; min-height: 35px; font-size: 11px; white-space: nowrap; } .nav-number { font-size: 8px; } .nav-indicator { display: none; }
+    .sidebar-identity, .sidebar-github, .sidebar-note { display: none; } .resume-sidebar nav { flex-direction: row; justify-content: flex-start; overflow-x: auto; padding: 8px 18px; gap: 18px; }
+    .resume-sidebar nav a { flex-shrink: 0; padding: 5px 0; gap: 6px; min-height: 35px; font-size: 11px; white-space: nowrap; } .nav-number { font-size: 8px; } .nav-indicator { display: none; }
     .resume-paper { padding: 37px 39px 0; margin-top: 20px; } .resume-section { scroll-margin-top: 74px; } .site-footer { padding-left: 0; }
     .profile-contacts { grid-template-columns: 1.2fr 1fr; }
 }
 @media (max-width: 600px) {
     .resume-site { padding: 0 14px; } .site-bar { height: 74px; } .wordmark { gap: 0; } .wordmark-label { display: none; }
     .site-actions { gap: 7px; } .site-actions a, .site-actions button { height: 33px; padding: 0 10px; font-size: 10px; } .site-actions svg { width: 13px; height: 13px; }
-    .resume-sidebar { margin: 0 -14px; } .resume-sidebar nav { justify-content: space-between; gap: 8px; padding: 7px 18px; } .resume-sidebar nav a { gap: 4px; font-size: 10px; } .nav-number { display: none; }
+    .resume-sidebar { margin: 0 -14px; } .resume-sidebar nav { gap: 16px; padding: 7px 18px; } .resume-sidebar nav a { gap: 4px; font-size: 10px; } .nav-number { display: none; }
     .resume-paper { padding: 28px 22px 0; margin-top: 13px; border-top-width: 2px; } .profile-header { padding-bottom: 23px; } .profile-main { align-items: center; gap: 12px; padding-bottom: 24px; }
     .document-eyebrow { margin-bottom: 13px; font-size: 7px; letter-spacing: .4px; gap: 5px; } .document-eyebrow > span { width: 4px; height: 4px; }
     .profile-identity h1 { flex-direction: column; gap: 6px; font-size: 36px; letter-spacing: -1.8px; } .profile-identity h1 > span { font-size: 10px; letter-spacing: .2px; }
@@ -182,3 +183,4 @@
     .print-only { display: block; } .timeline-row, .activity-row { break-inside: avoid; } .timeline-row { grid-template-columns: 130px minmax(0, 1fr); } .timeline-content h3 { font-size: 12px; }
     .skill-table { grid-template-columns: 1fr 1fr; } .skill-table > div { display: block; break-inside: avoid; } .skill-table dd { font-size: 10px; } .text-link { font-size: 9px; } .document-footer { margin-top: 20px; }
 }
+.project-row.project-without-image { grid-template-columns: minmax(0, 1fr); }
