@@ -143,15 +143,15 @@
 @media (max-width: 850px) {
     .resume-site { padding: 0 24px; } .site-bar { height: 85px; } .resume-layout { display: block; }
     .resume-sidebar { position: sticky; z-index: 10; top: 0; padding: 0; margin: 0 -24px; background: #f2f3f5f5; backdrop-filter: blur(12px); border-bottom: 1px solid #dce1e8; }
-    .sidebar-identity, .sidebar-github, .sidebar-note { display: none; } .resume-sidebar nav { flex-direction: row; justify-content: flex-start; overflow-x: auto; padding: 8px 18px; gap: 18px; }
-    .resume-sidebar nav a { flex-shrink: 0; padding: 5px 0; gap: 6px; min-height: 35px; font-size: 11px; white-space: nowrap; } .nav-number { font-size: 8px; } .nav-indicator { display: none; }
+    .sidebar-identity, .sidebar-github, .sidebar-note { display: none; } .resume-sidebar nav { flex-direction: row; justify-content: flex-start; overflow-x: auto; padding: 6px 18px; gap: 8px; overscroll-behavior-x: contain; }
+    .resume-sidebar nav a { flex-shrink: 0; justify-content: center; padding: 5px 8px; gap: 6px; min-width: 44px; min-height: 44px; font-size: 12px; white-space: nowrap; } .nav-number { font-size: 8px; } .nav-indicator { display: none; }
     .resume-paper { padding: 37px 39px 0; margin-top: 20px; } .resume-section { scroll-margin-top: 74px; } .site-footer { padding-left: 0; }
     .profile-contacts { grid-template-columns: 1.2fr 1fr; }
 }
 @media (max-width: 600px) {
     .resume-site { padding: 0 14px; } .site-bar { height: 74px; } .wordmark { gap: 0; } .wordmark-label { display: none; }
-    .site-actions { gap: 7px; } .site-actions a, .site-actions button { height: 33px; padding: 0 10px; font-size: 10px; } .site-actions svg { width: 13px; height: 13px; }
-    .resume-sidebar { margin: 0 -14px; } .resume-sidebar nav { gap: 16px; padding: 7px 18px; } .resume-sidebar nav a { gap: 4px; font-size: 10px; } .nav-number { display: none; }
+    .site-actions { gap: 7px; } .site-actions a, .site-actions button { height: 44px; padding: 0 10px; font-size: 11px; } .site-actions svg { width: 13px; height: 13px; }
+    .resume-sidebar { margin: 0 -14px; } .resume-sidebar nav { gap: 4px; padding: 6px 14px; } .resume-sidebar nav a { gap: 4px; } .nav-number { display: none; }
     .resume-paper { padding: 28px 22px 0; margin-top: 13px; border-top-width: 2px; } .profile-header { padding-bottom: 23px; } .profile-main { align-items: center; gap: 12px; padding-bottom: 24px; }
     .document-eyebrow { margin-bottom: 13px; font-size: 7px; letter-spacing: .4px; gap: 5px; } .document-eyebrow > span { width: 4px; height: 4px; }
     .profile-identity h1 { flex-direction: column; gap: 6px; font-size: 36px; letter-spacing: -1.8px; } .profile-identity h1 > span { font-size: 10px; letter-spacing: .2px; }
@@ -160,15 +160,15 @@
     .profile-more { column-gap: 15px; row-gap: 6px; } .profile-more > span { flex-basis: 85px; font-size: 8px; } .profile-more .text-link { font-size: 9px; } .profile-more .text-link svg { width: 10px; height: 10px; }
     .resume-section { padding: 24px 0 27px; scroll-margin-top: 67px; } .section-heading { margin-bottom: 20px; } .section-heading > div { gap: 8px; } .section-heading h2 { font-size: 17px; } .section-number { font-size: 9px; } .section-english { font-size: 7px; letter-spacing: .8px; }
     .intro-copy { font-size: 13px; line-height: 1.95; } .intro-copy p + p { margin-top: 13px; }
-    .project-filters { gap: 3px; padding-bottom: 13px; margin-bottom: 0; } .project-filters button { padding: 5px 7px; gap: 5px; min-height: 32px; font-size: 10px; } .project-filters button > span { font-size: 8px; }
+    .project-filters { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; padding-bottom: 13px; margin-bottom: 0; } .project-filters button { justify-content: space-between; padding: 5px 8px; gap: 5px; min-height: 44px; font-size: 11px; } .project-filters button > span { font-size: 8px; }
     .project-row, .project-featured { display: flex; flex-direction: column; gap: 17px; padding: 23px 0; } .project-content { width: 100%; } .project-meta { font-size: 10px; gap: 8px; } .project-content h3 { font-size: 20px; } .project-featured h3 { font-size: 25px; }
     .project-subtitle { font-size: 11px; margin: 6px 0 10px; } .resume-bullets { font-size: 12px; } .tags { gap: 4px; margin-top: 11px; } .tags li { font-size: 8px; padding: 2px 6px; } .project-links { margin-top: 10px; } .project-links .text-link { font-size: 10px; }
     .project-image-button, .project-featured .project-image-button { margin-top: 0; max-width: 100%; } .project-image-button img, .project-featured .project-image-button img { height: auto; max-height: 230px; object-fit: contain; } .project-image-button > span { padding: 6px 10px; }
     .skill-table { grid-template-columns: 1fr; gap: 0; } .skill-table > div { display: grid; grid-template-columns: 98px minmax(0, 1fr); gap: 12px; padding: 12px 0; } .skill-table > div:nth-child(2) { padding-top: 12px; } .skill-table > div:nth-last-child(2) { border-bottom: 1px solid var(--line); padding-bottom: 12px; } .skill-table dt { margin: 0; font-size: 10px; } .skill-table dd { column-gap: 10px; font-size: 11px; }
     .timeline-row { grid-template-columns: 1fr; gap: 8px; padding-bottom: 23px; } .timeline-row + .timeline-row { padding-top: 20px; } .timeline-period { font-size: 10px; } .timeline-content h3 { font-size: 14px; } .timeline-subtitle { font-size: 10px; }
-    .activity-row { grid-template-columns: 64px minmax(0, 1fr); gap: 13px; padding: 18px 0; } .activity-image img { width: 64px; height: 49px; } .activity-row h3 { font-size: 12px; } .activity-period { font-size: 9px; } .activity-subtitle, .activity-row .resume-bullets { font-size: 10px; }
+    .activity-row { grid-template-columns: 64px minmax(0, 1fr); gap: 13px; padding: 18px 0; } .activity-image img { width: 64px; height: 49px; } .activity-row h3 { font-size: 13px; } .activity-period { font-size: 9px; } .activity-subtitle { font-size: 11px; } .activity-row .resume-bullets { font-size: 12px; }
     .document-footer { font-size: 9px; padding: 18px 0; } .site-footer { gap: 16px; flex-wrap: wrap; font-size: 9px; padding: 22px 4px 30px; }
-    .preview-backdrop { padding: 14px; } .preview-header { padding: 12px 15px; } .preview-header h2 { font-size: 13px; } .preview-body { padding: 10px; }
+    .preview-backdrop { padding: 14px; } .preview-header { padding: 8px 11px 8px 15px; } .preview-header h2 { font-size: 13px; } .preview-close { width: 44px; height: 44px; } .preview-body { padding: 10px; }
 }
 @media print {
     @page { size: A4; margin: 14mm; }

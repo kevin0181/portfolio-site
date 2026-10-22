@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { ArrowUpIcon, DocumentTextIcon, MailIcon, PrinterIcon } from "@heroicons/react/outline";
 import { FiArrowUpRight as ArrowUpRightIcon } from "react-icons/fi";
 import { SiGithub } from "react-icons/si";
@@ -58,15 +58,50 @@ export default function Resume() {
     const [activeSection, setActiveSection] = useState("about");
     const [filter, setFilter] = useState("all");
     const [preview, setPreview] = useState(null);
+    const navigationRef = useRef(null);
     const closePreview = useCallback(() => setPreview(null), []);
     const visibleProjects = orderedProjects.filter((project) => matchesFilter(project, filter));
     useEffect(() => {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => { if (entry.isIntersecting) setActiveSection(entry.target.id); });
-        }, { rootMargin: "-10% 0px -65% 0px", threshold: 0 });
-        sections.forEach(({ id }) => { const element = document.getElementById(id); if (element) observer.observe(element); });
-        return () => observer.disconnect();
-    }, []);
+        let frame;
+        const updateSection = () => {
+            frame = undefined;
+            const firstSection = document.getElementById(sections[0].id);
+            const anchorOffset = parseFloat(window.getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
+            const sectionOffset = firstSection ? parseFloat(window.getComputedStyle(firstSection).scrollMarginTop) || 0 : 0;
+            const readingLine = Math.max(100, anchorOffset + sectionOffset + 8);
+            let current = sections[0].id;
+            sections.forEach(({ id }) => {
+                if (document.getElementById(id)?.getBoundingClientRect().top <= readingLine) current = id;
+            });
+            if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2) current = sections[sections.length - 1].id;
+            setActiveSection(current);
+        };
+        const scheduleUpdate = () => {
+            if (frame === undefined) frame = window.requestAnimationFrame(updateSection);
+        };
+        scheduleUpdate();
+        window.addEventListener("scroll", scheduleUpdate, { passive: true });
+        window.addEventListener("resize", scheduleUpdate);
+        return () => {
+            window.cancelAnimationFrame(frame);
+            window.removeEventListener("scroll", scheduleUpdate);
+            window.removeEventListener("resize", scheduleUpdate);
+        };
+    }, [filter]);
+    useEffect(() => {
+        const revealActiveLink = () => {
+            const navigation = navigationRef.current;
+            const link = navigation?.querySelector('[aria-current="location"]');
+            if (!navigation || !link || navigation.scrollWidth <= navigation.clientWidth) return;
+            const bounds = navigation.getBoundingClientRect();
+            const item = link.getBoundingClientRect();
+            if (item.left < bounds.left + 18) navigation.scrollLeft += item.left - bounds.left - 18;
+            else if (item.right > bounds.right - 18) navigation.scrollLeft += item.right - bounds.right + 18;
+        };
+        revealActiveLink();
+        window.addEventListener("resize", revealActiveLink);
+        return () => window.removeEventListener("resize", revealActiveLink);
+    }, [activeSection]);
     return <div className="resume-site" id="top">
         <a className="skip-link" href="#about">본문으로 이동</a>
         <header className="site-bar">
@@ -76,7 +111,7 @@ export default function Resume() {
         <div className="resume-layout">
             <aside className="resume-sidebar">
                 <div className="sidebar-identity"><span>유영빈</span><span>게임 클라이언트 개발자</span></div>
-                <nav aria-label="이력서 목차">{sections.map((section, index) => <a key={section.id} href={`#${section.id}`} className={activeSection === section.id ? "is-active" : ""} aria-current={activeSection === section.id ? "location" : undefined}><span className="nav-number">0{index + 1}</span>{section.title}<span className="nav-indicator" /></a>)}</nav>
+                <nav ref={navigationRef} aria-label="이력서 목차">{sections.map((section, index) => <a key={section.id} href={`#${section.id}`} className={activeSection === section.id ? "is-active" : ""} aria-current={activeSection === section.id ? "location" : undefined}><span className="nav-number">0{index + 1}</span>{section.title}<span className="nav-indicator" /></a>)}</nav>
                 <a className="sidebar-github" href="https://github.com/neneee0181" target="_blank" rel="noopener noreferrer"><SiGithub aria-hidden="true" />GitHub<ArrowUpRightIcon aria-hidden="true" /></a>
                 <p className="sidebar-note">C++ · Unreal Engine<br />게임을 만드는 개발자</p>
             </aside>
