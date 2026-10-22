@@ -564,6 +564,7 @@ export const projects = [
         "href": "https://github.com/neneee0181/Agent-Chat"
       }
     ],
+    "image": "agent-chat-selection.png",
     "category": "ai"
   }
 ];
