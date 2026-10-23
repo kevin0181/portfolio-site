@@ -17,10 +17,15 @@ const sections = [
 const filters = [{ id: "all", label: "전체" }, { id: "game", label: "게임 · 그래픽스" }, { id: "ai", label: "AI · 개발 도구" }, { id: "web", label: "웹 서비스" }];
 const categoryLabels = { game: "GAME", graphics: "GRAPHICS", ai: "AI / TOOLS", web: "WEB" };
 const projectOrder = ["readapt", "karkartrider", "inversus", "agent-chat", "escape-chronicles", "obj-viewer", "dynamic-beat", "devil-codex", "of-f", "soso-kiosk", "soso-kitchen", "nen-blog", "celebrity-match", "pet-find", "lecture-evaluation"];
+const projectStartMonth = ({ period }) => {
+    const date = period.match(/^(\d{4})\.(\d{1,2})/);
+    return date ? Number(date[1]) * 12 + Number(date[2]) : 0;
+};
+// Use the shared year/month precision; keep the existing order within a month.
 const orderedProjects = [
     ...projectOrder.map((id) => projects.find((project) => project.id === id)).filter(Boolean),
     ...projects.filter((project) => !projectOrder.includes(project.id)),
-];
+].sort((a, b) => projectStartMonth(b) - projectStartMonth(a));
 const skillOrder = [6, 0, 8, 7, 1, 4, 5, 3, 2];
 const skillLabels = { "Game Development": "게임 개발", Languages: "프로그래밍 언어", "Frameworks · Libraries · APIs": "프레임워크 · API", "AI Learning": "AI 학습·추론", "AI Agents": "AI 도구", "Version Control": "버전 관리", Tools: "개발 도구", Databases: "데이터베이스", "Infrastructure & Servers": "인프라 · 서버" };
 const asset = (path) => `${process.env.PUBLIC_URL}/img/${path}`;
