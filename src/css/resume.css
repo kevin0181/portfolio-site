@@ -101,6 +101,7 @@
 .timeline-row + .timeline-row { padding-top: 25px; border-top: 1px solid var(--line); }
 .timeline-row:last-child { padding-bottom: 0; }
 .timeline-period { padding-top: 3px; color: #66717f; font-size: 10px; font-variant-numeric: tabular-nums; }
+.timeline-period-note { display: block; margin-top: 6px; }
 .achievement-type { display: block; margin-top: 4px; font-size: 9px; }
 .timeline-content h3 { color: #343d4b; font-size: 15px; font-weight: 650; line-height: 1.6; letter-spacing: -.25px; word-break: keep-all; overflow-wrap: anywhere; }
 .timeline-subtitle { margin: 5px 0 10px; color: #66717f; font-size: 11px; }
